@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación Matrimonial Completa — 60 Preguntas</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#6B0D0D;--navy2:#4a0808;
+  --gold:#c9a22e;--gold2:#a8861f;
+  --border:#e5dfd4;--text:#2c2c2c;--muted:#777;
+  --bg:#f9f7f4;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);padding:0 0 5rem;min-height:100vh}
+.wrap{max-width:780px;margin:0 auto;padding:0 1rem}
+
+/* HERO */
+.hero{background:#6B0D0D;padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden;margin-bottom:0}
+.hero::before{content:'';position:absolute;top:-50px;right:-50px;width:240px;height:240px;border-radius:50%;background:rgba(201,162,46,.1)}
+.hero::after{content:'';position:absolute;bottom:-60px;left:-30px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.04)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.6rem;position:relative;z-index:1}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,5vw,2.8rem);color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem;position:relative;z-index:1}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.65;max-width:520px;margin:0 auto 1.25rem;position:relative;z-index:1}
+.hero-verse{display:inline-block;background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.65rem 1.1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:.98rem;color:rgba(255,255,255,.85);position:relative;z-index:1;max-width:500px;text-align:left}
+.hero-verse span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.06em}
+
+/* INTRO CARD */
+.intro-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.5rem 1.75rem;margin:1.5rem 0 1.75rem;box-shadow:0 2px 10px rgba(0,0,0,.04)}
+.intro-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--navy);margin-bottom:.75rem}
+.intro-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px}
+.intro-step{text-align:center;padding:.6rem}
+.intro-step .ic{font-size:22px;margin-bottom:.3rem}
+.intro-step p{font-size:12px;color:#555;line-height:1.5}
+
+/* PROGRESS */
+.prog-wrap{margin-bottom:1.75rem;padding-top:.5rem}
+.prog-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.prog-label{font-size:12.5px;font-weight:600;color:var(--text)}
+.prog-pct{font-size:12px;color:var(--muted)}
+.prog-track{height:7px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,#9B1515);border-radius:99px;transition:width .5s ease}
+
+/* CHAPTER LABEL */
+.chapter-label{display:flex;align-items:center;gap:10px;margin:2rem 0 .75rem}
+.ch-pill{font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 14px;border-radius:99px;color:#fff}
+.ch-line{flex:1;height:1px;background:var(--border)}
+
+/* QUESTION CARD */
+.q-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1rem;box-shadow:0 2px 8px rgba(0,0,0,.04);animation:fadeUp .25s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.5rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.22rem;color:#1a1a2e;line-height:1.42;font-weight:600;margin-bottom:1.1rem}
+.opts{display:flex;flex-direction:column;gap:8px}
+.opt{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;border:1.5px solid var(--border);border-radius:9px;cursor:pointer;transition:all .15s;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:#c97777;background:#f9eded}
+.opt.sel{border-color:#6B0D0D;background:#f9eded}
+.opt.sel .opt-l{background:var(--navy);color:#fff;border-color:#6B0D0D}
+.opt-l{min-width:23px;height:23px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13px;color:#333;line-height:1.5}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.5rem;gap:12px;padding-bottom:.5rem}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 22px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:#6B0D0D;color:#fff;border-color:#6B0D0D}
+.btn.primary:hover{background:#4a0808}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+
+/* RESULTS */
+.results{display:none;animation:fadeUp .5s ease}
+
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2.25rem 2rem 2rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.4rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:600;color:#fff;line-height:1.15;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.95rem;font-style:italic;color:rgba(255,255,255,.65);margin-bottom:.5rem}
+
+.score-ring{width:115px;height:115px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.3rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+
+/* PROFILE */
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+
+/* AREA BREAKDOWN */
+.areas-section{margin-bottom:1.5rem}
+.sec-title{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1rem}
+.areas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.area-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1rem 1.1rem}
+.area-header{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.area-icon{font-size:18px}
+.area-name{font-size:12px;font-weight:600;color:#333;flex:1}
+.area-pct{font-size:13px;font-weight:700}
+.area-bar-bg{height:6px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:.4rem}
+.area-bar{height:100%;border-radius:99px;transition:width 1s ease .2s}
+.area-status{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:99px;display:inline-block;margin-top:2px}
+
+/* DETAILED RECOS */
+.recos-section{margin-bottom:1.5rem}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:10px}
+.reco-card h4{font-size:13px;font-weight:600;color:var(--navy);margin-bottom:.5rem;display:flex;align-items:center;gap:6px}
+.reco-card p{font-size:13px;color:#444;line-height:1.65}
+.reco-card .tag{font-size:10px;font-weight:600;padding:2px 8px;border-radius:99px;letter-spacing:.05em;text-transform:uppercase}
+
+/* STRONG AREAS */
+.strong-card{background:#eaf7f2;border:1px solid #5dcaa5;border-radius:12px;padding:1.25rem 1.5rem;margin-bottom:10px}
+.strong-card h4{font-size:13px;font-weight:600;color:#0f6e56;margin-bottom:.4rem}
+.strong-card p{font-size:13px;color:#1a4a3a;line-height:1.6}
+
+/* VERSE FOOTER */
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+
+/* CTA */
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+
+.restart-row{text-align:center;margin-top:.5rem}
+</style>
+</head>
+<body>
+
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Evaluación matrimonial completa · 60 preguntas</div>
+    <h1>Restaurando Matrimonios</h1>
+    <p class="sub">5 preguntas por cada uno de los 12 capítulos del libro. Evalúa tus áreas fuertes y débiles como pareja para saber exactamente dónde enfocar el trabajo.</p>
+    <div class="hero-verse">"Y Dios restaura lo que pasó."<span>Eclesiastés 3:15</span></div>
+  </div>
+
+  <div class="wrap">
+    <div class="intro-card">
+      <h3>¿Cómo responder este cuestionario?</h3>
+      <div class="intro-steps">
+        <div class="intro-step"><div class="ic">✏️</div><p>Responde <strong>individualmente</strong> con total honestidad.</p></div>
+        <div class="intro-step"><div class="ic">⏱</div><p>Tomará aproximadamente <strong>15 a 20 minutos</strong> completarlo.</p></div>
+        <div class="intro-step"><div class="ic">📊</div><p>Verás un <strong>mapa completo</strong> de tus áreas fuertes y débiles.</p></div>
+        <div class="intro-step"><div class="ic">💬</div><p>Comparte los resultados con tu pareja y <strong>conversen juntos.</strong></p></div>
+      </div>
+    </div>
+
+    <div class="prog-wrap">
+      <div class="prog-top">
+        <span class="prog-label" id="plabel">Capítulo 1 de 12 · Pregunta 1 de 60</span>
+        <span class="prog-pct" id="ppct">0% completado</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+    </div>
+
+    <div id="qcontainer"></div>
+
+    <div class="nav">
+      <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+      <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<div class="results" id="results-section">
+  <div class="hero" style="margin-bottom:1.5rem">
+    <div class="r-tag">Tus resultados completos</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing">
+      <div class="sn" id="sNum">0</div>
+      <div class="sl">/ 100</div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="profile-card" id="profileCard"></div>
+
+    <div class="areas-section">
+      <div class="sec-title">Tu evaluación por cada capítulo</div>
+      <div class="areas-grid" id="areasGrid"></div>
+    </div>
+
+    <div class="recos-section">
+      <div class="sec-title" style="margin-bottom:.75rem">Áreas que necesitan trabajo prioritario</div>
+      <div id="weakAreas"></div>
+    </div>
+
+    <div class="recos-section">
+      <div class="sec-title" style="margin-bottom:.75rem">Tus áreas más fuertes — no las des por sentadas</div>
+      <div id="strongAreas"></div>
+    </div>
+
+    <div class="v-footer">
+      <p>"El amor es sufrido, es benigno... todo lo sufre, todo lo cree, todo lo espera, todo lo soporta. El amor nunca deja de ser."</p>
+      <span>1 Corintios 13:4-8</span>
+    </div>
+
+    <div class="cta">
+      <h3>¿Quieres profundizar en cada área?</h3>
+      <p>Cada capítulo tiene su propio cuestionario individual de 12 preguntas con resultados y recomendaciones más detalladas.</p>
+      <a href="index_matrimonios.html">Ver cuestionarios por capítulo →</a>
+    </div>
+
+    <div class="cta" style="background:#7B1010">
+      <h3>¿Necesitan acompañamiento?</h3>
+      <p>Para más información visita miltonvallemusic.com</p>
+      <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn" onclick="restart()">↩ Responder de nuevo</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const CHAPTERS = [
+  {
+    num:1, title:"Atención y Detalles", icon:"🌸", color:"#185FA5",
+    verse:"Tu tiempo era tiempo de amores — Ezequiel 16:8",
+    weak:"Los detalles y la atención hacia tu pareja necesitan ser revividos. La rutina, el desinterés o los estereotipos culturales están apagando el romance. Esta semana: sorprende a tu pareja con 3 gestos concretos sin esperar una fecha especial.",
+    strong:"Eres una persona detallista que cuida a tu pareja con gestos concretos. Eso alimenta la seguridad emocional de la relación. Sigue cultivando esa intencionalidad cada día.",
+    action:"Esta semana escribe en un papel 3 detalles que tu pareja ha tenido contigo y que te hicieron sentir especial, y 1 detalle que te gustaría recibir más seguido. Compártelo con tu pareja.",
+    questions:[
+      {cat:"Rutina",cc:"#185FA5",text:"¿Con qué frecuencia realizas gestos o detalles inesperados para tu pareja (mensajes, flores, sorpresas, su comida favorita)?",opts:["Los hago casi todos los días de manera natural y espontánea.","Los hago ocasionalmente, principalmente en fechas especiales.","Rara vez los hago; la rutina me ha alejado de esos gestos.","Casi nunca; no lo veo como algo que importe mucho."]},
+      {cat:"Tiempo",cc:"#185FA5",text:"¿Cuánto tiempo de calidad exclusivo (sin celular, sin TV) le dedicas a tu pareja diariamente?",opts:["30 minutos o más; es una prioridad para mí cada día.","15 a 30 minutos; intento pero no siempre lo logro.","Menos de 15 minutos; la agenda me consume.","Casi nada; pasamos tiempo en el mismo espacio pero no conectamos."]},
+      {cat:"Admiración",cc:"#185FA5",text:"¿Con qué frecuencia le dices a tu pareja, de manera específica, qué admiras de él/ella?",opts:["Regularmente; verbalizo lo que admiro y agradezco de él/ella.","A veces; podría ser más intencional con las palabras de admiración.","Raramente; no suelo expresar admiración verbalmente.","Casi nunca; asumo que ya lo sabe sin decírselo."]},
+      {cat:"Iniciativa",cc:"#185FA5",text:"Cuando la relación cae en rutina, ¿quién toma la iniciativa de romperla?",opts:["Yo tomo la iniciativa con frecuencia; me gusta sorprenderle.","A veces lo hago, aunque espero también que mi pareja tome la delantera.","Raramente; espero que él/ella tome la iniciativa primero.","Casi nunca; ninguno rompe la rutina y eso nos ha afectado."]},
+      {cat:"Impacto",cc:"#185FA5",text:"¿Cómo calificarías el nivel de 'detalles y atención' en su relación comparado con el noviazgo?",opts:["Igual o mejor; hemos mantenido e incluso aumentado esa dimensión.","Algo menos, pero seguimos siendo detallistas de manera intencional.","Bastante menos; la rutina ha apagado muchos de esos gestos.","Casi nada; es una diferencia enorme y dolorosa comparada con antes."]},
+    ]
+  },
+  {
+    num:2, title:"Comunicación", icon:"💬", color:"#0F6E56",
+    verse:"Pronto para oír, tardo para hablar — Santiago 1:19",
+    weak:"La comunicación en tu relación necesita atención urgente. Los muros de silencio o los conflictos sin resolver están generando distancia. Esta semana: establece 20 minutos diarios sin pantallas solo para conversar con tu pareja.",
+    strong:"Tu comunicación con tu pareja es uno de los pilares fuertes de su relación. Escuchas, hablas y resuelves conflictos con madurez. Sigue invirtiendo en esa conexión profunda.",
+    action:"Esta semana, identifica UN tema que hayas evitado hablar. Elige el momento adecuado (a solas, sin prisa) y dile: 'Quiero hablar de algo porque nuestra relación me importa.'",
+    questions:[
+      {cat:"Escuchar",cc:"#0F6E56",text:"Cuando tu pareja quiere hablar de algo importante, ¿cuál es tu reacción más frecuente?",opts:["Dejo todo, apago el celular y escucho con toda mi atención.","Escucho, aunque a veces me distraigo o quiero resolver rápido.","Me cuesta escuchar; prefiero evitar conversaciones largas.","Reacciono con molestia o intento terminar la conversación."]},
+      {cat:"Compartir",cc:"#0F6E56",text:"¿Con qué frecuencia compartes con tu pareja cómo te sientes — no solo lo que hiciste?",opts:["Con frecuencia; comparto mis emociones y sentimientos abiertamente.","A veces; cuando algo me afecta mucho lo comparto, pero no siempre.","Raramente; guardo mis sentimientos para mí.","Casi nunca; no estoy acostumbrado/a a hablar de lo que siento."]},
+      {cat:"Conflicto",cc:"#0F6E56",text:"El libro enseña 'no se ponga el sol sobre vuestro enojo'. ¿Qué tan bien aplicas este principio?",opts:["Muy bien; busco resolver el tema ese mismo día sin que la noche nos separe.","Generalmente sí, aunque no siempre lo logro.","A veces dejo pasar días sin hablar el tema para evitar el conflicto.","Con frecuencia guardo el enojo por días o semanas."]},
+      {cat:"Informar",cc:"#0F6E56",text:"¿Cuánto informas a tu pareja sobre tus planes, movimientos y cambios del día?",opts:["Siempre; mi pareja sabe dónde estoy y aviso si algo cambia.","Generalmente lo hago, aunque a veces se me olvida.","Pocas veces; no lo veo necesario en muchas situaciones.","Casi nunca; eso me parece excesivo o controlador."]},
+      {cat:"Conexión",cc:"#0F6E56",text:"¿Con qué frecuencia tienen conversaciones profundas (sueños, fe, sentimientos, no solo logística)?",opts:["Casi todos los días; nos conectamos a un nivel profundo con regularidad.","Varias veces por semana, aunque no siempre de manera intencional.","Pocas veces; la mayoría de conversaciones son sobre quehaceres.","Casi nunca; vivimos juntos pero no hay conexión emocional real."]},
+    ]
+  },
+  {
+    num:3, title:"Acuerdo", icon:"🤝", color:"#534AB7",
+    verse:"¿Andarán dos juntos sin acuerdo? — Amós 3:3",
+    weak:"Hay desacuerdos importantes en áreas clave de su matrimonio. La falta de unidad está generando tensión o caminan en direcciones opuestas. Esta semana: identifiquen UN área de desacuerdo y conversen 20 minutos con la regla de buscar al menos un punto de acuerdo.",
+    strong:"Caminas con un buen nivel de acuerdo y unidad con tu pareja. Eso es una fortaleza poderosa. Cuídala tomando decisiones juntos y manteniéndola en las áreas que son más vulnerables.",
+    action:"Esta semana, hagan juntos el 'mapa de nuestro acuerdo': un círculo dividido en 6 áreas (finanzas, crianza, fe, tiempo libre, intimidad, trato). Coloreen en verde, amarillo o rojo cada área.",
+    questions:[
+      {cat:"Decisiones",cc:"#534AB7",text:"¿Con qué frecuencia toman las decisiones importantes del hogar juntos y en acuerdo mutuo?",opts:["Siempre; ninguna decisión importante se toma sin consultarnos.","La mayoría de veces, aunque hay áreas donde uno decide solo.","Frecuentemente uno decide sin consultar al otro.","Cada quien maneja sus decisiones de manera independiente."]},
+      {cat:"Vida espiritual",cc:"#534AB7",text:"¿Tienen unidad y acuerdo en su vida espiritual (iglesia, diezmo, servicio, oración)?",opts:["Sí; hay liderazgo espiritual claro y ambos participamos activamente.","Mayormente sí, aunque uno se esfuerza más que el otro.","Hay diferencias en cuánto priorizamos la vida espiritual juntos.","No hay acuerdo espiritual; cada uno vive su fe de manera individual."]},
+      {cat:"Crianza",cc:"#534AB7",text:"¿Están de acuerdo en los valores, límites y forma de disciplinar a sus hijos?",opts:["Sí; presentamos un frente unido y nos apoyamos mutuamente.","Mayormente sí, aunque hay áreas puntuales de desacuerdo.","Con frecuencia discrepamos y los hijos lo perciben.","No hay unidad en la crianza; cada uno hace lo que puede."]},
+      {cat:"Trato",cc:"#534AB7",text:"¿Se tratan con palabras y trato que honran y edifican (no palabras que hieren o irrespetan)?",opts:["Siempre; cuidamos las palabras y el trato con consciencia.","Generalmente bien, aunque en tensión a veces usamos palabras hirientes.","Con frecuencia el tono o las palabras no honran la relación.","El irrespeto verbal es un patrón recurrente en nuestro hogar."]},
+      {cat:"Intimidad",cc:"#534AB7",text:"¿Cuánto se complementan como equipo — sienten que van en la misma dirección?",opts:["Mucho; somos un equipo que se apoya y va en la misma dirección.","Bastante, aunque hay momentos en que sentimos que vamos por caminos distintos.","Poco; con frecuencia sentimos que competimos en vez de complementarnos.","Casi nada; la sensación de equipo es muy escasa en nuestra relación."]},
+    ]
+  },
+  {
+    num:4, title:"Carácter y Temperamento", icon:"🧩", color:"#185FA5",
+    verse:"Una estrella es diferente de otra en gloria — 1 Corintios 15:41",
+    weak:"Las diferencias de temperamento entre ustedes están generando más conflicto que complemento. Entender que Dios los hizo diferentes con propósito es el primer paso. Esta semana: comparte con tu pareja 3 fortalezas de su temperamento que genuinamente agradeces.",
+    strong:"Tienes un buen nivel de autoconocimiento y aceptas las diferencias de temperamento de tu pareja como diseño de Dios. Eso reduce el conflicto y aumenta la complementariedad.",
+    action:"Esta semana, escribe 3 fortalezas del temperamento de tu pareja y 1 debilidad tuya que reconoces que le ha costado. Léeselo mirándole a los ojos. Luego oren juntos por esas áreas.",
+    questions:[
+      {cat:"Autoconocimiento",cc:"#185FA5",text:"¿Con cuánta claridad conoces las fortalezas y debilidades de tu propio temperamento?",opts:["Con mucha claridad; me conozco bien y trabajo activamente en mis debilidades.","Con bastante claridad; aunque hay áreas que todavía estoy descubriendo.","Con poca claridad; no he reflexionado mucho sobre mi temperamento.","No me había puesto a pensar en esto de manera consciente."]},
+      {cat:"Comprensión",cc:"#185FA5",text:"¿Cuánto entiendes y aceptas el temperamento de tu pareja sin juzgarlo ni querer cambiarlo?",opts:["Mucho; entiendo que así Dios lo/la creó y lo acepto con sus diferencias.","Bastante, aunque hay momentos en que sus diferencias me frustran.","Poco; me cuesta aceptar la forma de ser de mi pareja en varias áreas.","Casi nada; sus diferencias son fuente frecuente de conflicto."]},
+      {cat:"Debilidades",cc:"#185FA5",text:"¿Con qué honestidad reconoces tus propias debilidades de carácter ante tu pareja?",opts:["Con frecuencia; reconozco mis fallas y pido perdón cuando es necesario.","A veces; me cuesta admitir mis debilidades pero lo intento.","Poco; me resulta difícil reconocer que tengo áreas de carácter a trabajar.","Casi nunca; tiendo a ver los problemas más en mi pareja que en mí."]},
+      {cat:"Complemento",cc:"#185FA5",text:"¿Ves las diferencias de temperamento de tu pareja como complemento o como problema?",opts:["Como complemento; sus diferencias me completan donde soy débil.","Mayormente como complemento, aunque a veces me generan fricción.","Con frecuencia como problema; sus diferencias me irritan más que ayudan.","Casi siempre como problema; siento que somos demasiado diferentes."]},
+      {cat:"Cristo en mí",cc:"#185FA5",text:"¿Estás permitiendo que Cristo transforme las debilidades de tu temperamento activamente?",opts:["Activamente; oro por eso y me esfuerzo en cambiar con la gracia de Dios.","Lo intento, aunque no con la consistencia que quisiera.","Pocas veces; sé que debo mejorar pero no lo he priorizado.","No; nunca había conectado mi temperamento con mi vida espiritual."]},
+    ]
+  },
+  {
+    num:5, title:"Respeto", icon:"💎", color:"#993C1D",
+    verse:"La mujer respete a su marido — Efesios 5:33",
+    weak:"El respeto — en las palabras, el trato y la admiración — necesita ser fortalecido en tu relación. Las palabras que usas y la manera en que tratas a tu pareja están afectando su seguridad emocional. Esta semana: identifica una palabra o tono que debes cambiar.",
+    strong:"El respeto y la admiración son áreas fuertes en tu relación. Tu pareja se siente valorado/a y honrado/a por ti. Eso crea una seguridad emocional que hace florecer el amor.",
+    action:"Esta semana, dile a tu pareja 3 cosas muy específicas que admiras de él/ella. No generales — específicas. Y comprométete a cuidar las palabras en los momentos de tensión.",
+    questions:[
+      {cat:"Palabras",cc:"#993C1D",text:"¿Con qué frecuencia le dices a tu pareja palabras específicas de admiración o agradecimiento?",opts:["Regularmente; verbalizo de manera específica lo que valoro de él/ella.","A veces; podría ser más intencional con las palabras que edifican.","Rara vez; no soy muy expresivo/a verbalmente con mi pareja.","Casi nunca; asumo que ya lo sabe sin necesidad de decírselo."]},
+      {cat:"Trato",cc:"#993C1D",text:"¿Cómo describirías el trato cotidiano que le das a tu pareja en el hogar?",opts:["Siempre amable, considerado/a y respetuoso/a.","Generalmente bien, aunque el cansancio o el estrés a veces me afectan.","Con frecuencia soy indiferente, áspero/a o poco considerado/a.","El mal trato cotidiano es un patrón que reconozco en mi relación."]},
+      {cat:"En público",cc:"#993C1D",text:"¿Hablas bien de tu pareja delante de otras personas (familia, amigos, redes sociales)?",opts:["Siempre; nunca expongo sus debilidades ni hablo mal de él/ella frente a otros.","Generalmente sí, aunque a veces me quejo con personas cercanas.","A veces hablo mal de mi pareja sin medir el daño que causa.","Con frecuencia critico o me quejo de mi pareja frente a otros."]},
+      {cat:"Conflicto",cc:"#993C1D",text:"En una discusión, ¿cómo describes tu conducta?",opts:["Mantengo la calma y busco resolver sin gritos ni palabras hirientes.","Generalmente me controlo, aunque a veces se me escapa algo duro.","Con frecuencia levanto la voz, uso palabras hirientes o soy sarcástico/a.","En el conflicto pierdo el control; digo cosas de las que me arrepiento."]},
+      {cat:"Admiración",cc:"#993C1D",text:"¿Cuándo fue la última vez que le dijiste a tu pareja algo específico que admiras de él/ella?",opts:["Esta semana; es una práctica regular en nuestra relación.","Hace algunas semanas; lo hago pero podría ser más frecuente.","Hace meses; la rutina me ha alejado de expresar admiración.","No recuerdo; casi nunca expreso admiración de manera verbal y específica."]},
+    ]
+  },
+  {
+    num:6, title:"Realización", icon:"🎯", color:"#0F6E56",
+    verse:"Todo lo puedo en Cristo que me fortalece — Filipenses 4:13",
+    weak:"Los sueños, metas y llamado de Dios en tu relación no están siendo suficientemente apoyados o celebrados. Esta semana: pregúntale a tu pareja '¿Cuál es el sueño más grande que Dios ha puesto en tu corazón?' — y solo escucha.",
+    strong:"Eres un apoyo genuino para los sueños y el llamado de tu pareja, y celebran juntos los logros. Eso los convierte en un equipo poderoso. Sigan definiendo juntos el propósito que Dios tiene para su matrimonio.",
+    action:"Esta semana preparen una hoja con 'Lo que Dios tiene para nosotros juntos.' Cada uno escribe 3 sueños personales y 2 sueños para el matrimonio. Compártanlos y oren juntos.",
+    questions:[
+      {cat:"Conocer sueños",cc:"#0F6E56",text:"¿Conoces en profundidad los sueños, metas y llamado de Dios para la vida de tu pareja?",opts:["Sí; los conozco en detalle y forman parte de mis oraciones.","En general sí, aunque hay sueños que no conozco del todo bien.","Vagamente; nunca hemos tenido conversaciones profundas al respecto.","No; nunca hemos hablado de manera seria sobre sus sueños individuales."]},
+      {cat:"Apoyo activo",cc:"#0F6E56",text:"¿Cómo describes el apoyo que le brindas a los sueños y proyectos de tu pareja?",opts:["Soy su mayor animador/a; lo/la impulso activamente hacia sus metas.","Lo apoyo, aunque podría involucrarme con más intención.","Soy neutral; ni lo impulso ni lo estorbo activamente.","Reconozco que a veces he sido un freno para sus sueños."]},
+      {cat:"Celebración",cc:"#0F6E56",text:"Cuando tu pareja logra un éxito o meta importante, ¿cómo reaccionas?",opts:["Me alegro genuinamente y lo celebramos juntos con gratitud a Dios.","Me alegro, aunque no siempre lo expreso de la manera que él/ella necesita.","Lo reconozco pero seguimos sin detenernos a celebrar verdaderamente.","A veces siento comparación o poca importancia hacia ese logro."]},
+      {cat:"Propósito compartido",cc:"#0F6E56",text:"¿Tienen como pareja un propósito compartido más allá del hogar (servicio, ministerio, impacto)?",opts:["Sí; servimos juntos y tenemos una visión compartida de impacto.","Queremos tenerlo pero no lo hemos definido claramente todavía.","Uno sirve más que el otro; no hay propósito verdaderamente compartido.","No; cada uno vive su fe y sus metas de manera individual."]},
+      {cat:"Valorar dones",cc:"#0F6E56",text:"¿Reconoces y valoras activamente los dones y talentos de tu pareja?",opts:["Sí; los reconozco, los verbalizo y los celebro con frecuencia.","Bastante; los veo, aunque no siempre lo expreso de manera explícita.","Poco; tiendo a notar más sus debilidades que sus dones y fortalezas.","Casi no; no he reflexionado mucho sobre los dones específicos de mi pareja."]},
+    ]
+  },
+  {
+    num:7, title:"Disciplina", icon:"🛡️", color:"#854F0B",
+    verse:"Instruye al niño en su camino — Proverbios 22:6",
+    weak:"La disciplina, los límites o la unidad parental en tu hogar necesitan reforzarse. Los hijos sin guía clara sufren consecuencias que pueden durar generaciones. Esta semana: conversen como pareja sobre 3 reglas claras del hogar que ambos aplicarán consistentemente.",
+    strong:"Muestras disciplina consistente, buen ejemplo y unidad parental. Eso es un legado que trasciende generaciones. Tu reto es no bajar la guardia — los hijos prueban los límites especialmente en las etapas más desafiantes.",
+    action:"Esta semana, escribe 3 valores que quieres que tus hijos aprendan en el hogar. Compártelos con tu pareja y asegúrate de que los están modelando juntos con coherencia.",
+    questions:[
+      {cat:"Ejemplo",cc:"#854F0B",text:"¿Tus acciones diarias reflejan los valores que quieres enseñar a tus hijos?",opts:["Sí; vivo de manera coherente con lo que les enseño y predico.","Lo intento, aunque reconozco que a veces soy inconsistente.","Hay áreas donde mis acciones contradicen lo que les pido a mis hijos.","No he reflexionado mucho sobre el impacto de mi ejemplo en mis hijos."]},
+      {cat:"Límites",cc:"#854F0B",text:"¿Existen reglas claras y consistentes en su hogar que los hijos conocen?",opts:["Sí; hay reglas claras y ambos las aplicamos de manera consistente.","Hay reglas, pero no siempre somos consistentes en aplicarlas.","Las reglas cambian según el estado de ánimo, lo que confunde a los hijos.","No hay reglas claras; cada situación se maneja de manera diferente."]},
+      {cat:"Unidad parental",cc:"#854F0B",text:"¿Cuándo tu pareja corrige a los hijos, ¿qué haces?",opts:["Lo apoyo y presentamos un frente unido frente a los hijos.","Generalmente lo apoyo, aunque a veces lo contradigo.","Con frecuencia intervengo para suavizar o revertir la corrección.","Raramente estamos de acuerdo en cómo corregir; los hijos lo saben."]},
+      {cat:"Corrección",cc:"#854F0B",text:"Cuando corriges a un hijo, ¿cómo lo describes?",opts:["Con firmeza y amor; explico las consecuencias y mantengo la calma.","Generalmente bien, aunque a veces reacciono con más enojo del necesario.","Con frecuencia reacciono de manera impulsiva o excesivamente dura.","Evito corregir; me cuesta aplicar consecuencias de manera consistente."]},
+      {cat:"Formación espiritual",cc:"#854F0B",text:"¿Están formando a sus hijos en la fe de manera activa e intencional en el hogar?",opts:["Sí; la fe es parte natural y activa de la vida cotidiana del hogar.","Lo intentamos, aunque no siempre con la consistencia que quisiéramos.","Poco; la formación espiritual depende mayormente de la iglesia, no del hogar.","No; no hemos cultivado hábitos espirituales activos en familia."]},
+    ]
+  },
+  {
+    num:8, title:"Lealtad", icon:"💍", color:"#A32D2D",
+    verse:"La mujer de tu pacto — Malaquías 2:14",
+    weak:"La lealtad, la transparencia o el perdón en tu relación necesitan trabajo serio. El pacto matrimonial se protege con decisiones diarias. Esta semana: establece un límite concreto para proteger la confianza, y si hay heridas, da el primer paso hacia el perdón.",
+    strong:"Tu nivel de lealtad y compromiso con el pacto matrimonial es sólido. Eso da una seguridad profunda a tu pareja. Sigue cuidando los límites con sabiduría — la fidelidad se protege con decisiones pequeñas hechas todos los días.",
+    action:"Esta semana, en privado, renueva tu compromiso de fidelidad por escrito. Luego, si hay algo que necesita transparencia o perdón, da ese primer paso valiente.",
+    questions:[
+      {cat:"Fidelidad",cc:"#A32D2D",text:"¿Cómo describes tu nivel de lealtad y fidelidad hacia tu pareja actualmente?",opts:["Soy completamente fiel en lo físico, emocional, verbal y espiritual.","Soy fiel físicamente, pero hay áreas emocionales que debo cuidar más.","Ha habido situaciones donde mi lealtad se ha comprometido de alguna manera.","La fidelidad y la confianza son un área de crisis en nuestra relación."]},
+      {cat:"Límites",cc:"#A32D2D",text:"¿Han establecido límites claros para proteger su relación (redes, amistades, conversaciones)?",opts:["Sí; tenemos acuerdos claros y ambos los respetamos conscientemente.","Tenemos algunos límites implícitos, aunque no los hemos conversado formalmente.","No hemos establecido límites; confiamos solo en la buena fe del otro.","Es un tema que hemos evitado y que necesita atención urgente."]},
+      {cat:"Transparencia",cc:"#A32D2D",text:"¿Cuán transparente eres con tu pareja en tus amistades y actividades diarias?",opts:["Completamente; no tengo secretos con mi pareja en ninguna área importante.","Bastante, aunque hay algunas áreas de privacidad que mantengo.","Medianamente; hay aspectos de mi vida que no comparto con mi pareja.","Poco; hay áreas significativas que mi pareja no conoce."]},
+      {cat:"Perdón",cc:"#A32D2D",text:"¿Hay heridas de traición o falta de confianza que todavía no han sanado en su relación?",opts:["No; hemos trabajado en las heridas pasadas y hay sanidad genuina.","Hay algunas que están en proceso de sanar pero que todavía duelen.","Sí; hay una herida específica que afecta nuestra relación de manera significativa.","Sí; hay heridas profundas sin tratar que deterioran la relación activamente."]},
+      {cat:"El pacto",cc:"#A32D2D",text:"¿Cuánto peso le das al hecho de que Dios es testigo de tu pacto matrimonial (Malaquías 2:14)?",opts:["Mucho; ese hecho me sostiene y motiva a ser fiel cada día.","Bastante; lo recuerdo especialmente en los momentos más difíciles.","Poco; tiende a quedar en lo teológico y no en mi vida práctica.","No lo había pensado de esa manera hasta leer el capítulo."]},
+    ]
+  },
+  {
+    num:9, title:"Finanzas", icon:"💰", color:"#1D9E75",
+    verse:"Fiel en lo poco, fiel en lo más — Lucas 16:10",
+    weak:"Las finanzas de tu hogar necesitan más orden, transparencia o acuerdo. Las deudas, la falta de presupuesto o la desunión financiera están generando estrés. Esta semana: siéntense juntos con todos los ingresos y gastos — sin secretos, sin culpas.",
+    strong:"Tu mayordomía financiera muestra disciplina, transparencia y acuerdo. Eso honra a Dios y trae paz al hogar. Sigue creciendo en generosidad, ahorro estratégico y visión financiera de largo plazo.",
+    action:"Esta semana, elaboren un presupuesto mensual juntos: diezmo, ahorro, deudas y gastos. Definan una meta de ahorro con monto y fecha. Establezcan una reunión financiera mensual.",
+    questions:[
+      {cat:"Transparencia",cc:"#1D9E75",text:"¿Cuánto conoce tu pareja de la situación financiera real del hogar?",opts:["Todo; ambos conocemos ingresos, gastos, deudas e inversiones por igual.","Bastante, aunque hay detalles financieros que no comparto completamente.","Lo básico; uno sabe más que el otro sin que sea un acuerdo consciente.","Casi nada; hay información financiera que deliberadamente guardo."]},
+      {cat:"Presupuesto",cc:"#1D9E75",text:"¿Tienen un presupuesto claro y lo respetan con disciplina?",opts:["Sí; tenemos un presupuesto detallado y lo respetamos con disciplina.","Tenemos una idea general aunque no está bien formalizado.","No tenemos presupuesto; sabemos lo que entra pero no controlamos los gastos.","No tenemos ningún tipo de control presupuestario."]},
+      {cat:"Diezmo",cc:"#1D9E75",text:"¿Están diezmando con fidelidad y convicción como pareja?",opts:["Sí; diezmamos fielmente y lo hacemos de común acuerdo como pareja.","Lo hacemos, aunque no siempre con la constancia y convicción que quisiéramos.","Solo uno diezma; no hay un acuerdo claro y consistente al respecto.","No estamos diezmando regularmente en este momento."]},
+      {cat:"Deudas",cc:"#1D9E75",text:"¿Las deudas son una fuente de estrés o conflicto en su relación?",opts:["No; administramos con cuidado y evitamos las deudas innecesarias.","Tenemos algunas deudas pero tenemos un plan claro para manejarlas.","Las deudas son una carga que genera tensión frecuente en el hogar.","Estamos en una crisis financiera seria que afecta nuestra relación."]},
+      {cat:"Ahorro y unidad",cc:"#1D9E75",text:"¿Toman las decisiones financieras importantes juntos y de manera acordada?",opts:["Siempre; ninguna decisión financiera importante se toma sin consultar al otro.","Generalmente sí, aunque hay decisiones que a veces se toman de manera unilateral.","Con frecuencia uno toma decisiones financieras sin consultar al otro.","Cada quien maneja su dinero con muy poca consulta o acuerdo mutuo."]},
+    ]
+  },
+  {
+    num:10, title:"Lenguajes del Amor", icon:"❤️", color:"#D85A30",
+    verse:"El amor nunca deja de ser — 1 Corintios 13:8",
+    weak:"Hay una desconexión entre cómo expresas amor y cómo tu pareja lo recibe. No es falta de amor — es falta de conocimiento del idioma del otro. Esta semana: pregúntale directamente '¿Cuándo te sientes más amado/a por mí?' y escucha sin defenderte.",
+    strong:"Conoces y practicas el lenguaje del amor de tu pareja de manera efectiva. Eso genera una conexión emocional profunda. Sigue siendo intencional — y recuerda que los lenguajes del amor necesitan expresarse de manera consistente, no solo en ocasiones especiales.",
+    action:"Esta semana, ordenen del 1 al 5 los 5 lenguajes del amor según cómo más los reciben. Comparen sus listas. Durante 2 semanas, exprésate principalmente en el lenguaje #1 de tu pareja.",
+    questions:[
+      {cat:"Palabras de afirmación",cc:"#D85A30",text:"¿Con qué frecuencia le dices a tu pareja palabras específicas de amor, admiración o ánimo?",opts:["Con frecuencia; las palabras de afirmación son parte natural de mi relación.","A veces; podría ser más intencional con las palabras que edifican.","Rara vez; no soy muy expresivo/a verbalmente con mi pareja.","Casi nunca; no lo veo como una necesidad importante."]},
+      {cat:"Tiempo de calidad",cc:"#D85A30",text:"¿Con qué frecuencia tienen tiempo de calidad real — sin celular, solo presentes el uno para el otro?",opts:["Casi todos los días; priorizamos estar presentes el uno para el otro.","Varias veces por semana, aunque no siempre de manera completamente intencional.","Pocas veces; la agenda o el cansancio suele ganar.","Casi nunca; vivimos juntos pero rara vez estamos realmente presentes."]},
+      {cat:"Regalos y detalles",cc:"#D85A30",text:"¿Con qué frecuencia tienes detalles o regalos con tu pareja sin necesitar una ocasión especial?",opts:["Con frecuencia; me encanta sorprenderle con detalles inesperados.","Ocasionalmente; lo hago pero podría ser más constante.","Raramente; necesito una ocasión especial para pensar en un detalle.","Casi nunca; no es algo que acostumbre hacer."]},
+      {cat:"Actos de servicio",cc:"#D85A30",text:"¿Con qué frecuencia haces cosas prácticas por tu pareja sin que te lo pida?",opts:["Con frecuencia; el servicio práctico es una manera natural en que expreso amor.","A veces; lo hago pero podría ser más proactivo/a.","Poco; generalmente espero que me pidan antes de ayudar.","Casi nunca; no acostumbro tomar la iniciativa en actos de servicio."]},
+      {cat:"Contacto físico y conocimiento",cc:"#D85A30",text:"¿Sabes con certeza cuál es el lenguaje del amor principal de tu pareja y lo expresas así?",opts:["Sí; lo sé con claridad y lo expreso de esa manera conscientemente.","Creo saberlo, aunque no lo hemos conversado de manera explícita.","Tengo una idea pero no estoy seguro/a; nunca lo hemos hablado formalmente.","No lo sé; nunca nos hemos preguntado ni hablado sobre este tema."]},
+    ]
+  },
+  {
+    num:11, title:"Intimidad", icon:"🕯️", color:"#3C3489",
+    verse:"Las aguas no apagarán el amor — Cantares 8:7",
+    weak:"La intimidad — emocional, física o espiritual — está sufriendo en tu relación. Las barreras no tratadas se convierten en muros. Esta semana: planeen una cita solos, sin hijos ni celulares, y conversen sobre cómo se han sentido en la relación últimamente.",
+    strong:"Tu relación goza de una intimidad rica en varias dimensiones. Eso es un regalo. Sigue invirtiendo en cada dimensión — especialmente en temporadas de estrés cuando la intimidad es lo primero que sufre.",
+    action:"Esta semana planeen una cita de intimidad: sin hijos, sin celulares. Cada uno responde: ¿Qué recuerdo nuestro guardo con cariño? ¿Qué admiro de ti hoy más que cuando nos casamos?",
+    questions:[
+      {cat:"Intimidad emocional",cc:"#3C3489",text:"¿Cómo describes la intimidad emocional (conexión, confianza, vulnerabilidad) en tu relación hoy?",opts:["Muy alta; me siento profundamente conectado/a con apertura y confianza real.","Alta; hay conexión aunque podría ser más profunda y consistente.","Media; hay cierta distancia emocional que ninguno ha abordado.","Baja; hay muros emocionales entre nosotros que llevan tiempo levantados."]},
+      {cat:"Intimidad física",cc:"#3C3489",text:"¿Cómo describes la intimidad física (contacto, cercanía, vida sexual) en su relación actualmente?",opts:["Muy bien; hay cercanía, afecto cotidiano y satisfacción mutua.","Bien, aunque hay áreas de la intimidad física que podríamos mejorar.","Regular; la intimidad física se ha reducido y genera algo de frustración.","Deteriorada; es un área de conflicto o dolor en la relación."]},
+      {cat:"Intimidad espiritual",cc:"#3C3489",text:"¿Oran juntos regularmente y comparten su vida de fe como pareja?",opts:["Sí; la oración compartida y la vida espiritual son pilares de nuestra relación.","Varias veces por semana; es una práctica que valoramos aunque no siempre constante.","Pocas veces; lo hacemos en momentos especiales o de crisis.","Casi nunca; no tenemos el hábito de compartir nuestra vida espiritual."]},
+      {cat:"Barreras",cc:"#3C3489",text:"¿Hay barreras (resentimientos, heridas pasadas, pornografía, cansancio crónico) que afecten su intimidad?",opts:["No; hemos trabajado en las heridas y nuestra intimidad está sana.","Hay algunos temas pendientes que ocasionalmente generan distancia.","Sí; hay una barrera específica que afecta la intimidad y no hemos hablado.","Sí; hay una crisis de intimidad que requiere ayuda profesional o pastoral."]},
+      {cat:"Comunicación íntima",cc:"#3C3489",text:"¿Con qué libertad pueden hablar sobre su vida íntima como pareja?",opts:["Con mucha libertad; es un tema que tratamos con naturalidad y sin tabú.","Con cierta apertura, aunque hay aspectos que nos cuesta abordar directamente.","Con dificultad; es un tema incómodo que generalmente evitamos.","Casi no hablamos de ello; hay vergüenza, silencio o temor al respecto."]},
+    ]
+  },
+  {
+    num:12, title:"Altares Familiares", icon:"🙏", color:"#1D9E75",
+    verse:"Yo y mi casa serviremos a Jehová — Josué 24:15",
+    weak:"La base espiritual de tu hogar tiene grietas que necesitan atención. Sin el altar familiar como hábito, las demás áreas del matrimonio son más difíciles de sostener. Esta semana: levanta el primer altar familiar — esta noche, antes de dormir.",
+    strong:"Tu hogar tiene una base espiritual sólida y activa. El altar familiar, la oración y el ejemplo de fe son pilares que están formando a tu familia. Sigue siendo consistente — especialmente en las temporadas de mayor presión.",
+    action:"Esta noche: reúne a la familia, pon una canción de adoración, lean Salmo 23 juntos, y oren donde cada uno dice una oración corta. Comprométanse a repetirlo 21 días seguidos.",
+    questions:[
+      {cat:"Altar familiar",cc:"#1D9E75",text:"¿Tienen el hábito del altar familiar diario en su hogar?",opts:["Sí; oramos juntos cada noche y es una práctica sólida y consistente.","Lo hacemos varias veces por semana; queremos hacerlo todos los días.","Ocasionalmente; sabemos que deberíamos hacerlo con más constancia.","No existe esa práctica en nuestro hogar; nunca la hemos establecido."]},
+      {cat:"Oración personal",cc:"#1D9E75",text:"¿Cómo describes tu vida de oración personal como fundamento para tu hogar?",opts:["Sólida; tengo un tiempo devocional regular que alimenta mi vida y mi matrimonio.","Inconsistente; hay semanas buenas y semanas donde casi no oro.","Débil; sé que necesito fortalecer mi vida de oración personal.","Casi inexistente; no tengo una práctica devocional consistente."]},
+      {cat:"La Palabra",cc:"#1D9E75",text:"¿La Biblia tiene un lugar activo y regular en la vida de su hogar?",opts:["Sí; leemos la Palabra juntos y aplicamos sus principios conscientemente.","Algo; la leemos individualmente aunque no siempre de manera compartida.","Poco; la Biblia está presente pero no se lee ni se aplica con regularidad.","No; la Biblia no tiene un lugar activo en la vida cotidiana del hogar."]},
+      {cat:"Ejemplo espiritual",cc:"#1D9E75",text:"¿Tu familia te ve vivir tu fe de manera genuina y coherente en el día a día?",opts:["Sí; mi fe es visible en cómo hablo, actúo y tomo decisiones en el hogar.","La mayoría del tiempo sí, aunque hay áreas donde la coherencia me falta.","Pocas veces; hay una brecha entre mi fe declarada y mi vida práctica.","Mi familia ve más una 'fe de domingo' que una fe de vida real."]},
+      {cat:"Servicio conjunto",cc:"#1D9E75",text:"¿Está sirviendo tu familia de manera activa en su iglesia?",opts:["Sí; toda la familia sirve y eso nos une espiritualmente como equipo.","Parcialmente; algunos sirven pero no toda la familia de manera activa.","Poco; el servicio activo ha disminuido o nunca fue una práctica constante.","No; no estamos sirviendo activamente en la iglesia como familia."]},
+    ]
+  },
+];
+
+// Flatten all questions into a single array with chapter reference
+const ALL_Qs = [];
+CHAPTERS.forEach((ch,ci) => {
+  ch.questions.forEach(q => {
+    ALL_Qs.push({ ...q, chIdx: ci, chNum: ch.num, chTitle: ch.title, chColor: ch.color, chIcon: ch.icon });
+  });
+});
+
+let cur = 0;
+let ans = new Array(ALL_Qs.length).fill(null);
+
+function buildCards() {
+  const container = document.getElementById('qcontainer');
+  let lastChIdx = -1;
+
+  ALL_Qs.forEach((q, i) => {
+    // Chapter label
+    if (q.chIdx !== lastChIdx) {
+      const ch = CHAPTERS[q.chIdx];
+      const lbl = document.createElement('div');
+      lbl.className = 'chapter-label';
+      lbl.id = 'chlabel-' + q.chIdx;
+      lbl.style.display = i === 0 ? 'flex' : 'none';
+      lbl.innerHTML = `<div class="ch-pill" style="background:${ch.color}">${ch.icon} Capítulo ${ch.num} — ${ch.title}</div><div class="ch-line"></div>`;
+      container.appendChild(lbl);
+      lastChIdx = q.chIdx;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'q-card' + (i !== 0 ? ' hidden' : '');
+    card.id = 'q' + i;
+    card.innerHTML = `
+      <div class="q-meta">
+        <span class="q-num">Pregunta ${i+1} de ${ALL_Qs.length}</span>
+        <span class="q-cat" style="background:${q.chColor}20;color:${q.chColor}">${q.cat}</span>
+      </div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">
+        ${q.opts.map((o,oi) => `
+          <div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})">
+            <div class="opt-l">${String.fromCharCode(65+oi)}</div>
+            <div class="opt-text">${o}</div>
+          </div>`).join('')}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function pick(qi, oi, score) {
+  ans[qi] = score;
+  document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el => el.classList.remove('sel'));
+  document.getElementById(`o${qi}_${oi}`).classList.add('sel');
+  updateNav();
+}
+
+function nav(dir) {
+  if (dir === 1 && ans[cur] === null) return;
+  const prevChIdx = ALL_Qs[cur].chIdx;
+
+  document.getElementById('q' + cur).classList.add('hidden');
+  cur += dir;
+
+  if (cur < 0) cur = 0;
+  if (cur >= ALL_Qs.length) { showResults(); return; }
+
+  const newChIdx = ALL_Qs[cur].chIdx;
+
+  // Show/hide chapter labels
+  if (newChIdx !== prevChIdx) {
+    const prevLbl = document.getElementById('chlabel-' + prevChIdx);
+    const newLbl = document.getElementById('chlabel-' + newChIdx);
+    if (prevLbl) prevLbl.style.display = 'none';
+    if (newLbl) newLbl.style.display = 'flex';
+  }
+
+  document.getElementById('q' + cur).classList.remove('hidden');
+  updateProg();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateNav() {
+  document.getElementById('btnPrev').disabled = cur === 0;
+  const nb = document.getElementById('btnNext');
+  nb.disabled = ans[cur] === null;
+  if (cur === ALL_Qs.length - 1 && ans[cur] !== null) {
+    nb.textContent = 'Ver mis resultados →';
+  } else {
+    nb.textContent = 'Siguiente →';
+  }
+}
+
+function updateProg() {
+  const done = ans.filter(a => a !== null).length;
+  const pct = Math.round((done / ALL_Qs.length) * 100);
+  const q = ALL_Qs[cur];
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('plabel').textContent = `Capítulo ${q.chNum} de 12 · Pregunta ${cur+1} de ${ALL_Qs.length}`;
+  document.getElementById('ppct').textContent = pct + '% completado';
+}
+
+function getStatus(pct) {
+  if (pct >= 80) return { label: 'Fortaleza', bg: '#eaf7f2', color: '#0f6e56', border: '#5dcaa5' };
+  if (pct >= 60) return { label: 'En crecimiento', bg: '#eaf2fb', color: '#185fa5', border: '#85b7eb' };
+  if (pct >= 40) return { label: 'Necesita trabajo', bg: '#fdf3dc', color: '#854f0b', border: '#ef9f27' };
+  return { label: 'Área crítica', bg: '#fdf0f2', color: '#a32d2d', border: '#f09595' };
+}
+
+function showResults() {
+  document.getElementById('quiz-section').style.display = 'none';
+  const rs = document.getElementById('results-section');
+  rs.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Calculate scores per chapter
+  const chScores = CHAPTERS.map((ch, ci) => {
+    const qIdxs = ALL_Qs.map((q, i) => q.chIdx === ci ? i : -1).filter(i => i >= 0);
+    const total = qIdxs.reduce((s, i) => s + (ans[i] || 0), 0);
+    const max = qIdxs.length * 4;
+    return { ch, pct: Math.round((total / max) * 100), qIdxs };
+  });
+
+  const overallPct = Math.round(chScores.reduce((s, c) => s + c.pct, 0) / chScores.length);
+
+  // Overall profile
+  document.getElementById('sNum').textContent = overallPct;
+  let title, verse, profColor, profBg, profBorder, profDesc;
+
+  if (overallPct >= 80) {
+    title = "Matrimonio floreciente"; verse = '"Dos son mejor que uno, porque tienen buena paga por su trabajo." — Eclesiastés 4:9';
+    profColor = "#0f6e56"; profBg = "#eaf7f2"; profBorder = "#5dcaa5";
+    profDesc = "Tu evaluación general muestra un matrimonio sólido y comprometido en la mayoría de las áreas. Han construido hábitos de amor, comunicación, respeto y fe que los sostienen. Tu reto ahora es no dar por sentado lo alcanzado y seguir creciendo con intencionalidad en las áreas que aún están en amarillo o rojo.";
+  } else if (overallPct >= 60) {
+    title = "Matrimonio en crecimiento"; verse = '"Porque si cayere el uno, el otro levantará a su compañero." — Eclesiastés 4:10';
+    profColor = "#185fa5"; profBg = "#eaf2fb"; profBorder = "#85b7eb";
+    profDesc = "Tienes una base real de amor y compromiso, pero varias áreas importantes necesitan atención y trabajo conjunto. Usa los resultados de abajo para identificar exactamente dónde enfocar la energía. El progreso en las áreas débiles traerá un impacto enorme en toda la relación.";
+  } else if (overallPct >= 40) {
+    title = "Matrimonio en proceso de restauración"; verse = '"Y Dios restaura lo que pasó." — Eclesiastés 3:15';
+    profColor = "#854f0b"; profBg = "#fdf3dc"; profBorder = "#ef9f27";
+    profDesc = "Tu relación enfrenta desafíos serios en múltiples áreas. El hecho de estar haciendo esta evaluación es una señal de esperanza. Dios restaura lo que parece roto — pero requiere honestidad, voluntad de cambiar y, en muchos casos, acompañamiento pastoral. No estés solo/a en esto.";
+  } else {
+    title = "Matrimonio que necesita ayuda urgente"; verse = '"Mas para Dios todo es posible." — Mateo 19:26';
+    profColor = "#a32d2d"; profBg = "#fdf0f2"; profBorder = "#f09595";
+    profDesc = "Tu evaluación muestra una crisis en varias áreas fundamentales del matrimonio. Esto no es una sentencia — es una oportunidad para ser honesto/a y buscar ayuda. Acude a tu pastor, líder o consejero esta semana. Dios puede hacer lo imposible, pero necesita que des el primer paso hoy.";
+  }
+
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rVerse').innerHTML = verse;
+  const ring = document.getElementById('sRing');
+  ring.style.borderColor = profColor + '66';
+
+  const pc = document.getElementById('profileCard');
+  pc.style.background = profBg;
+  pc.style.borderColor = profBorder;
+  pc.innerHTML = `<h3 style="color:${profColor}">${title}</h3><p style="color:#444">${profDesc}</p>`;
+
+  // Areas grid
+  const grid = document.getElementById('areasGrid');
+  grid.innerHTML = '';
+  chScores.forEach(({ ch, pct }) => {
+    const st = getStatus(pct);
+    grid.innerHTML += `
+      <div class="area-card" style="border-color:${st.border}">
+        <div class="area-header">
+          <div class="area-icon">${ch.icon}</div>
+          <div class="area-name">Cap. ${ch.num} — ${ch.title}</div>
+          <div class="area-pct" style="color:${ch.color}">${pct}%</div>
+        </div>
+        <div class="area-bar-bg"><div class="area-bar" style="width:${pct}%;background:${ch.color}"></div></div>
+        <span class="area-status" style="background:${st.bg};color:${st.color}">${st.label}</span>
+      </div>`;
+  });
+
+  // Weak areas (sorted by pct asc, bottom 5)
+  const sorted = [...chScores].sort((a, b) => a.pct - b.pct);
+  const weak = sorted.slice(0, 5);
+  const strong = sorted.slice(-3).reverse();
+
+  const wa = document.getElementById('weakAreas');
+  wa.innerHTML = '';
+  weak.forEach(({ ch, pct }) => {
+    const st = getStatus(pct);
+    wa.innerHTML += `
+      <div class="reco-card" style="border-color:${st.border}">
+        <h4>
+          <span style="font-size:16px">${ch.icon}</span>
+          Cap. ${ch.num} — ${ch.title}
+          <span class="tag" style="background:${st.bg};color:${st.color};margin-left:auto">${pct}% · ${st.label}</span>
+        </h4>
+        <p>${ch.weak}</p>
+      </div>`;
+  });
+
+  const sa = document.getElementById('strongAreas');
+  sa.innerHTML = '';
+  strong.forEach(({ ch, pct }) => {
+    sa.innerHTML += `
+      <div class="strong-card">
+        <h4>${ch.icon} Cap. ${ch.num} — ${ch.title} · ${pct}%</h4>
+        <p>${ch.strong}</p>
+      </div>`;
+  });
+}
+
+function restart() {
+  cur = 0;
+  ans = new Array(ALL_Qs.length).fill(null);
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+
+  document.querySelectorAll('.q-card').forEach((c, i) => c.classList.toggle('hidden', i !== 0));
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  document.querySelectorAll('.chapter-label').forEach((l, i) => l.style.display = i === 0 ? 'flex' : 'none');
+
+  document.getElementById('pfill').style.width = '0%';
+  document.getElementById('ppct').textContent = '0% completado';
+  document.getElementById('plabel').textContent = 'Capítulo 1 de 12 · Pregunta 1 de 60';
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildCards();
+updateNav();
+</script>
+</body>
+</html>

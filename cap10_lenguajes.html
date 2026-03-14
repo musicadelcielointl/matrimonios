@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 10 — Lenguajes del Amor</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--c1:#D85A30;--c2:#993C1D;--cl:#FAECE7;--gold:#c9a22e;--gold2:#a8861f;--navy:#6B0D0D;--navy2:#4a0808;--border:#e5dfd4;--text:#2c2c2c;--muted:#777}
+body{font-family:'DM Sans',sans-serif;background:#f9f7f4;color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto}
+.hero{background:#6B0D0D;border-radius:20px;padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,162,46,0.12)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;max-width:500px;margin-bottom:1.25rem}
+.vstrip{background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.85);position:relative;z-index:1}
+.vstrip span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;letter-spacing:.06em;font-family:'DM Sans',sans-serif;font-weight:500}
+.prog-wrap{margin-bottom:1.75rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.prog-track{height:6px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,var(--c1));border-radius:99px;transition:width .4s ease}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);animation:fadeUp .3s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:#1a1a2e;line-height:1.45;font-weight:600;margin-bottom:1.2rem}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:var(--c2);background:var(--cl)}
+.opt.sel{border-color:var(--c1);background:var(--cl)}
+.opt.sel .opt-l{background:var(--c1);color:#fff;border-color:var(--c1)}
+.opt-l{min-width:24px;height:24px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13.5px;color:#333;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;gap:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 24px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn.primary:hover{background:var(--c2)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.results{display:none;animation:fadeUp .5s ease}
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(255,255,255,.65)}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.2rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.sec-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.9rem}
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+@media(max-width:520px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;text-align:center}
+.dim-icon{font-size:20px;margin-bottom:4px}
+.dim-name{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dim-bar-bg{height:5px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.dim-bar{height:100%;border-radius:99px;transition:width 1s ease .3s}
+.dim-pct{font-size:13px;font-weight:600}
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.reco-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0ebe3}
+.reco-item:last-child{border-bottom:none;padding-bottom:0}
+.reco-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+.reco-t{font-size:13.5px;color:#333;line-height:1.65}
+.reco-bold{font-weight:600;color:var(--c1)}
+.action-card{background:#FAECE7;border:1px solid var(--c2);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.action-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--c2);margin-bottom:.6rem}
+.action-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.action-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+.restart-row{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Capítulo 10 · Evaluación individual</div>
+    <h1>Lenguajes del Amor</h1>
+    <p class="sub">12 preguntas para identificar tu lenguaje del amor, el de tu pareja y cómo expresar amor de manera más efectiva.</p>
+    <div class="vstrip">"El amor es sufrido, es benigno... el amor nunca deja de ser."<span>1 Corintios 13:4,8</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta"><span id="plabel">Pregunta 1 de 12</span><span id="ppct">0% completado</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+  </div>
+  <div id="qcontainer"></div>
+  <div class="nav">
+    <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+    <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+  </div>
+</div>
+<div class="results" id="results-section">
+  <div class="result-hero">
+    <div class="r-tag">Tus resultados personales — Capítulo 10</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing"><div class="sn" id="sNum">0</div><div class="sl">/ 100</div></div>
+  </div>
+  <div class="sec-label">Evaluación por dimensión</div>
+  <div class="dim-grid" id="dimGrid"></div>
+  <div class="profile-card" id="profileCard"></div>
+  <div class="reco-card">
+    <div class="sec-label" style="margin-bottom:1rem">Lo que puedes hacer esta semana</div>
+    <div id="recoList"></div>
+  </div>
+  <div class="action-card">
+    <h3>🎯 Dinámica — "Nuestros idiomas del amor"</h3>
+    <ul class="action-steps"><li><div class="step-num">1</div>Cada uno ordena del 1 al 5 los lenguajes según cómo más le gusta recibirlos: Palabras / Tiempo / Regalos / Servicio / Contacto físico.</li><li><div class="step-num">2</div>Compartan sus listas. ¿Coincide lo que tu pareja pensaba con tu respuesta?</li><li><div class="step-num">3</div>Esta semana, cada uno se enfoca en expresar amor principalmente en el lenguaje #1 de su pareja (no en el propio).</li><li><div class="step-num">4</div>Al final de la semana conversen: ¿Qué cambió en el ambiente del hogar?</li></ul>
+  </div>
+  <div class="v-footer"><p>"El amor es sufrido, es benigno... el amor nunca deja de ser."</p><span>1 Corintios 13:4,8</span></div>
+  <div class="cta">
+    <h3>¿Quieres profundizar más?</h3>
+    <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+    <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+  </div>
+  <div class="restart-row"><button class="btn" onclick="restart()">↩ Responder de nuevo</button></div>
+</div>
+</div>
+<script>
+const DIMS={"palabras":{"label":"Palabras de afirmación","icon":"💬","color":"#D85A30"},"tiempo":{"label":"Tiempo de calidad","icon":"⏱","color":"#185FA5"},"regalos":{"label":"Regalos/Detalles","icon":"🎁","color":"#854F0B"},"servicio":{"label":"Actos de servicio","icon":"🛠️","color":"#0F6E56"},"contacto":{"label":"Contacto físico","icon":"🤗","color":"#534AB7"},"conocimiento":{"label":"Conocimiento mutuo","icon":"💡","color":"#D85A30"}};
+const Qs=[{"dim":"palabras","cat":"Palabras de afirmación","cc":"#D85A30","text":"¿Con qué frecuencia le dices a tu pareja palabras específicas de amor, admiración o agradecimiento?","opts":["Regularmente; las palabras de afirmación son parte natural de nuestra relación.","A veces; podría ser más intencional con las palabras que edifican.","Rara vez; no soy muy expresivo/a verbalmente con mi pareja.","Casi nunca; asumo que él/ella sabe cómo me siento sin necesidad de decírselo."]},{"dim":"palabras","cat":"Palabras de afirmación","cc":"#D85A30","text":"Cuando tu pareja enfrenta dificultades o presión, ¿qué tan natural es para ti ofrecerle palabras de ánimo y apoyo?","opts":["Muy natural; soy su mayor animador/a verbal en los momentos difíciles.","Bastante natural, aunque a veces no sé exactamente qué decir.","Me cuesta; no siempre sé cómo animar verbalmente a mi pareja.","Poco natural; no suelo ofrecer palabras de apoyo en momentos difíciles."]},{"dim":"tiempo","cat":"Tiempo de calidad","cc":"#185FA5","text":"¿Con qué frecuencia tienen tiempo de calidad real juntos — sin celular, sin TV, solo conectándose?","opts":["Casi todos los días; es una prioridad para nosotros.","Varias veces por semana, aunque no siempre de manera completamente intencional.","Pocas veces; la agenda o el cansancio suelen ganar.","Casi nunca; vivimos juntos pero rara vez estamos realmente presentes el uno para el otro."]},{"dim":"tiempo","cat":"Tiempo de calidad","cc":"#185FA5","text":"Cuando están juntos, ¿cuánta atención real le das a tu pareja (sin distracciones del celular, trabajo o TV)?","opts":["Mucha; cuando estamos juntos estoy completamente presente y enfocado/a en él/ella.","Bastante, aunque a veces el celular o el trabajo me distraen.","Poco; con frecuencia estoy físicamente presente pero mentalmente ausente.","Casi nada; es difícil para mí estar completamente presente con mi pareja."]},{"dim":"regalos","cat":"Regalos y detalles","cc":"#854F0B","text":"¿Con qué frecuencia tienes detalles o regalos con tu pareja sin necesitar una ocasión especial?","opts":["Con frecuencia; me encanta sorprenderle con detalles inesperados.","Ocasionalmente; lo hago pero podría ser más constante.","Raramente; necesito una ocasión especial para pensar en un detalle.","Casi nunca; no es algo que acostumbre hacer."]},{"dim":"regalos","cat":"Regalos y detalles","cc":"#854F0B","text":"Cuando recibes un regalo o detalle de tu pareja (aunque sea pequeño), ¿cómo te hace sentir?","opts":["Muy amado/a; los detalles me impactan profundamente aunque sean pequeños.","Bien; aprecio los detalles aunque no los necesito para sentirme amado/a.","Indiferente; los detalles no son lo que más me hace sentir amor.","No lo recibo bien; me genera algo de incomodidad recibir detalles o regalos."]},{"dim":"servicio","cat":"Actos de servicio","cc":"#0F6E56","text":"¿Con qué frecuencia haces cosas prácticas para tu pareja sin que te lo pida (tareas del hogar, encargos, ayuda con responsabilidades)?","opts":["Con frecuencia; el servicio práctico es una manera natural en que expreso amor.","A veces; lo hago pero podría ser más proactivo/a en servir sin esperar ser pedido.","Poco; generalmente espero que me pidan antes de ayudar.","Casi nunca; no acostumbro tomar la iniciativa en actos de servicio."]},{"dim":"servicio","cat":"Actos de servicio","cc":"#0F6E56","text":"Cuando tu pareja está agotado/a o con mucha carga, ¿qué es más natural en ti?","opts":["Tomar responsabilidades de sus manos sin que me lo pida para aliviar su carga.","Preguntar qué necesita y luego ayudarle con lo que me indica.","Expresarle palabras de ánimo pero no necesariamente asumir tareas prácticas.","No siempre me doy cuenta de cuándo mi pareja está sobrecargado/a."]},{"dim":"contacto","cat":"Contacto físico","cc":"#534AB7","text":"¿Cuánto contacto físico afectuoso cotidiano (abrazos, caricias, tomar de la mano, besos espontáneos) hay en su relación?","opts":["Mucho; somos afectuosos de manera natural y constante.","Suficiente; hay afecto físico aunque podría ser más frecuente.","Poco; el contacto físico cotidiano se ha ido reduciendo con el tiempo.","Casi ninguno; la frialdad física es una realidad en nuestra relación."]},{"dim":"contacto","cat":"Contacto físico","cc":"#534AB7","text":"Cuando ves a tu pareja después de un tiempo separados o al final del día, ¿cuál es tu reacción natural?","opts":["Buscar el contacto físico: abrazo, beso, cercanía. Es muy natural para mí.","A veces sí; depende del estado de ánimo y la situación del día.","Pocas veces; no es algo que nazca de manera espontánea en mí.","Casi nunca; no soy muy expresivo/a físicamente por naturaleza."]},{"dim":"conocimiento","cat":"Conocimiento mutuo","cc":"#D85A30","text":"¿Sabes con certeza cuál es el lenguaje del amor principal de tu pareja?","opts":["Sí; lo sé con claridad y lo expreso de esa manera conscientemente.","Creo saberlo, aunque no lo hemos conversado de manera explícita.","Tengo una idea pero no estoy seguro/a; nunca lo hemos hablado formalmente.","No lo sé; nunca nos hemos preguntado ni hablado sobre este tema."]},{"dim":"conocimiento","cat":"Conocimiento mutuo","cc":"#D85A30","text":"¿Hay momentos en que sientes que estás amando a tu pareja pero él/ella no lo recibe así?","opts":["Rara vez; generalmente mi amor llega de la manera en que mi pareja lo recibe.","A veces; hay momentos en que la 'señal' del amor no llega como quisiera.","Con frecuencia; siento que me esfuerzo pero el amor no parece conectar.","Sí; hay una desconexión clara entre cómo expreso amor y cómo mi pareja lo recibe."]}];
+const PROFILES=[{"title":"Amor que conecta y llena","verse":"\"El amor nunca deja de ser.\" — 1 Corintios 13:8","color":"#D85A30","bg":"#FAECE7","border":"#F0997B","desc":"Tu manera de expresar amor está conectando con tu pareja de manera efectiva. Conoces sus necesidades y buscas satisfacerlas. Tu reto es seguir creciendo en el lenguaje que más le llena — y crecer también en recibir amor de la manera en que él/ella lo expresa."},{"title":"Aprendiendo el idioma del otro","verse":"\"El amor es benigno.\" — 1 Corintios 13:4","color":"#D85A30","bg":"#FAECE7","border":"#F0997B","desc":"Tienes una buena base de amor expresado, pero hay áreas donde el idioma que usas y el que tu pareja recibe no siempre coinciden. Esto no es falta de amor — es falta de conocimiento. El capítulo te invita a descubrir el lenguaje específico de tu pareja y practicarlo con intención."},{"title":"El amor necesita sintonizarse","verse":"\"El amor es sufrido.\" — 1 Corintios 13:4","color":"#854F0B","bg":"#fdf3dc","border":"#EF9F27","desc":"Hay una desconexión entre cómo expresas amor y cómo tu pareja lo recibe. Eso genera la sensación de 'me esfuerzo pero no es suficiente' o 'no se siente amado/a'. La solución no es amar más — es amar diferente. Descubre su lenguaje y practica expresarlo esta semana."},{"title":"La desconexión emocional es real","verse":"\"Muchas aguas no podrán apagar el amor.\" — Cantares 8:7","color":"#8b2035","bg":"#fdf0f2","border":"#F09595","desc":"Tu relación está experimentando una desconexión emocional significativa. El amor está presente pero no está llegando. Esta es una de las áreas más solucionables en el matrimonio — con conocimiento y esfuerzo intencional. Empieza por una conversación honesta: '¿Cómo te sientes más amado/a por mí?'"}];
+const RECOS={"palabras":{"bold":"Una afirmación específica hoy:","text":"Dile a tu pareja hoy algo muy específico que aprecias de él/ella. No 'te quiero' sino '¡Admiro cómo [acción concreta]!' La especificidad es lo que hace que las palabras se sientan reales."},"tiempo":{"bold":"20 minutos sin pantallas esta noche:","text":"Apaga el celular esta noche durante 20 minutos y úsalos solo para estar presente con tu pareja. Mírala a los ojos. Pregúntale cómo se siente. Solo eso."},"regalos":{"bold":"Un detalle inesperado esta semana:","text":"Esta semana, trae algo pequeño para tu pareja sin que haya ocasión especial — su dulce favorito, una nota escrita, una flor. No el valor: el mensaje de 'pensé en ti'."},"servicio":{"bold":"Sirve sin ser pedido:","text":"Esta semana, haz algo práctico por tu pareja antes de que te lo pida. Lava los platos, prepara el desayuno, encárgate de algo que sabes que le pesa. El servicio no solicitado dice 'te veo'."},"contacto":{"bold":"El abrazo de 20 segundos:","text":"Un abrazo de 20 segundos libera oxitocina — la hormona del vínculo. Esta semana, abraza a tu pareja durante 20 segundos completos al menos una vez al día. Siente la diferencia."},"conocimiento":{"bold":"Pregunta directamente:","text":"Esta semana pregúntale a tu pareja: '¿Cuándo te sientes más amado/a por mí?' Escucha la respuesta sin defenderte. Esa respuesta es oro para tu matrimonio."}};
+let cur=0,ans=new Array(Qs.length).fill(null);
+function buildCards(){const c=document.getElementById('qcontainer');Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='q-card'+(i!==0?' hidden':'');d.id='q'+i;d.innerHTML=`<div class="q-meta"><span class="q-num">Pregunta ${i+1} de ${Qs.length}</span><span class="q-cat" style="background:${q.cc}22;color:${q.cc}">${q.cat}</span></div><div class="q-text">${q.text}</div><div class="opts">${q.opts.map((o,oi)=>`<div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})"><div class="opt-l">${String.fromCharCode(65+oi)}</div><div class="opt-text">${o}</div></div>`).join('')}</div>`;c.appendChild(d);})}
+function pick(qi,oi,score){ans[qi]=score;document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el=>el.classList.remove('sel'));document.getElementById(`o${qi}_${oi}`).classList.add('sel');updateNav()}
+function nav(dir){if(dir===1&&ans[cur]===null)return;document.getElementById('q'+cur).classList.add('hidden');cur+=dir;if(cur<0)cur=0;if(cur>=Qs.length){showResults();return}document.getElementById('q'+cur).classList.remove('hidden');updateProg();updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+function updateNav(){document.getElementById('btnPrev').disabled=cur===0;const nb=document.getElementById('btnNext');nb.disabled=ans[cur]===null;nb.textContent=cur===Qs.length-1&&ans[cur]!==null?'Ver mis resultados →':'Siguiente →'}
+function updateProg(){const done=ans.filter(a=>a!==null).length;const pct=Math.round(done/Qs.length*100);document.getElementById('pfill').style.width=pct+'%';document.getElementById('plabel').textContent=`Pregunta ${cur+1} de ${Qs.length}`;document.getElementById('ppct').textContent=pct+'% completado'}
+function showResults(){document.getElementById('quiz-section').style.display='none';document.getElementById('results-section').style.display='block';window.scrollTo({top:0,behavior:'smooth'});const total=ans.reduce((a,b)=>a+b,0);const pct=Math.round(total/(Qs.length*4)*100);document.getElementById('sNum').textContent=pct;const p=pct>=80?PROFILES[0]:pct>=60?PROFILES[1]:pct>=40?PROFILES[2]:PROFILES[3];document.getElementById('rTitle').textContent=p.title;document.getElementById('rVerse').innerHTML=p.verse;const ring=document.getElementById('sRing');ring.style.borderColor=p.color+'55';const pc=document.getElementById('profileCard');pc.style.background=p.bg;pc.style.borderColor=p.border;pc.innerHTML=`<h3 style="color:${p.color}">${p.title}</h3><p style="color:#444">${p.desc}</p>`;const dimScores={};const dimCounts={};Qs.forEach((q,i)=>{if(!dimScores[q.dim]){dimScores[q.dim]=0;dimCounts[q.dim]=0}dimScores[q.dim]+=ans[i];dimCounts[q.dim]++});const grid=document.getElementById('dimGrid');grid.innerHTML='';Object.entries(DIMS).forEach(([k,cfg])=>{const raw=dimScores[k]||0;const max=(dimCounts[k]||1)*4;const dp=Math.round(raw/max*100);grid.innerHTML+=`<div class="dim-card"><div class="dim-icon">${cfg.icon}</div><div class="dim-name">${cfg.label}</div><div class="dim-bar-bg"><div class="dim-bar" style="width:${dp}%;background:${cfg.color}"></div></div><div class="dim-pct" style="color:${cfg.color}">${dp}%</div></div>`});const weak=Object.entries(dimScores).map(([k,v])=>({key:k,pct:Math.round(v/((dimCounts[k]||1)*4)*100)})).sort((a,b)=>a.pct-b.pct).slice(0,4);const rl=document.getElementById('recoList');rl.innerHTML='';weak.forEach(d=>{const r=RECOS[d.key];if(!r)return;rl.innerHTML+=`<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`});if(!rl.innerHTML)rl.innerHTML='<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente! Sigue con la misma intencionalidad y constancia cada día.</div></div>'}
+function restart(){cur=0;ans=new Array(Qs.length).fill(null);document.getElementById('results-section').style.display='none';document.getElementById('quiz-section').style.display='block';document.querySelectorAll('.q-card').forEach((c,i)=>c.classList.toggle('hidden',i!==0));document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('pfill').style.width='0%';document.getElementById('ppct').textContent='0% completado';document.getElementById('plabel').textContent='Pregunta 1 de 12';updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+buildCards();updateNav();
+</script>
+</body>
+</html>

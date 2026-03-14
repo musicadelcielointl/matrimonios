@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Capítulo 1 — Atención y Detalles</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:   #6B0D0D;
+    --navy2:  #4a0808;
+    --gold:   #c9a22e;
+    --gold2:  #a8861f;
+    --blue:   #8B1010;
+    --blue-l: #f9e8e8;
+    --teal:   #7B1010;
+    --teal-l: #f9e8e8;
+    --amber:  #854f0b;
+    --amber-l:#fdf3dc;
+    --rose:   #8b2035;
+    --rose-l: #fdf0f2;
+    --gray:   #f6f4f0;
+    --border: #e5dfd4;
+    --text:   #2c2c2c;
+    --muted:  #777;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f9f7f4;
+    color: var(--text);
+    padding: 2rem 1rem 5rem;
+    min-height: 100vh;
+  }
+
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: rgba(201,162,46,0.12);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -30px;
+    width: 160px; height: 160px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .hero .sub {
+    font-size: 13.5px;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 500px;
+    margin-bottom: 1.25rem;
+  }
+  .verse-strip {
+    background: rgba(201,162,46,0.15);
+    border-left: 3px solid var(--gold);
+    border-radius: 0 8px 8px 0;
+    padding: 0.7rem 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.85);
+    position: relative; z-index: 1;
+  }
+  .verse-strip span { display: block; font-size: 11px; color: var(--gold); font-style: normal; margin-top: 4px; letter-spacing: 0.06em; font-family: 'DM Sans', sans-serif; font-weight: 500; }
+
+  /* ── PROGRESS ── */
+  .prog-wrap { margin-bottom: 1.75rem; }
+  .prog-meta { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 7px; font-weight: 500; }
+  .prog-track { height: 6px; background: #e2dbd0; border-radius: 99px; overflow: hidden; }
+  .prog-fill { height: 100%; background: linear-gradient(90deg, var(--navy), var(--blue)); border-radius: 99px; transition: width 0.4s ease; }
+
+  /* ── SECTION BADGE ── */
+  .section-badge {
+    display: flex; align-items: center; gap: 8px;
+    margin: 2rem 0 1rem;
+  }
+  .badge-pill {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 4px 12px;
+    border-radius: 99px; color: #fff;
+  }
+  .badge-pill.blue  { background: var(--blue); }
+  .badge-pill.teal  { background: var(--teal); }
+  .badge-pill.amber { background: var(--amber); }
+  .badge-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* ── QUESTION CARD ── */
+  .q-card {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.6rem 1.75rem;
+    margin-bottom: 1.25rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+    animation: fadeUp 0.3s ease;
+  }
+  .q-card.hidden { display: none; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:none; } }
+
+  .q-meta { display: flex; align-items: center; gap: 8px; margin-bottom: 0.6rem; }
+  .q-num { font-size: 11px; color: var(--muted); font-weight: 600; }
+  .q-cat {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.07em;
+    text-transform: uppercase; padding: 2px 9px;
+    border-radius: 99px;
+  }
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.28rem;
+    color: #1a1a2e;
+    line-height: 1.45;
+    font-weight: 600;
+    margin-bottom: 1.2rem;
+  }
+
+  /* ── OPTIONS ── */
+  .opts { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 11px;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #fdfcfa;
+    user-select: none;
+  }
+  .opt:hover { border-color: #c97777; background: var(--blue-l); }
+  .opt.sel   { border-color: #6B0D0D; background: var(--blue-l); }
+  .opt.sel .opt-l { background: var(--navy); color: #fff; border-color: #6B0D0D; }
+  .opt-l {
+    min-width: 24px; height: 24px; border-radius: 50%;
+    background: #f0ebe3; border: 1.5px solid #d5cfc5;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #888;
+    flex-shrink: 0; margin-top: 1px;
+    transition: all 0.15s;
+  }
+  .opt-text { font-size: 13.5px; color: #333; line-height: 1.55; }
+
+  /* ── NAV ── */
+  .nav { display: flex; justify-content: space-between; align-items: center; margin-top: 1.75rem; gap: 12px; }
+  .btn {
+    font-family: 'DM Sans', sans-serif; font-size: 13.5px; font-weight: 500;
+    padding: 10px 24px; border-radius: 9px;
+    border: 1.5px solid #d0ccc4; cursor: pointer;
+    background: #fff; color: #333; transition: all 0.15s;
+  }
+  .btn:hover { background: #f5f0e8; }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary { background: var(--navy); color: #fff; border-color: #6B0D0D; }
+  .btn.primary:hover { background: #4a0808; }
+  .btn:disabled { opacity: 0.28; cursor: not-allowed; transform: none; }
+
+  /* ── RESULTS ── */
+  .results { display: none; animation: fadeUp 0.5s ease; }
+
+  .result-hero {
+    background: var(--navy);
+    border-radius: 20px;
+    padding: 2rem 2rem 1.75rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .result-hero::before { content:''; position:absolute; top:-30px;right:-30px; width:160px;height:160px; border-radius:50%; background:rgba(201,162,46,0.12); }
+  .r-tag { font-size:10.5px; letter-spacing:0.13em; text-transform:uppercase; color:var(--gold); font-weight:600; margin-bottom:0.5rem; }
+  .r-title { font-family:'Cormorant Garamond',serif; font-size:2.1rem; font-weight:600; color:#fff; line-height:1.2; margin-bottom:0.4rem; }
+  .r-verse { font-family:'Cormorant Garamond',serif; font-size:0.98rem; font-style:italic; color:rgba(255,255,255,0.65); }
+
+  .score-ring {
+    width: 110px; height: 110px; border-radius: 50%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    margin: 1.25rem auto; border: 4px solid; position: relative; z-index: 1;
+  }
+  .score-ring .sn { font-size: 2.2rem; font-weight: 600; line-height: 1; color: #fff; }
+  .score-ring .sl { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-top: 2px; }
+
+  /* ── BREAKDOWN ── */
+  .breakdown { margin-bottom: 1.5rem; }
+  .sec-label { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 0.9rem; }
+
+  .dim-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  @media(max-width:520px){ .dim-grid { grid-template-columns: repeat(2,1fr); } }
+
+  .dim-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 12px; padding: 0.9rem 1rem; text-align: center;
+  }
+  .dim-icon { font-size: 20px; margin-bottom: 4px; }
+  .dim-name { font-size: 10px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 6px; }
+  .dim-bar-bg { height: 5px; background: #ede8df; border-radius: 99px; overflow: hidden; margin-bottom: 5px; }
+  .dim-bar { height: 100%; border-radius: 99px; transition: width 1s ease 0.3s; }
+  .dim-pct { font-size: 13px; font-weight: 600; }
+
+  /* ── PROFILE ── */
+  .profile-card {
+    border-radius: 14px; padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem; border: 1px solid;
+  }
+  .profile-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.25rem; font-weight:600; margin-bottom:0.5rem; }
+  .profile-card p { font-size:13.5px; line-height:1.7; }
+
+  /* ── RECO ── */
+  .reco-card {
+    background: #fff; border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .reco-item { display:flex; gap:12px; align-items:flex-start; padding:10px 0; border-bottom:1px solid #f0ebe3; }
+  .reco-item:last-child { border-bottom:none; padding-bottom:0; }
+  .reco-dot { width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0; }
+  .reco-t { font-size:13.5px;color:#333;line-height:1.65; }
+  .reco-bold { font-weight:600; color:var(--navy); }
+
+  /* ── ACTION CARD ── */
+  .action-card {
+    background: var(--amber-l); border:1px solid #e8c96a;
+    border-radius: 14px; padding: 1.5rem 1.75rem; margin-bottom:1.5rem;
+  }
+  .action-card h3 { font-family:'Cormorant Garamond',serif; font-size:1.15rem;font-weight:600;color:var(--amber);margin-bottom:0.6rem; }
+  .action-steps { list-style:none; display:flex; flex-direction:column; gap:8px; }
+  .action-steps li { display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#5a3a00;line-height:1.6; }
+  .step-num { min-width:22px;height:22px;border-radius:50%;background:var(--amber);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px; }
+
+  /* ── VERSE FOOTER ── */
+  .v-footer { background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem; }
+  .v-footer p { font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65; }
+  .v-footer span { display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:0.06em; }
+
+  /* ── CHURCH CTA ── */
+  .cta { background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem; }
+  .cta h3 { font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:0.4rem; }
+  .cta p { font-size:13px;color:rgba(255,255,255,0.75);line-height:1.6;margin-bottom:1rem; }
+  .cta a { display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:0.04em;transition:background 0.15s; }
+  .cta a:hover { background:var(--gold2); }
+
+  .restart-row { text-align:center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- QUIZ -->
+  <div id="quiz-section">
+    <div class="hero">
+      <div class="hero-tag">Capítulo 1 · Evaluación individual</div>
+      <h1>Atención &amp; Detalles</h1>
+      <p class="sub">12 preguntas para evaluar tu nivel de atención y detalles hacia tu pareja. Responde con total honestidad — nadie más verá tus respuestas.</p>
+      <div class="verse-strip">
+        "Y pasé yo otra vez junto a ti, y te miré, y he aquí que tu tiempo era tiempo de amores..."
+        <span>Ezequiel 16:8</span>
+      </div>
+    </div>
+
+    <div class="prog-wrap">
+      <div class="prog-meta">
+        <span id="plabel">Pregunta 1 de 12</span>
+        <span id="ppct">0% completado</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+    </div>
+
+    <div id="qcontainer"></div>
+
+    <div class="nav">
+      <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+      <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results" id="results-section">
+
+    <div class="result-hero">
+      <div class="r-tag">Tus resultados personales</div>
+      <div class="r-title" id="rTitle"></div>
+      <div class="r-verse" id="rVerse"></div>
+      <div class="score-ring" id="sRing">
+        <div class="sn" id="sNum">0</div>
+        <div class="sl">/ 100</div>
+      </div>
+    </div>
+
+    <div class="breakdown">
+      <div class="sec-label">Evaluación por dimensión</div>
+      <div class="dim-grid" id="dimGrid"></div>
+    </div>
+
+    <div class="profile-card" id="profileCard"></div>
+
+    <div class="reco-card">
+      <div class="sec-label" style="margin-bottom:1rem;">Lo que puedes hacer esta semana</div>
+      <div id="recoList"></div>
+    </div>
+
+    <div class="action-card">
+      <h3>🎯 Dinámica del capítulo — "El detalle que nunca te dije"</h3>
+      <ul class="action-steps">
+        <li><div class="step-num">1</div>Escribe en un papel 3 pequeños detalles que tu pareja ha tenido contigo y que te hicieron sentir especial.</li>
+        <li><div class="step-num">2</div>Escribe 1 detalle que te gustaría recibir con más frecuencia. Sé específico/a, no general.</li>
+        <li><div class="step-num">3</div>Comparte lo que escribiste con tu pareja — con calma, mirándole a los ojos y sin defensas.</li>
+        <li><div class="step-num">4</div>Comprométanse juntos a poner en práctica al menos uno de esos detalles durante esta semana.</li>
+      </ul>
+    </div>
+
+    <div class="v-footer">
+      <p>"Nuevas son sus misericordias cada mañana; grande es su fidelidad."</p>
+      <span>Lamentaciones 3:23 — El Señor es detallista con nosotros cada día. ¿Lo somos nosotros con nuestra pareja?</span>
+    </div>
+
+    <div class="cta">
+      <h3>¿Quieres profundizar más?</h3>
+      <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+      <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn" onclick="restart()">↩ Responder de nuevo</button>
+    </div>
+  </div>
+
+</div>
+<script>
+// ── DATA ────────────────────────────────────────────────────────────────────
+const DIMS = {
+  rutina:   { label:"Rutina",    icon:"🔄", color:"#185FA5" },
+  detalles: { label:"Detalles",  icon:"🌸", color:"#0F6E56" },
+  tiempo:   { label:"Tiempo",    icon:"⏱",  color:"#854F0B" },
+  admira:   { label:"Admiración",icon:"⭐", color:"#534AB7" },
+  iniciativa:{ label:"Iniciativa",icon:"🚀", color:"#993C1D" },
+  fe:       { label:"Fe práctica",icon:"🙏", color:"#0F6E56" },
+};
+
+const Qs = [
+  // ── BLOQUE A: La rutina y el olvido ──
+  { dim:"rutina", cat:"La rutina", catColor:"#185FA5",
+    text:"¿Con qué frecuencia te das cuenta de que la rutina ha apagado los detalles que tenías con tu pareja durante el noviazgo?",
+    opts:["Casi nunca; sigo siendo detallista como al principio.","A veces lo noto, pero tomo medidas para romper la rutina.","Con frecuencia; la rutina se ha apoderado de nuestra relación.","Siempre; ya ni recuerdo cuándo fue el último detalle genuino."]
+  },
+  { dim:"rutina", cat:"La rutina", catColor:"#185FA5",
+    text:"Según el capítulo, el desinterés y la cultura son enemigos del amor. ¿Cuál de estas frases culturales has pensado o dicho alguna vez?",
+    opts:["Ninguna; nunca me he dejado llevar por esos estereotipos.","'Así me conoció' — lo he pensado pero trato de superarlo.","'Eso es para el noviazgo' — siento que eso ya quedó atrás.","'Nadie practica eso ya' — me ha costado salir de ese molde."]
+  },
+
+  // ── BLOQUE B: Detalles concretos ──
+  { dim:"detalles", cat:"Detalles concretos", catColor:"#0F6E56",
+    text:"¿Con qué frecuencia realizas gestos concretos para tu pareja sin esperar una fecha especial (flores, su comida favorita, un mensaje inesperado, etc.)?",
+    opts:["Casi todos los días; es algo natural en mí.","Varias veces por semana; me gusta sorprenderle.","Pocas veces; necesito una ocasión para animarme.","Casi nunca; espero que él/ella tome la iniciativa."]
+  },
+  { dim:"detalles", cat:"Detalles concretos", catColor:"#0F6E56",
+    text:"El capítulo habla de que José, a pesar de una situación muy difícil, siguió siendo detallista con María. ¿Cómo reaccionas tú cuando hay conflicto o tensión en la relación?",
+    opts:["Sigo siendo detallista incluso cuando estamos mal; no lo mezclo.","A veces lo intento, aunque me cuesta cuando hay conflicto.","Cuando hay tensión, los detalles desaparecen por completo.","En el conflicto me alejo emocionalmente y dejo de esforzarme."]
+  },
+
+  // ── BLOQUE C: Tiempo de calidad ──
+  { dim:"tiempo", cat:"Tiempo de calidad", catColor:"#854F0B",
+    text:"El libro dice que el mayor regalo es el 'tiempo'. ¿Cuánto tiempo de calidad (sin celular, sin TV, solo para tu pareja) le dedicas diariamente?",
+    opts:["30 minutos o más; es una prioridad para mí cada día.","15 a 30 minutos; intento pero no siempre lo logro.","Menos de 15 minutos; la agenda me consume.","Casi nada; pasamos tiempo en el mismo espacio pero no conectamos."]
+  },
+  { dim:"tiempo", cat:"Tiempo de calidad", catColor:"#854F0B",
+    text:"Cuando tu pareja quiere hablar o compartir contigo, ¿qué haces con mayor frecuencia?",
+    opts:["Dejo lo que estoy haciendo, apago el celular y le doy mi atención completa.","Intento escuchar, aunque a veces el celular o la TV me distraen.","Le escucho a medias mientras hago otra cosa.","Le digo que esperemos para después y ese momento nunca llega."]
+  },
+
+  // ── BLOQUE D: Admiración ──
+  { dim:"admira", cat:"Admiración", catColor:"#534AB7",
+    text:"¿Con qué frecuencia le dices a tu pareja, de manera específica, qué admiras de él/ella (no solo 'te quiero' sino exactamente qué valoras)?",
+    opts:["Regularmente; verbalizo de manera específica lo que admiro y agradezco.","A veces; podría ser mucho más intencional con las palabras de admiración.","Raramente; no soy muy expresivo/a verbalmente con mi pareja.","Casi nunca; asumo que ya lo sabe sin necesidad de decírselo."]
+  },
+  { dim:"admira", cat:"Admiración", catColor:"#534AB7",
+    text:"El capítulo menciona hablar bien de tu pareja delante de otras personas. ¿Cómo describirías lo que dices de él/ella cuando estás con amigos o familia?",
+    opts:["Siempre hablo bien de mi pareja; es mi mayor fan público/a.","Generalmente positivo, aunque a veces me quejo con personas cercanas.","Mezclado; a veces lo elogio y otras veces ventilo sus defectos.","Frecuentemente critico o me quejo de mi pareja frente a otros."]
+  },
+
+  // ── BLOQUE E: Iniciativa e imprevistos ──
+  { dim:"iniciativa", cat:"Iniciativa", catColor:"#993C1D",
+    text:"El libro dice que no podemos esperar a que el otro tome la iniciativa. ¿Con qué frecuencia eres TÚ quien rompe la rutina con algo inesperado para tu pareja?",
+    opts:["Frecuentemente; me encanta sorprenderle sin que lo espere.","Ocasionalmente; lo hago pero podría ser más constante.","Raramente; espero que él/ella tome la iniciativa primero.","Casi nunca; no se me ocurre qué hacer o me da pereza intentarlo."]
+  },
+  { dim:"iniciativa", cat:"Iniciativa", catColor:"#993C1D",
+    text:"¿Cuál de las 7 formas de regalar detalles del capítulo (tiempo, atención, detalles, admiración, amor, imprevistos, el accionar del Señor) practicas con MENOS frecuencia?",
+    opts:["Imprevistos — casi nunca rompo la rutina con algo inesperado.","Admiración — rara vez expreso verbalmente lo que valoro de mi pareja.","Tiempo — me cuesta apartar momentos exclusivos sin distracciones.","El accionar del Señor — no tengo el hábito diario de un detalle como orar juntos o dar una palabra de aliento."]
+  },
+
+  // ── BLOQUE F: Fe práctica ──
+  { dim:"fe", cat:"Fe y práctica", catColor:"#0F6E56",
+    text:"El capítulo menciona que 'Nuevas son sus misericordias cada mañana' (Lamentaciones 3:23) y que debemos imitar ese amor diario del Señor. ¿Tienes un hábito diario intencional de demostrar amor a tu pareja?",
+    opts:["Sí; cada mañana pienso en cómo demostrar amor ese día.","Intento hacerlo, aunque no con la constancia que quisiera.","Lo hago esporádicamente, sin un hábito claro establecido.","No; nunca lo había visto como un hábito diario a cultivar."]
+  },
+  { dim:"fe", cat:"Fe y práctica", catColor:"#0F6E56",
+    text:"Al leer la historia de José y María en el capítulo, ¿qué reflexión te genera respecto a tu propio matrimonio?",
+    opts:["Me inspira; José fue un ejemplo poderoso de amor incondicional y detalle.","Me hace pensar que debo mejorar en mantener los detalles en momentos difíciles.","Me confronta; reconozco que en las dificultades abandono los gestos de amor.","Me cuesta relacionarlo con mi situación; lo veo muy lejano a mi realidad."]
+  },
+];
+
+// ── STATE ────────────────────────────────────────────────────────────────────
+let cur = 0;
+let ans = new Array(Qs.length).fill(null);
+
+// ── BUILD ────────────────────────────────────────────────────────────────────
+function buildCards() {
+  const c = document.getElementById('qcontainer');
+  Qs.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'q-card' + (i !== 0 ? ' hidden' : '');
+    card.id = 'q' + i;
+    card.innerHTML = `
+      <div class="q-meta">
+        <span class="q-num">Pregunta ${i+1} de ${Qs.length}</span>
+        <span class="q-cat" style="background:${q.catColor}18;color:${q.catColor}">${q.cat}</span>
+      </div>
+      <div class="q-text">${q.text}</div>
+      <div class="opts">
+        ${q.opts.map((o,oi)=>`
+          <div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})">
+            <div class="opt-l">${String.fromCharCode(65+oi)}</div>
+            <div class="opt-text">${o}</div>
+          </div>`).join('')}
+      </div>`;
+    c.appendChild(card);
+  });
+}
+
+function pick(qi, oi, score) {
+  ans[qi] = score;
+  document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el => el.classList.remove('sel'));
+  document.getElementById(`o${qi}_${oi}`).classList.add('sel');
+  updateNav();
+}
+
+function nav(dir) {
+  if (dir === 1 && ans[cur] === null) return;
+  document.getElementById('q'+cur).classList.add('hidden');
+  cur += dir;
+  if (cur < 0) cur = 0;
+  if (cur >= Qs.length) { showResults(); return; }
+  document.getElementById('q'+cur).classList.remove('hidden');
+  updateProg(); updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateNav() {
+  document.getElementById('btnPrev').disabled = cur === 0;
+  const nb = document.getElementById('btnNext');
+  nb.disabled = ans[cur] === null;
+  nb.textContent = cur === Qs.length - 1
+    ? (ans[cur] !== null ? 'Ver mis resultados →' : 'Siguiente →')
+    : 'Siguiente →';
+}
+
+function updateProg() {
+  const done = ans.filter(a => a !== null).length;
+  const pct = Math.round((done / Qs.length) * 100);
+  document.getElementById('pfill').style.width = pct + '%';
+  document.getElementById('plabel').textContent = `Pregunta ${cur+1} de ${Qs.length}`;
+  document.getElementById('ppct').textContent = pct + '% completado';
+}
+
+// ── RESULTS ──────────────────────────────────────────────────────────────────
+function showResults() {
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('results-section').style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const total = ans.reduce((a,b) => a+b, 0);
+  const maxScore = Qs.length * 4;
+  const pct = Math.round((total / maxScore) * 100);
+
+  document.getElementById('sNum').textContent = pct;
+
+  // ── Profile ──
+  let title, verse, verseRef, desc, ringColor, profileBg, profileBorder;
+  if (pct >= 80) {
+    title = "Corazón detallista"; verse = "Y pasé yo otra vez junto a ti, y te miré..."; verseRef = "Ezequiel 16:8";
+    desc = "Tu nivel de atención y detalles hacia tu pareja es sólido y consistente. Eres de las personas que entienden que el amor no se declara solo con palabras sino con gestos cotidianos. Tu reto ahora es mantener esa intencionalidad y crecer aún más en las áreas donde ves oportunidad.";
+    ringColor = "#0F6E56"; profileBg = "var(--teal-l)"; profileBorder = "#5DCAA5";
+  } else if (pct >= 60) {
+    title = "En crecimiento"; verse = "Dios restaura lo que pasó."; verseRef = "Eclesiastés 3:15";
+    desc = "Tienes una base genuina de amor y atención, pero hay áreas en las que la rutina, el desinterés o la falta de iniciativa están robando la frescura de tu relación. Este capítulo te está llamando a dar un paso intencional: los pequeños detalles diarios hacen una diferencia enorme acumulada.";
+    ringColor = "#185FA5"; profileBg = "var(--blue-l)"; profileBorder = "#85B7EB";
+  } else if (pct >= 40) {
+    title = "La rutina te ha ganado"; verse = "Nuevas son sus misericordias cada mañana."; verseRef = "Lamentaciones 3:23";
+    desc = "La rutina, el desinterés o los estereotipos culturales han ido apagando los detalles en tu relación. Eso no significa que no ames a tu pareja — significa que necesitas renovar los hábitos de amor. Dios renueva su amor cada mañana; tú puedes hacer lo mismo empezando hoy con un pequeño gesto.";
+    ringColor = "#854F0B"; profileBg = "var(--amber-l)"; profileBorder = "#EF9F27";
+  } else {
+    title = "Es hora de despertar"; verse = "Aquello que fue, ya es; y Dios restaura lo que pasó."; verseRef = "Eclesiastés 3:15";
+    desc = "Los resultados muestran que los detalles y la atención hacia tu pareja han estado muy ausentes. Eso genera distancia emocional, resentimiento y la sensación de 'ya no es la misma persona'. La buena noticia es que Dios puede restaurar lo que se ha perdido — pero requiere que tú decidas actuar hoy.";
+    ringColor = "#8b2035"; profileBg = "var(--rose-l)"; profileBorder = "#F09595";
+  }
+
+  document.getElementById('rTitle').textContent = title;
+  document.getElementById('rVerse').innerHTML = `"${verse}" — ${verseRef}`;
+  const ring = document.getElementById('sRing');
+  ring.style.borderColor = ringColor + '55';
+  ring.querySelector('.sn').style.color = '#fff';
+
+  const pc = document.getElementById('profileCard');
+  pc.style.background = profileBg;
+  pc.style.borderColor = profileBorder;
+  pc.innerHTML = `<h3 style="color:${ringColor}">${title}</h3><p style="color:#444">${desc}</p>`;
+
+  // ── Dimensions ──
+  const dimScores = {};
+  const dimCounts = {};
+  Qs.forEach((q,i) => {
+    if (!dimScores[q.dim]) { dimScores[q.dim]=0; dimCounts[q.dim]=0; }
+    dimScores[q.dim] += ans[i];
+    dimCounts[q.dim]++;
+  });
+
+  const grid = document.getElementById('dimGrid');
+  grid.innerHTML = '';
+  Object.entries(DIMS).forEach(([key, cfg]) => {
+    const raw = dimScores[key] || 0;
+    const max = (dimCounts[key] || 1) * 4;
+    const dpct = Math.round((raw / max) * 100);
+    grid.innerHTML += `
+      <div class="dim-card">
+        <div class="dim-icon">${cfg.icon}</div>
+        <div class="dim-name">${cfg.label}</div>
+        <div class="dim-bar-bg"><div class="dim-bar" style="width:${dpct}%;background:${cfg.color}"></div></div>
+        <div class="dim-pct" style="color:${cfg.color}">${dpct}%</div>
+      </div>`;
+  });
+
+  // ── Recommendations ──
+  const recos = {
+    rutina: { bold:"Rompe la rutina:", text:"Esta semana haz algo diferente: cocinen juntos, salgan a caminar o simplemente siéntense a conversar sin celular. Los imprevistos son las chispas que reavivan el amor." },
+    detalles: { bold:"Un detalle concreto hoy:", text:"No esperes una fecha especial. Manda un mensaje ahora mismo diciéndole a tu pareja algo específico que aprecias de él/ella. O prepara su comida favorita esta semana sin avisar." },
+    tiempo: { bold:"El regalo del tiempo:", text:"Aparta 20 minutos esta noche — solo para tu pareja. Apaga el celular, mírala a los ojos y pregúntale: '¿Cómo te has sentido esta semana?' Solo escucha sin dar consejos." },
+    admira: { bold:"Palabras de admiración:", text:"Hoy dile a tu pareja 3 cosas específicas que admiras de él/ella. No 'eres buena persona' sino 'admiro cómo manejas la presión del trabajo' o 'me impresiona tu paciencia con los hijos'." },
+    iniciativa: { bold:"Toma la iniciativa:", text:"No esperes a que tu pareja sea detallista primero. El capítulo enseña que cualquiera de los dos puede tomar la delantera — y los detalles se vuelven recíprocos. Empieza tú hoy." },
+    fe: { bold:"Amor como el del Señor:", text:"Cada mañana, antes de salir o comenzar el día, piensa en un detalle que puedes darle a tu pareja ese día — aunque sea pequeño. Hazlo un hábito tan natural como tomarte el café." },
+  };
+
+  const weakDims = Object.entries(dimScores)
+    .map(([k,v]) => ({ key:k, pct: Math.round((v/((dimCounts[k]||1)*4))*100) }))
+    .sort((a,b) => a.pct - b.pct)
+    .slice(0, 4);
+
+  const rl = document.getElementById('recoList');
+  rl.innerHTML = '';
+  weakDims.forEach(d => {
+    const r = recos[d.key];
+    if (!r) return;
+    rl.innerHTML += `<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`;
+  });
+  if (!rl.innerHTML) {
+    rl.innerHTML = '<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente trabajo! Mantén la intencionalidad diaria y sigue siendo ese ejemplo de amor detallista para tu pareja.</div></div>';
+  }
+}
+
+function restart() {
+  cur = 0;
+  ans = new Array(Qs.length).fill(null);
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  document.querySelectorAll('.q-card').forEach((c,i) => c.classList.toggle('hidden', i!==0));
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('sel'));
+  document.getElementById('pfill').style.width = '0%';
+  document.getElementById('ppct').textContent = '0% completado';
+  document.getElementById('plabel').textContent = 'Pregunta 1 de 12';
+  updateNav();
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+
+buildCards();
+updateNav();
+</script>
+</body>
+</html>

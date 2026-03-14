@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 11 — Intimidad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--c1:#3C3489;--c2:#26215C;--cl:#EEEDFE;--gold:#c9a22e;--gold2:#a8861f;--navy:#6B0D0D;--navy2:#4a0808;--border:#e5dfd4;--text:#2c2c2c;--muted:#777}
+body{font-family:'DM Sans',sans-serif;background:#f9f7f4;color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto}
+.hero{background:#6B0D0D;border-radius:20px;padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,162,46,0.12)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;max-width:500px;margin-bottom:1.25rem}
+.vstrip{background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.85);position:relative;z-index:1}
+.vstrip span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;letter-spacing:.06em;font-family:'DM Sans',sans-serif;font-weight:500}
+.prog-wrap{margin-bottom:1.75rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.prog-track{height:6px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,var(--c1));border-radius:99px;transition:width .4s ease}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);animation:fadeUp .3s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:#1a1a2e;line-height:1.45;font-weight:600;margin-bottom:1.2rem}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:var(--c2);background:var(--cl)}
+.opt.sel{border-color:var(--c1);background:var(--cl)}
+.opt.sel .opt-l{background:var(--c1);color:#fff;border-color:var(--c1)}
+.opt-l{min-width:24px;height:24px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13.5px;color:#333;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;gap:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 24px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn.primary:hover{background:var(--c2)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.results{display:none;animation:fadeUp .5s ease}
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(255,255,255,.65)}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.2rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.sec-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.9rem}
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+@media(max-width:520px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;text-align:center}
+.dim-icon{font-size:20px;margin-bottom:4px}
+.dim-name{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dim-bar-bg{height:5px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.dim-bar{height:100%;border-radius:99px;transition:width 1s ease .3s}
+.dim-pct{font-size:13px;font-weight:600}
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.reco-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0ebe3}
+.reco-item:last-child{border-bottom:none;padding-bottom:0}
+.reco-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+.reco-t{font-size:13.5px;color:#333;line-height:1.65}
+.reco-bold{font-weight:600;color:var(--c1)}
+.action-card{background:#EEEDFE;border:1px solid var(--c2);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.action-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--c2);margin-bottom:.6rem}
+.action-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.action-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+.restart-row{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Capítulo 11 · Evaluación individual</div>
+    <h1>Intimidad</h1>
+    <p class="sub">12 preguntas para evaluar la intimidad emocional, física y espiritual en tu matrimonio.</p>
+    <div class="vstrip">"Las muchas aguas no podrán apagar el amor, ni lo ahogarán los ríos."<span>Cantares 8:7</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta"><span id="plabel">Pregunta 1 de 12</span><span id="ppct">0% completado</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+  </div>
+  <div id="qcontainer"></div>
+  <div class="nav">
+    <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+    <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+  </div>
+</div>
+<div class="results" id="results-section">
+  <div class="result-hero">
+    <div class="r-tag">Tus resultados personales — Capítulo 11</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing"><div class="sn" id="sNum">0</div><div class="sl">/ 100</div></div>
+  </div>
+  <div class="sec-label">Evaluación por dimensión</div>
+  <div class="dim-grid" id="dimGrid"></div>
+  <div class="profile-card" id="profileCard"></div>
+  <div class="reco-card">
+    <div class="sec-label" style="margin-bottom:1rem">Lo que puedes hacer esta semana</div>
+    <div id="recoList"></div>
+  </div>
+  <div class="action-card">
+    <h3>🎯 Dinámica — "La cita intencional"</h3>
+    <ul class="action-steps"><li><div class="step-num">1</div>Planeen una cita solos esta semana. Sin hijos ni celulares. Puede ser en casa.</li><li><div class="step-num">2</div>Cada uno responde en voz alta: '¿Cuál es un recuerdo nuestro que guardo con mucho cariño?', '¿Qué admiro de ti hoy más que cuando nos casamos?'</li><li><div class="step-num">3</div>Cada uno escribe una carta corta (al menos 10 líneas) a su pareja con gratitud y esperanzas para el futuro.</li><li><div class="step-num">4</div>Léanse las cartas. Oren juntos agradeciendo a Dios por el regalo de su relación.</li></ul>
+  </div>
+  <div class="v-footer"><p>"Las muchas aguas no podrán apagar el amor, ni lo ahogarán los ríos."</p><span>Cantares 8:7</span></div>
+  <div class="cta">
+    <h3>¿Quieres profundizar más?</h3>
+    <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+    <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+  </div>
+  <div class="restart-row"><button class="btn" onclick="restart()">↩ Responder de nuevo</button></div>
+</div>
+</div>
+<script>
+const DIMS={"emocional":{"label":"Intimidad emocional","icon":"💙","color":"#3C3489"},"fisica":{"label":"Intimidad física","icon":"❤️","color":"#A32D2D"},"espiritual":{"label":"Intimidad espiritual","icon":"🙏","color":"#0F6E56"},"barreras":{"label":"Barreras","icon":"🧱","color":"#854F0B"},"comunicacion":{"label":"Comunicación íntima","icon":"💬","color":"#185FA5"},"cuidado":{"label":"Cuidado mutuo","icon":"🌿","color":"#3C3489"}};
+const Qs=[{"dim":"emocional","cat":"Intimidad emocional","cc":"#3C3489","text":"¿Cómo describes la intimidad emocional (conexión, confianza, vulnerabilidad) en tu relación hoy?","opts":["Muy alta; me siento profundamente conectado/a y hay apertura y confianza real.","Alta; hay conexión aunque podría ser más profunda y consistente.","Media; hay cierta distancia emocional que ninguno de los dos ha abordado.","Baja; hay muros emocionales entre nosotros que llevan tiempo levantados."]},{"dim":"emocional","cat":"Intimidad emocional","cc":"#3C3489","text":"¿Cuánto te permites ser vulnerable con tu pareja — mostrando tus miedos, inseguridades o momentos de debilidad?","opts":["Mucho; la vulnerabilidad es algo que valoro y practico con mi pareja.","Algo; me permito ser vulnerable aunque hay áreas que todavía guardo.","Poco; me cuesta bajar la guardia y mostrarme tal como soy.","Casi nada; la vulnerabilidad emocional me resulta muy difícil o amenazante."]},{"dim":"fisica","cat":"Intimidad física","cc":"#A32D2D","text":"¿Cómo describes la intimidad física (contacto, cercanía, vida sexual) en su relación actualmente?","opts":["Muy bien; hay cercanía, afecto cotidiano y satisfacción mutua.","Bien, aunque hay áreas de la intimidad física que podríamos mejorar.","Regular; la intimidad física se ha ido reduciendo y genera algo de frustración.","Deteriorada; la intimidad física es un área de conflicto o dolor en la relación."]},{"dim":"fisica","cat":"Intimidad física","cc":"#A32D2D","text":"Proverbios 5:18 dice 'alégrate con la mujer de tu juventud'. ¿Cuánto se esfuerzan en mantener viva la pasión y el romance en su relación?","opts":["Mucho; intencionalmente cuidamos el romance, la atracción y el deseo mutuo.","Algo; lo hacemos cuando hay oportunidad aunque podría ser más intencional.","Poco; la rutina y el cansancio han apagado bastante esa área.","Casi nada; el romance y la pasión han desaparecido casi completamente."]},{"dim":"espiritual","cat":"Intimidad espiritual","cc":"#0F6E56","text":"¿Oran juntos regularmente como pareja?","opts":["Sí, todos los días; la oración compartida es un pilar de nuestra relación.","Varias veces por semana; es una práctica que valoramos aunque no siempre constante.","Pocas veces; lo hacemos en momentos especiales o de crisis.","Casi nunca; no tenemos el hábito de orar juntos como pareja."]},{"dim":"espiritual","cat":"Intimidad espiritual","cc":"#0F6E56","text":"¿Comparten su vida espiritual (fe, dudas, oraciones, testimonios) con tu pareja de manera abierta?","opts":["Sí; la vida espiritual es un área de intimidad y apertura entre nosotros.","Algo; compartimos algunas cosas espirituales pero no con mucha profundidad.","Poco; la vida espiritual tiende a ser más individual que compartida.","Casi nada; nunca hemos tenido esa dimensión de intimidad espiritual."]},{"dim":"barreras","cat":"Barreras a la intimidad","cc":"#854F0B","text":"¿Hay barreras no resueltas (resentimientos, heridas pasadas, pornografía, cansancio crónico) que afecten su intimidad?","opts":["No; hemos trabajado en las heridas y nuestra intimidad está sana.","Hay algunos temas pendientes que ocasionalmente generan distancia.","Sí; hay una barrera específica que afecta nuestra intimidad y no hemos hablado.","Sí; hay una crisis de intimidad que requiere ayuda profesional o pastoral."]},{"dim":"barreras","cat":"Barreras a la intimidad","cc":"#854F0B","text":"¿El uso del celular, las redes sociales o la pornografía están afectando la intimidad en tu matrimonio?","opts":["No; hemos establecido límites saludables con la tecnología en nuestra relación.","Levemente; a veces la tecnología resta tiempo o presencia a la relación.","Con frecuencia; el celular o contenido digital afectan nuestra conexión íntima.","Sí; la pornografía u otro contenido digital es un problema real en la relación."]},{"dim":"comunicacion","cat":"Comunicación íntima","cc":"#185FA5","text":"¿Con qué libertad y apertura pueden hablar sobre su vida íntima como pareja?","opts":["Con mucha libertad; es un tema que tratamos con naturalidad y sin tabú.","Con cierta apertura, aunque hay aspectos que nos cuesta abordar directamente.","Con dificultad; es un tema incómodo que generalmente evitamos.","Casi no hablamos de ello; hay vergüenza, silencio o temor al respecto."]},{"dim":"comunicacion","cat":"Comunicación íntima","cc":"#185FA5","text":"¿Le has expresado a tu pareja con claridad qué necesitas para sentirte más conectado/a íntimamente?","opts":["Sí; hay comunicación clara y honesta sobre nuestras necesidades íntimas.","Algo; lo insinúo pero no siempre lo digo de manera directa y clara.","Poco; guardo esas necesidades internamente para no generar conflicto.","No; nunca lo he expresado con claridad ni ha sido un tema de conversación."]},{"dim":"cuidado","cat":"Cuidado mutuo","cc":"#3C3489","text":"¿Con qué frecuencia se toman tiempo de calidad solos los dos, sin hijos ni pantallas, solo para conectarse como pareja?","opts":["Regularmente; lo priorizamos porque sabemos que nutre la relación.","De vez en cuando; quisiéramos hacerlo más pero la agenda no siempre lo permite.","Muy pocas veces; vivimos juntos pero rara vez estamos solos de verdad.","Casi nunca; hace mucho tiempo que no tienen un tiempo a solas como pareja."]},{"dim":"cuidado","cat":"Cuidado mutuo","cc":"#3C3489","text":"¿Qué hace tu pareja que más te conecta emocionalmente con él/ella? ¿Lo sabe?","opts":["Sí lo sabe; se lo he dicho y lo practica conscientemente.","Creo que lo intuye, aunque nunca se lo he dicho de manera explícita.","Tal vez lo sabe, pero no lo conecta con lo que más me impacta.","No lo sabe; nunca hemos hablado de eso específicamente."]}];
+const PROFILES=[{"title":"Intimidad plena y cultivada","verse":"\"Las muchas aguas no podrán apagar el amor.\" — Cantares 8:7","color":"#3C3489","bg":"#EEEDFE","border":"#AFA9EC","desc":"Tu relación goza de una intimidad rica en sus dimensiones emocional, física y espiritual. Eso es un regalo que no todos tienen. Sigan invirtiéndose en cada dimensión y cuídense especialmente en las temporadas de mayor estrés, cuando la intimidad es lo primero que sufre."},{"title":"Intimidad en crecimiento","verse":"\"El amor es sufrido.\" — 1 Corintios 13:4","color":"#3C3489","bg":"#EEEDFE","border":"#AFA9EC","desc":"Tienes una base real de intimidad, pero hay dimensiones que necesitan más atención e inversión. La intimidad no se mantiene sola — se cultiva con tiempo, conversación y presencia. Este capítulo te invita a identificar las barreras y dar pasos concretos para derribarlas."},{"title":"La intimidad está en riesgo","verse":"\"Alégrate con la mujer de tu juventud.\" — Proverbios 5:18","color":"#854F0B","bg":"#fdf3dc","border":"#EF9F27","desc":"La distancia emocional, física o espiritual está creciendo en tu relación. Eso no siempre es intencional — pero sí es peligroso. Las barreras no tratadas se convierten en muros. Identifica la barrera principal y da un paso concreto para hablarla con tu pareja esta semana."},{"title":"La intimidad necesita restauración","verse":"\"Y serán una sola carne.\" — Génesis 2:24","color":"#8b2035","bg":"#fdf0f2","border":"#F09595","desc":"Tu relación está experimentando una crisis seria de intimidad en una o más dimensiones. Eso genera dolor, soledad y distancia que puede ir creciendo. Busquen ayuda pastoral o de consejería esta semana. La restauración es posible — pero requiere valentía para dar el primer paso juntos."}];
+const RECOS={"emocional":{"bold":"Una pregunta de intimidad emocional:","text":"Esta noche pregúntale a tu pareja: '¿Hay algo que estés cargando en este momento que no me has contado?' Solo escucha sin dar consejos. La presencia es suficiente."},"fisica":{"bold":"Recupera el contacto físico cotidiano:","text":"Esta semana, busca intencionalmente el contacto físico no sexual: toma su mano, dale un abrazo largo, un beso espontáneo. El contacto cotidiano mantiene vivo el vínculo físico."},"espiritual":{"bold":"Oren juntos esta noche:","text":"Esta noche, antes de dormir, tómense de las manos y oren juntos. No tiene que ser perfecto. Solo 3 minutos donde cada uno habla con Dios por el otro. Eso genera una intimidad espiritual única."},"barreras":{"bold":"Nombra la barrera:","text":"Identifica la barrera principal que está afectando la intimidad en tu relación. Solo nómbrala — en tu corazón primero, y luego, en el momento adecuado, con tu pareja. Nombrar la barrera es el primer paso para derribarla."},"comunicacion":{"bold":"Dile qué te conecta:","text":"Dile a tu pareja con claridad: 'Lo que más me hace sentir cerca de ti es [específico].' Esa información es un regalo para tu pareja — y le dice exactamente cómo amarte bien."},"cuidado":{"bold":"Una cita de intimidad esta semana:","text":"Planeen una noche para estar solos los dos — sin hijos ni celulares. No tiene que ser cara. Puede ser en casa con una cena sencilla. Lo que importa es la presencia, no el escenario."}};
+let cur=0,ans=new Array(Qs.length).fill(null);
+function buildCards(){const c=document.getElementById('qcontainer');Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='q-card'+(i!==0?' hidden':'');d.id='q'+i;d.innerHTML=`<div class="q-meta"><span class="q-num">Pregunta ${i+1} de ${Qs.length}</span><span class="q-cat" style="background:${q.cc}22;color:${q.cc}">${q.cat}</span></div><div class="q-text">${q.text}</div><div class="opts">${q.opts.map((o,oi)=>`<div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})"><div class="opt-l">${String.fromCharCode(65+oi)}</div><div class="opt-text">${o}</div></div>`).join('')}</div>`;c.appendChild(d);})}
+function pick(qi,oi,score){ans[qi]=score;document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el=>el.classList.remove('sel'));document.getElementById(`o${qi}_${oi}`).classList.add('sel');updateNav()}
+function nav(dir){if(dir===1&&ans[cur]===null)return;document.getElementById('q'+cur).classList.add('hidden');cur+=dir;if(cur<0)cur=0;if(cur>=Qs.length){showResults();return}document.getElementById('q'+cur).classList.remove('hidden');updateProg();updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+function updateNav(){document.getElementById('btnPrev').disabled=cur===0;const nb=document.getElementById('btnNext');nb.disabled=ans[cur]===null;nb.textContent=cur===Qs.length-1&&ans[cur]!==null?'Ver mis resultados →':'Siguiente →'}
+function updateProg(){const done=ans.filter(a=>a!==null).length;const pct=Math.round(done/Qs.length*100);document.getElementById('pfill').style.width=pct+'%';document.getElementById('plabel').textContent=`Pregunta ${cur+1} de ${Qs.length}`;document.getElementById('ppct').textContent=pct+'% completado'}
+function showResults(){document.getElementById('quiz-section').style.display='none';document.getElementById('results-section').style.display='block';window.scrollTo({top:0,behavior:'smooth'});const total=ans.reduce((a,b)=>a+b,0);const pct=Math.round(total/(Qs.length*4)*100);document.getElementById('sNum').textContent=pct;const p=pct>=80?PROFILES[0]:pct>=60?PROFILES[1]:pct>=40?PROFILES[2]:PROFILES[3];document.getElementById('rTitle').textContent=p.title;document.getElementById('rVerse').innerHTML=p.verse;const ring=document.getElementById('sRing');ring.style.borderColor=p.color+'55';const pc=document.getElementById('profileCard');pc.style.background=p.bg;pc.style.borderColor=p.border;pc.innerHTML=`<h3 style="color:${p.color}">${p.title}</h3><p style="color:#444">${p.desc}</p>`;const dimScores={};const dimCounts={};Qs.forEach((q,i)=>{if(!dimScores[q.dim]){dimScores[q.dim]=0;dimCounts[q.dim]=0}dimScores[q.dim]+=ans[i];dimCounts[q.dim]++});const grid=document.getElementById('dimGrid');grid.innerHTML='';Object.entries(DIMS).forEach(([k,cfg])=>{const raw=dimScores[k]||0;const max=(dimCounts[k]||1)*4;const dp=Math.round(raw/max*100);grid.innerHTML+=`<div class="dim-card"><div class="dim-icon">${cfg.icon}</div><div class="dim-name">${cfg.label}</div><div class="dim-bar-bg"><div class="dim-bar" style="width:${dp}%;background:${cfg.color}"></div></div><div class="dim-pct" style="color:${cfg.color}">${dp}%</div></div>`});const weak=Object.entries(dimScores).map(([k,v])=>({key:k,pct:Math.round(v/((dimCounts[k]||1)*4)*100)})).sort((a,b)=>a.pct-b.pct).slice(0,4);const rl=document.getElementById('recoList');rl.innerHTML='';weak.forEach(d=>{const r=RECOS[d.key];if(!r)return;rl.innerHTML+=`<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`});if(!rl.innerHTML)rl.innerHTML='<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente! Sigue con la misma intencionalidad y constancia cada día.</div></div>'}
+function restart(){cur=0;ans=new Array(Qs.length).fill(null);document.getElementById('results-section').style.display='none';document.getElementById('quiz-section').style.display='block';document.querySelectorAll('.q-card').forEach((c,i)=>c.classList.toggle('hidden',i!==0));document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('pfill').style.width='0%';document.getElementById('ppct').textContent='0% completado';document.getElementById('plabel').textContent='Pregunta 1 de 12';updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+buildCards();updateNav();
+</script>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 8 — Lealtad</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--c1:#A32D2D;--c2:#791F1F;--cl:#FCEBEB;--gold:#c9a22e;--gold2:#a8861f;--navy:#6B0D0D;--navy2:#4a0808;--border:#e5dfd4;--text:#2c2c2c;--muted:#777}
+body{font-family:'DM Sans',sans-serif;background:#f9f7f4;color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto}
+.hero{background:#6B0D0D;border-radius:20px;padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,162,46,0.12)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;max-width:500px;margin-bottom:1.25rem}
+.vstrip{background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.85);position:relative;z-index:1}
+.vstrip span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;letter-spacing:.06em;font-family:'DM Sans',sans-serif;font-weight:500}
+.prog-wrap{margin-bottom:1.75rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.prog-track{height:6px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,var(--c1));border-radius:99px;transition:width .4s ease}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);animation:fadeUp .3s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:#1a1a2e;line-height:1.45;font-weight:600;margin-bottom:1.2rem}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:var(--c2);background:var(--cl)}
+.opt.sel{border-color:var(--c1);background:var(--cl)}
+.opt.sel .opt-l{background:var(--c1);color:#fff;border-color:var(--c1)}
+.opt-l{min-width:24px;height:24px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13.5px;color:#333;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;gap:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 24px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn.primary:hover{background:var(--c2)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.results{display:none;animation:fadeUp .5s ease}
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(255,255,255,.65)}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.2rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.sec-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.9rem}
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+@media(max-width:520px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;text-align:center}
+.dim-icon{font-size:20px;margin-bottom:4px}
+.dim-name{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dim-bar-bg{height:5px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.dim-bar{height:100%;border-radius:99px;transition:width 1s ease .3s}
+.dim-pct{font-size:13px;font-weight:600}
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.reco-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0ebe3}
+.reco-item:last-child{border-bottom:none;padding-bottom:0}
+.reco-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+.reco-t{font-size:13.5px;color:#333;line-height:1.65}
+.reco-bold{font-weight:600;color:var(--c1)}
+.action-card{background:#FCEBEB;border:1px solid var(--c2);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.action-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--c2);margin-bottom:.6rem}
+.action-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.action-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+.restart-row{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Capítulo 8 · Evaluación individual</div>
+    <h1>Lealtad</h1>
+    <p class="sub">12 preguntas para evaluar tu nivel de lealtad, fidelidad y compromiso con el pacto matrimonial.</p>
+    <div class="vstrip">"Jehová ha atestiguado entre ti y la mujer de tu juventud... la mujer de tu pacto."<span>Malaquías 2:14</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta"><span id="plabel">Pregunta 1 de 12</span><span id="ppct">0% completado</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+  </div>
+  <div id="qcontainer"></div>
+  <div class="nav">
+    <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+    <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+  </div>
+</div>
+<div class="results" id="results-section">
+  <div class="result-hero">
+    <div class="r-tag">Tus resultados personales — Capítulo 8</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing"><div class="sn" id="sNum">0</div><div class="sl">/ 100</div></div>
+  </div>
+  <div class="sec-label">Evaluación por dimensión</div>
+  <div class="dim-grid" id="dimGrid"></div>
+  <div class="profile-card" id="profileCard"></div>
+  <div class="reco-card">
+    <div class="sec-label" style="margin-bottom:1rem">Lo que puedes hacer esta semana</div>
+    <div id="recoList"></div>
+  </div>
+  <div class="action-card">
+    <h3>🎯 Dinámica — "Renovando el pacto"</h3>
+    <ul class="action-steps"><li><div class="step-num">1</div>Busquen las palabras de sus votos matrimoniales originales. Si no las recuerdan, cada uno escribe 5 nuevas promesas personales: 'Me comprometo a...'</li><li><div class="step-num">2</div>Léanse los votos en voz alta, mirándose a los ojos. Con calma, con intención.</li><li><div class="step-num">3</div>Conversen: ¿Cuál de esas promesas han cumplido bien? ¿Cuál necesita renovarse?</li><li><div class="step-num">4</div>Oren juntos, pidiéndole al Señor que selle y proteja su pacto cada día que viene.</li></ul>
+  </div>
+  <div class="v-footer"><p>"Jehová ha atestiguado entre ti y la mujer de tu juventud... la mujer de tu pacto."</p><span>Malaquías 2:14</span></div>
+  <div class="cta">
+    <h3>¿Quieres profundizar más?</h3>
+    <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+    <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+  </div>
+  <div class="restart-row"><button class="btn" onclick="restart()">↩ Responder de nuevo</button></div>
+</div>
+</div>
+<script>
+const DIMS={"fidelidad":{"label":"Fidelidad","icon":"💍","color":"#A32D2D"},"limites":{"label":"Límites","icon":"🛡️","color":"#185FA5"},"pacto":{"label":"Pacto sagrado","icon":"✝️","color":"#0F6E56"},"transparencia":{"label":"Transparencia","icon":"🔍","color":"#854F0B"},"perdon":{"label":"Perdón","icon":"🕊️","color":"#534AB7"},"restauracion":{"label":"Restauración","icon":"🌿","color":"#A32D2D"}};
+const Qs=[{"dim":"fidelidad","cat":"Fidelidad","cc":"#A32D2D","text":"¿Cómo describes tu nivel de fidelidad hacia tu pareja en este momento?","opts":["Soy completamente fiel en lo físico, emocional, verbal y espiritual.","Soy fiel físicamente pero reconozco que hay áreas emocionales que debo cuidar más.","Ha habido situaciones donde mi lealtad se ha comprometido de alguna manera.","La fidelidad y la confianza son un área de crisis en nuestra relación actual."]},{"dim":"fidelidad","cat":"Fidelidad","cc":"#A32D2D","text":"¿Con qué intensidad el propósito de ser completamente leal a tu pareja guía tus decisiones cotidianas?","opts":["Mucho; la lealtad es un valor que gobierna mis relaciones y decisiones diarias.","Bastante; lo recuerdo especialmente cuando enfrento situaciones de tentación.","Poco; tiende a quedar en lo teórico y no siempre en mi vida práctica.","Casi nada; no había pensado en la lealtad como un principio diario de vida."]},{"dim":"limites","cat":"Límites protectores","cc":"#185FA5","text":"¿Han establecido como pareja límites claros para proteger su relación (redes sociales, amistades del sexo opuesto, conversaciones privadas)?","opts":["Sí; tenemos acuerdos claros y ambos los respetamos conscientemente.","Tenemos algunos límites implícitos, aunque no los hemos conversado formalmente.","No hemos establecido límites; confiamos en la buena fe del otro.","Este es un tema que hemos evitado hablar y que necesita atención urgente."]},{"dim":"limites","cat":"Límites protectores","cc":"#185FA5","text":"¿Hay personas, situaciones o hábitos en tu vida que representan un riesgo para la lealtad en tu matrimonio?","opts":["No; cuido activamente los límites y no me pongo en situaciones de riesgo.","Hay algunas situaciones que debería manejar con más sabiduría y cuidado.","Sí; hay una persona o situación que me genera conflicto interno al respecto.","Sí; es algo que necesito abordar urgentemente con mi pareja o un consejero."]},{"dim":"pacto","cat":"El pacto sagrado","cc":"#0F6E56","text":"El capítulo dice que Dios es testigo del matrimonio (Malaquías 2:14). ¿Cuánto peso le das a ese hecho en tu vida diaria?","opts":["Mucho; saber que Dios es testigo me sostiene y motiva a ser fiel.","Bastante; lo recuerdo especialmente en los momentos más difíciles.","Poco; tiende a quedar en lo teológico y no tanto en mi vida práctica.","No lo había pensado de esa manera hasta leer este capítulo."]},{"dim":"pacto","cat":"El pacto sagrado","cc":"#0F6E56","text":"¿Entiendes tu matrimonio como un pacto sagrado ante Dios o más como un contrato entre dos personas?","opts":["Como un pacto sagrado; eso fundamenta toda mi visión del matrimonio.","Más como pacto, aunque a veces en el día a día lo trato como si fuera un contrato.","Honestamente, muchas veces lo vivo más como un contrato que como un pacto.","Nunca lo había reflexionado desde esa perspectiva de pacto vs. contrato."]},{"dim":"transparencia","cat":"Transparencia","cc":"#854F0B","text":"¿Cuán transparente eres con tu pareja en tus amistades, conversaciones y actividades diarias?","opts":["Completamente transparente; mi pareja tiene acceso a mi vida sin secretos.","Bastante transparente, aunque hay pequeñas áreas de privacidad que mantengo.","Medianamente; hay aspectos de mi vida que no comparto con mi pareja.","Poco transparente; hay áreas significativas que mi pareja no conoce."]},{"dim":"transparencia","cat":"Transparencia","cc":"#854F0B","text":"¿Hay secretos (financieros, de comunicación, de amistad) que guardas de tu pareja actualmente?","opts":["No; no tengo secretos con mi pareja en ninguna área importante.","Hay cosas pequeñas que no comparto, pero nada que afecte la confianza.","Sí; hay algo que no he compartido con mi pareja y que podría afectar la confianza.","Sí; hay secretos significativos que mi pareja no conoce y que pesan en la relación."]},{"dim":"perdon","cat":"Perdón","cc":"#534AB7","text":"¿Cómo manejas el perdón cuando tu pareja te ha fallado de alguna manera?","opts":["Proceso el dolor, hablo el tema con honestidad y elijo perdonar.","Perdono eventualmente, aunque me cuesta soltar el resentimiento rápidamente.","Guardo rencor por mucho tiempo; el perdón genuino me resulta muy difícil.","Hay heridas del pasado que todavía no he podido perdonar genuinamente."]},{"dim":"perdon","cat":"Perdón","cc":"#534AB7","text":"¿Hay heridas de traición, deslealtad o falta de confianza que todavía no han sanado completamente en su relación?","opts":["No; hemos trabajado en las heridas pasadas y hay sanidad genuina.","Hay algunas que están en proceso de sanar pero que todavía duelen.","Sí; hay una herida específica que todavía afecta nuestra relación de manera significativa.","Sí; hay heridas profundas y sin tratar que están deteriorando la relación activamente."]},{"dim":"restauracion","cat":"Restauración","cc":"#A32D2D","text":"La historia de Oseas muestra un amor que busca, perdona y restaura. ¿Qué actitud describes más en ti frente a los fallos de tu pareja?","opts":["Busco restaurar; creo en la gracia y la segunda oportunidad con mi pareja.","Mayormente sí, aunque hay fallos que me cuestan más perdonar que otros.","Tiendo a llevar la cuenta; los errores del pasado pesan en mi manera de relacionarme.","Me cuesta mucho no pasar factura; el resentimiento es una lucha constante."]},{"dim":"restauracion","cat":"Restauración","cc":"#A32D2D","text":"Si tuvieras que renovar tus votos matrimoniales hoy, ¿con qué nivel de convicción lo harías?","opts":["Con toda la convicción; elegiría a mi pareja de nuevo sin dudarlo.","Con bastante convicción, aunque reconozco que hay áreas que necesitan sanar.","Con dudas; hay heridas o situaciones que me generan conflicto interno.","Con mucha dificultad; la relación está en un punto que requiere ayuda urgente."]}];
+const PROFILES=[{"title":"Fidelidad como estilo de vida","verse":"\"La valentía atrae a una mujer, la lealtad la mantiene a tu lado.\"","color":"#A32D2D","bg":"#FCEBEB","border":"#F09595","desc":"Tu nivel de lealtad, transparencia y compromiso con el pacto es sólido. Eso crea una seguridad profunda en tu pareja que es invaluable. Sigue cuidando los límites con sabiduría — la lealtad se protege con decisiones pequeñas hechas todos los días."},{"title":"Creciendo en fidelidad","verse":"\"Dios restaura lo que pasó.\" — Eclesiastés 3:15","color":"#A32D2D","bg":"#FCEBEB","border":"#F09595","desc":"Tienes una base real de lealtad, pero hay áreas donde los límites, la transparencia o el perdón necesitan más trabajo. La historia de Oseas nos recuerda que la lealtad no es solo aguantar — es elegir activamente al otro, perdonar, buscar y restaurar."},{"title":"La lealtad necesita reforzarse","verse":"\"Y la mujer de tu pacto.\" — Malaquías 2:14","color":"#854F0B","bg":"#fdf3dc","border":"#EF9F27","desc":"Hay áreas importantes de lealtad, transparencia o perdón que están generando distancia y erosionando la confianza. El pacto matrimonial es sagrado — y Dios es su testigo. Busquen un espacio seguro para hablar estas áreas con honestidad y sin reproches."},{"title":"El pacto necesita atención urgente","verse":"\"Ve, ama a una mujer, aunque adúltera, como el amor de Jehová.\" — Oseas 3:1","color":"#8b2035","bg":"#fdf0f2","border":"#F09595","desc":"Tu relación enfrenta una crisis seria de lealtad y confianza. Pero la historia de Oseas nos muestra que incluso en la traición más profunda, el amor de Dios busca restaurar. No estén solos. Busquen consejería pastoral esta semana — el Señor puede hacer lo que parece imposible."}];
+const RECOS={"fidelidad":{"bold":"Renueva tu compromiso hoy:","text":"Esta semana, en privado, renueva conscientemente tu compromiso de fidelidad. Puedes escribirlo: 'Elijo ser completamente fiel a [nombre] en lo físico, emocional y espiritual, hoy y cada día.'"},"limites":{"bold":"Establece un límite esta semana:","text":"Conversen como pareja sobre un límite específico que necesitan establecer o reforzar para proteger la confianza de su relación. Ponlo en palabras claras y acuerden respetarlo."},"pacto":{"bold":"Recuerda que Dios es testigo:","text":"Esta semana, antes de tomar cualquier decisión que involucre su relación, recuérdate: 'Dios es testigo de mi pacto con esta persona.' Esa sola conciencia transforma las decisiones."},"transparencia":{"bold":"Un paso de transparencia:","text":"Esta semana, comparte con tu pareja algo que normalmente no compartes — una preocupación, una conversación, un área de tu vida. La transparencia voluntaria construye confianza que ningún contrato puede dar."},"perdon":{"bold":"Entrega el resentimiento:","text":"Escribe en un papel la herida que todavía guardas. Ora sobre ella: 'Señor, te entrego esto. Elijo perdonar como Tú me has perdonado.' El perdón es una decisión — no un sentimiento que esperas tener."},"restauracion":{"bold":"Busca restaurar, no ganar:","text":"La próxima vez que haya un conflicto, pregúntate: '¿Quiero ganar esta discusión o quiero fortalecer esta relación?' Oseas no fue a buscar a Gomer para ganar un argumento — fue a restaurar."}};
+let cur=0,ans=new Array(Qs.length).fill(null);
+function buildCards(){const c=document.getElementById('qcontainer');Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='q-card'+(i!==0?' hidden':'');d.id='q'+i;d.innerHTML=`<div class="q-meta"><span class="q-num">Pregunta ${i+1} de ${Qs.length}</span><span class="q-cat" style="background:${q.cc}22;color:${q.cc}">${q.cat}</span></div><div class="q-text">${q.text}</div><div class="opts">${q.opts.map((o,oi)=>`<div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})"><div class="opt-l">${String.fromCharCode(65+oi)}</div><div class="opt-text">${o}</div></div>`).join('')}</div>`;c.appendChild(d);})}
+function pick(qi,oi,score){ans[qi]=score;document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el=>el.classList.remove('sel'));document.getElementById(`o${qi}_${oi}`).classList.add('sel');updateNav()}
+function nav(dir){if(dir===1&&ans[cur]===null)return;document.getElementById('q'+cur).classList.add('hidden');cur+=dir;if(cur<0)cur=0;if(cur>=Qs.length){showResults();return}document.getElementById('q'+cur).classList.remove('hidden');updateProg();updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+function updateNav(){document.getElementById('btnPrev').disabled=cur===0;const nb=document.getElementById('btnNext');nb.disabled=ans[cur]===null;nb.textContent=cur===Qs.length-1&&ans[cur]!==null?'Ver mis resultados →':'Siguiente →'}
+function updateProg(){const done=ans.filter(a=>a!==null).length;const pct=Math.round(done/Qs.length*100);document.getElementById('pfill').style.width=pct+'%';document.getElementById('plabel').textContent=`Pregunta ${cur+1} de ${Qs.length}`;document.getElementById('ppct').textContent=pct+'% completado'}
+function showResults(){document.getElementById('quiz-section').style.display='none';document.getElementById('results-section').style.display='block';window.scrollTo({top:0,behavior:'smooth'});const total=ans.reduce((a,b)=>a+b,0);const pct=Math.round(total/(Qs.length*4)*100);document.getElementById('sNum').textContent=pct;const p=pct>=80?PROFILES[0]:pct>=60?PROFILES[1]:pct>=40?PROFILES[2]:PROFILES[3];document.getElementById('rTitle').textContent=p.title;document.getElementById('rVerse').innerHTML=p.verse;const ring=document.getElementById('sRing');ring.style.borderColor=p.color+'55';const pc=document.getElementById('profileCard');pc.style.background=p.bg;pc.style.borderColor=p.border;pc.innerHTML=`<h3 style="color:${p.color}">${p.title}</h3><p style="color:#444">${p.desc}</p>`;const dimScores={};const dimCounts={};Qs.forEach((q,i)=>{if(!dimScores[q.dim]){dimScores[q.dim]=0;dimCounts[q.dim]=0}dimScores[q.dim]+=ans[i];dimCounts[q.dim]++});const grid=document.getElementById('dimGrid');grid.innerHTML='';Object.entries(DIMS).forEach(([k,cfg])=>{const raw=dimScores[k]||0;const max=(dimCounts[k]||1)*4;const dp=Math.round(raw/max*100);grid.innerHTML+=`<div class="dim-card"><div class="dim-icon">${cfg.icon}</div><div class="dim-name">${cfg.label}</div><div class="dim-bar-bg"><div class="dim-bar" style="width:${dp}%;background:${cfg.color}"></div></div><div class="dim-pct" style="color:${cfg.color}">${dp}%</div></div>`});const weak=Object.entries(dimScores).map(([k,v])=>({key:k,pct:Math.round(v/((dimCounts[k]||1)*4)*100)})).sort((a,b)=>a.pct-b.pct).slice(0,4);const rl=document.getElementById('recoList');rl.innerHTML='';weak.forEach(d=>{const r=RECOS[d.key];if(!r)return;rl.innerHTML+=`<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`});if(!rl.innerHTML)rl.innerHTML='<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente! Sigue con la misma intencionalidad y constancia cada día.</div></div>'}
+function restart(){cur=0;ans=new Array(Qs.length).fill(null);document.getElementById('results-section').style.display='none';document.getElementById('quiz-section').style.display='block';document.querySelectorAll('.q-card').forEach((c,i)=>c.classList.toggle('hidden',i!==0));document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('pfill').style.width='0%';document.getElementById('ppct').textContent='0% completado';document.getElementById('plabel').textContent='Pregunta 1 de 12';updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+buildCards();updateNav();
+</script>
+</body>
+</html>

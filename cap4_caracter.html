@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 4 — Carácter y Temperamento</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--c1:#185FA5;--c2:#0C447C;--cl:#E6F1FB;--gold:#c9a22e;--gold2:#a8861f;--navy:#6B0D0D;--navy2:#4a0808;--border:#e5dfd4;--text:#2c2c2c;--muted:#777}
+body{font-family:'DM Sans',sans-serif;background:#f9f7f4;color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto}
+.hero{background:#6B0D0D;border-radius:20px;padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,162,46,0.12)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;max-width:500px;margin-bottom:1.25rem}
+.vstrip{background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.85);position:relative;z-index:1}
+.vstrip span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;letter-spacing:.06em;font-family:'DM Sans',sans-serif;font-weight:500}
+.prog-wrap{margin-bottom:1.75rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.prog-track{height:6px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,var(--c1));border-radius:99px;transition:width .4s ease}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);animation:fadeUp .3s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:#1a1a2e;line-height:1.45;font-weight:600;margin-bottom:1.2rem}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:var(--c2);background:var(--cl)}
+.opt.sel{border-color:var(--c1);background:var(--cl)}
+.opt.sel .opt-l{background:var(--c1);color:#fff;border-color:var(--c1)}
+.opt-l{min-width:24px;height:24px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13.5px;color:#333;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;gap:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 24px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn.primary:hover{background:var(--c2)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.results{display:none;animation:fadeUp .5s ease}
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(255,255,255,.65)}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.2rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.sec-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.9rem}
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+@media(max-width:520px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;text-align:center}
+.dim-icon{font-size:20px;margin-bottom:4px}
+.dim-name{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dim-bar-bg{height:5px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.dim-bar{height:100%;border-radius:99px;transition:width 1s ease .3s}
+.dim-pct{font-size:13px;font-weight:600}
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.reco-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0ebe3}
+.reco-item:last-child{border-bottom:none;padding-bottom:0}
+.reco-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+.reco-t{font-size:13.5px;color:#333;line-height:1.65}
+.reco-bold{font-weight:600;color:var(--c1)}
+.action-card{background:#E6F1FB;border:1px solid var(--c2);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.action-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--c2);margin-bottom:.6rem}
+.action-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.action-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+.restart-row{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Capítulo 4 · Evaluación individual</div>
+    <h1>Carácter y Temperamento</h1>
+    <p class="sub">12 preguntas para entender tu temperamento, reconocer el de tu pareja y crecer en la convivencia.</p>
+    <div class="vstrip">"Una estrella es diferente de otra en gloria."<span>1 Corintios 15:41</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta"><span id="plabel">Pregunta 1 de 12</span><span id="ppct">0% completado</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+  </div>
+  <div id="qcontainer"></div>
+  <div class="nav">
+    <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+    <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+  </div>
+</div>
+<div class="results" id="results-section">
+  <div class="result-hero">
+    <div class="r-tag">Tus resultados personales — Capítulo 4</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing"><div class="sn" id="sNum">0</div><div class="sl">/ 100</div></div>
+  </div>
+  <div class="sec-label">Evaluación por dimensión</div>
+  <div class="dim-grid" id="dimGrid"></div>
+  <div class="profile-card" id="profileCard"></div>
+  <div class="reco-card">
+    <div class="sec-label" style="margin-bottom:1rem">Lo que puedes hacer esta semana</div>
+    <div id="recoList"></div>
+  </div>
+  <div class="action-card">
+    <h3>🎯 Dinámica — "Gracias por ser diferente"</h3>
+    <ul class="action-steps"><li><div class="step-num">1</div>Cada uno escribe en un papel el nombre de su pareja y debajo: 3 fortalezas de su temperamento que agradeces y 1 debilidad tuya que reconoces que le ha costado.</li><li><div class="step-num">2</div>Léanse los papeles en voz alta, mirándose a los ojos. Sin defender. Sin explicar. Solo recibir.</li><li><div class="step-num">3</div>Cada uno dice: 'Gracias por ser como eres. Elijo amarte con tus diferencias.'</li><li><div class="step-num">4</div>Oren juntos pidiendo al Señor que transforme sus temperamentos para que complementen, no dividan.</li></ul>
+  </div>
+  <div class="v-footer"><p>"Una estrella es diferente de otra en gloria."</p><span>1 Corintios 15:41</span></div>
+  <div class="cta">
+    <h3>¿Quieres profundizar más?</h3>
+    <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+    <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+  </div>
+  <div class="restart-row"><button class="btn" onclick="restart()">↩ Responder de nuevo</button></div>
+</div>
+</div>
+<script>
+const DIMS={"autoconocimiento":{"label":"Autoconocimiento","icon":"🪞","color":"#185FA5"},"comprension":{"label":"Comprensión","icon":"🧠","color":"#0F6E56"},"debilidades":{"label":"Debilidades","icon":"⚠️","color":"#854F0B"},"crecimiento":{"label":"Crecimiento","icon":"🌱","color":"#534AB7"},"complemento":{"label":"Complemento","icon":"🧩","color":"#993C1D"},"fe":{"label":"Cristo en mí","icon":"✝️","color":"#0F6E56"}};
+const Qs=[{"dim":"autoconocimiento","cat":"Autoconocimiento","cc":"#185FA5","text":"¿Con cuál de los 4 temperamentos del capítulo te identificas más?","opts":["Sanguíneo: sociable, expresivo, entusiasta, impulsivo y cálido.","Colérico: decidido, líder, práctico, dominante y orientado a metas.","Melancólico: analítico, perfeccionista, sensible, leal y detallista.","Flemático: tranquilo, diplomático, equilibrado, paciente y pasivo."]},{"dim":"autoconocimiento","cat":"Autoconocimiento","cc":"#185FA5","text":"¿Cuál debilidad de tu temperamento ha causado más conflicto en tu matrimonio?","opts":["Mi impulsividad: actúo o hablo sin pensar y luego lo lamento.","Mi dominancia: quiero que todo sea a mi manera y no cedo fácilmente.","Mi negativismo: tiendo a ver lo malo primero y me cuesta confiar.","Mi pasividad: evito los conflictos y no digo lo que siento a tiempo."]},{"dim":"comprension","cat":"Comprensión al otro","cc":"#0F6E56","text":"¿Con cuál temperamento identificas principalmente a tu pareja?","opts":["Sanguíneo: muy sociable, impulsivo, emocional y expresivo.","Colérico: determinado, dominante, directo y orientado a resultados.","Melancólico: analítico, perfeccionista, sensible y exigente.","Flemático: tranquilo, pasivo, diplomático y difícil de motivar."]},{"dim":"comprension","cat":"Comprensión al otro","cc":"#0F6E56","text":"¿Cuánto has trabajado en entender el temperamento de tu pareja en lugar de juzgarlo o querer cambiarlo?","opts":["Mucho; entiendo que así Dios lo/la creó y lo acepto con sus diferencias.","Bastante; aunque hay momentos en que sus diferencias me frustran.","Poco; me cuesta aceptar la forma de ser de mi pareja en varias áreas.","Casi nada; sus diferencias son fuente frecuente de conflicto entre nosotros."]},{"dim":"debilidades","cat":"Debilidades propias","cc":"#854F0B","text":"¿Cuánto reconoces abiertamente tus propias debilidades de temperamento ante tu pareja?","opts":["Con frecuencia; reconozco mis fallas y pido perdón cuando es necesario.","A veces; me cuesta admitir mis debilidades pero lo intento.","Poco; me resulta difícil reconocer que tengo áreas de carácter a trabajar.","Casi nunca; tiendo a ver los problemas más en mi pareja que en mí."]},{"dim":"debilidades","cat":"Debilidades propias","cc":"#854F0B","text":"¿Hay una debilidad específica de tu temperamento que reconoces que le ha costado mucho a tu pareja en la convivencia?","opts":["Sí, la reconozco claramente y estoy trabajando en ella activamente.","Sí, la reconozco pero no he tomado pasos concretos para cambiarla.","Creo que sí, aunque no la he identificado con claridad todavía.","No; no veo que mi temperamento sea el problema en nuestra relación."]},{"dim":"crecimiento","cat":"Crecimiento","cc":"#534AB7","text":"El capítulo enseña que Pedro, a pesar de ser sanguíneo e impulsivo, permitió que Cristo transformara su temperamento. ¿Estás permitiendo que el Señor trabaje en ti?","opts":["Activamente; oro por eso, busco consejería y me esfuerzo en cambiar.","Lo intento, aunque no con la consistencia que quisiera.","Pocas veces; sé que debo mejorar pero no lo he priorizado.","No; no había conectado mi temperamento con mi vida espiritual."]},{"dim":"crecimiento","cat":"Crecimiento","cc":"#534AB7","text":"¿Qué tan capaz eres de reconocer cuando tu reacción emocional está siendo dominada por tu temperamento y no por el Espíritu?","opts":["Bastante capaz; reconozco mis patrones y puedo detenerme antes de actuar.","A veces lo reconozco, aunque frecuentemente me doy cuenta tarde.","Pocas veces; generalmente reacciono primero y reflexiono después.","Casi nunca; actúo por impulso y me cuesta ver mis patrones."]},{"dim":"complemento","cat":"Complemento","cc":"#993C1D","text":"El capítulo dice que Dios une temperamentos diferentes para que se complementen. ¿Ves las diferencias de tu pareja como complemento o como problema?","opts":["Como complemento; sus diferencias me completan en áreas donde soy débil.","Mayormente como complemento, aunque a veces me generan fricción.","Con frecuencia como problema; sus diferencias me irritan más que me ayudan.","Casi siempre como problema; siento que somos demasiado diferentes."]},{"dim":"complemento","cat":"Complemento","cc":"#993C1D","text":"¿Le has expresado a tu pareja al menos 3 fortalezas de su temperamento que aprecias y agradeces?","opts":["Sí, y lo hago con frecuencia; valoro y verbalizo sus fortalezas.","Lo he hecho algunas veces, aunque podría ser más frecuente e intencional.","Rara vez; no acostumbro verbalizar lo que aprecio del temperamento de mi pareja.","Casi nunca; la tendencia es señalar más lo que me molesta que lo que admiro."]},{"dim":"fe","cat":"Cristo en mí","cc":"#0F6E56","text":"John Stott dice: 'El carácter cristiano se forma cuando el ego se somete al señorío de Cristo.' ¿En qué medida estás sometiendo tu temperamento al señorío de Jesús?","opts":["En gran medida; Cristo es quien guía mis reacciones y decisiones.","En parte; hay áreas donde lo someto pero otras donde todavía domina mi ego.","Poco; reconozco que mi ego y temperamento natural dominan con frecuencia.","Casi nada; nunca había visto el señorío de Cristo conectado con mi temperamento."]},{"dim":"fe","cat":"Cristo en mí","cc":"#0F6E56","text":"¿Oras específicamente por las debilidades de tu temperamento para que Dios las trabaje en ti?","opts":["Sí, con frecuencia; entrego esas áreas al Señor conscientemente.","A veces, aunque no de manera consistente ni específica.","Pocas veces; no había pensado en orar por esa área concretamente.","No; no había conectado la oración con las debilidades de mi temperamento."]}];
+const PROFILES=[{"title":"Temperamento bajo el señorío de Cristo","verse":"\"Cuando Dios gobierna el corazón, el temperamento deja de dominar la vida.\" — Billy Graham","color":"#185FA5","bg":"#E6F1FB","border":"#85B7EB","desc":"Tienes un buen nivel de autoconocimiento y estás trabajando activamente para que Cristo transforme tu temperamento. Entiendes que tus diferencias con tu pareja son diseño de Dios, no un error. Sigue creciendo — especialmente en expresar afirmación hacia las fortalezas del otro."},{"title":"Creciendo en conocimiento propio","verse":"\"El verdadero cristiano aprende a someter su voluntad a la obra de Dios en su interior.\" — Martín Lutero","color":"#185FA5","bg":"#E6F1FB","border":"#85B7EB","desc":"Tienes conciencia de tu temperamento y del de tu pareja, pero hay áreas donde tus reacciones todavía dominan sobre el Espíritu. El crecimiento aquí es intencional — requiere oración específica, humildad para reconocer tus patrones y gracia para aceptar los de tu pareja."},{"title":"El temperamento te está ganando","verse":"\"Una es la gloria del sol, otra la gloria de la luna.\" — 1 Corintios 15:41","color":"#854F0B","bg":"#fdf3dc","border":"#EF9F27","desc":"Hay áreas importantes donde tu temperamento natural está dominando tus relaciones más que el Espíritu de Dios. Eso genera conflicto, distancia o resentimiento. Permite que este capítulo sea un punto de quiebre: entrega al Señor esas áreas específicas esta semana."},{"title":"Es hora de rendirse a Cristo","verse":"\"El carácter cristiano se forma cuando el ego se somete al señorío de Cristo.\" — John Stott","color":"#8b2035","bg":"#fdf0f2","border":"#F09595","desc":"Tu temperamento natural está generando un impacto serio en tu matrimonio. La buena noticia es que ningún temperamento es irredimible — Pedro pasó de impulsivo e inestable a piedra de la iglesia. Cristo puede transformarte. El primer paso es pedírselo específicamente."}];
+const RECOS={"autoconocimiento":{"bold":"Estudia tu temperamento:","text":"Esta semana, lee más sobre el temperamento con el que te identificas. Comparte con tu pareja 3 fortalezas y 2 debilidades tuyas que reconoces. La vulnerabilidad abre puertas que el orgullo cierra."},"comprension":{"bold":"Aprende a 'leer' a tu pareja:","text":"Esta semana, cuando tu pareja reaccione de una manera que no entiendes, en vez de molestarte di internamente: 'Así fue creado/a.' Esa pausa cambia todo."},"debilidades":{"bold":"Confiesa una debilidad concreta:","text":"Esta semana dile a tu pareja: 'Reconozco que cuando [debilidad específica], te afecto. Quiero trabajar en eso. ¿Me ayudas?' La humildad honesta produce respeto profundo."},"crecimiento":{"bold":"Ora por tu temperamento:","text":"Esta semana, en tu oración diaria, nombra específicamente la debilidad de tu temperamento y dile al Señor: 'Toma el control de esto.' Repítelo 7 días seguidos y observa."},"complemento":{"bold":"Dile 3 fortalezas de su temperamento:","text":"Hoy, dile a tu pareja 3 cosas específicas que aprecias de cómo es. No generales — específicas: 'Admiro cómo tu determinación ha traído estabilidad a nuestro hogar.'"},"fe":{"bold":"Somételo a Cristo hoy:","text":"Antes de dormir, ora: 'Señor, tomo mi temperamento y lo pongo bajo tu señorío. Donde mi ego domina, entra Tú. Hazme más como Cristo en mi matrimonio.'"}};
+let cur=0,ans=new Array(Qs.length).fill(null);
+function buildCards(){const c=document.getElementById('qcontainer');Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='q-card'+(i!==0?' hidden':'');d.id='q'+i;d.innerHTML=`<div class="q-meta"><span class="q-num">Pregunta ${i+1} de ${Qs.length}</span><span class="q-cat" style="background:${q.cc}22;color:${q.cc}">${q.cat}</span></div><div class="q-text">${q.text}</div><div class="opts">${q.opts.map((o,oi)=>`<div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})"><div class="opt-l">${String.fromCharCode(65+oi)}</div><div class="opt-text">${o}</div></div>`).join('')}</div>`;c.appendChild(d);})}
+function pick(qi,oi,score){ans[qi]=score;document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el=>el.classList.remove('sel'));document.getElementById(`o${qi}_${oi}`).classList.add('sel');updateNav()}
+function nav(dir){if(dir===1&&ans[cur]===null)return;document.getElementById('q'+cur).classList.add('hidden');cur+=dir;if(cur<0)cur=0;if(cur>=Qs.length){showResults();return}document.getElementById('q'+cur).classList.remove('hidden');updateProg();updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+function updateNav(){document.getElementById('btnPrev').disabled=cur===0;const nb=document.getElementById('btnNext');nb.disabled=ans[cur]===null;nb.textContent=cur===Qs.length-1&&ans[cur]!==null?'Ver mis resultados →':'Siguiente →'}
+function updateProg(){const done=ans.filter(a=>a!==null).length;const pct=Math.round(done/Qs.length*100);document.getElementById('pfill').style.width=pct+'%';document.getElementById('plabel').textContent=`Pregunta ${cur+1} de ${Qs.length}`;document.getElementById('ppct').textContent=pct+'% completado'}
+function showResults(){document.getElementById('quiz-section').style.display='none';document.getElementById('results-section').style.display='block';window.scrollTo({top:0,behavior:'smooth'});const total=ans.reduce((a,b)=>a+b,0);const pct=Math.round(total/(Qs.length*4)*100);document.getElementById('sNum').textContent=pct;const p=pct>=80?PROFILES[0]:pct>=60?PROFILES[1]:pct>=40?PROFILES[2]:PROFILES[3];document.getElementById('rTitle').textContent=p.title;document.getElementById('rVerse').innerHTML=p.verse;const ring=document.getElementById('sRing');ring.style.borderColor=p.color+'55';const pc=document.getElementById('profileCard');pc.style.background=p.bg;pc.style.borderColor=p.border;pc.innerHTML=`<h3 style="color:${p.color}">${p.title}</h3><p style="color:#444">${p.desc}</p>`;const dimScores={};const dimCounts={};Qs.forEach((q,i)=>{if(!dimScores[q.dim]){dimScores[q.dim]=0;dimCounts[q.dim]=0}dimScores[q.dim]+=ans[i];dimCounts[q.dim]++});const grid=document.getElementById('dimGrid');grid.innerHTML='';Object.entries(DIMS).forEach(([k,cfg])=>{const raw=dimScores[k]||0;const max=(dimCounts[k]||1)*4;const dp=Math.round(raw/max*100);grid.innerHTML+=`<div class="dim-card"><div class="dim-icon">${cfg.icon}</div><div class="dim-name">${cfg.label}</div><div class="dim-bar-bg"><div class="dim-bar" style="width:${dp}%;background:${cfg.color}"></div></div><div class="dim-pct" style="color:${cfg.color}">${dp}%</div></div>`});const weak=Object.entries(dimScores).map(([k,v])=>({key:k,pct:Math.round(v/((dimCounts[k]||1)*4)*100)})).sort((a,b)=>a.pct-b.pct).slice(0,4);const rl=document.getElementById('recoList');rl.innerHTML='';weak.forEach(d=>{const r=RECOS[d.key];if(!r)return;rl.innerHTML+=`<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`});if(!rl.innerHTML)rl.innerHTML='<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente! Sigue con la misma intencionalidad y constancia cada día.</div></div>'}
+function restart(){cur=0;ans=new Array(Qs.length).fill(null);document.getElementById('results-section').style.display='none';document.getElementById('quiz-section').style.display='block';document.querySelectorAll('.q-card').forEach((c,i)=>c.classList.toggle('hidden',i!==0));document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('pfill').style.width='0%';document.getElementById('ppct').textContent='0% completado';document.getElementById('plabel').textContent='Pregunta 1 de 12';updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+buildCards();updateNav();
+</script>
+</body>
+</html>

@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restaurando Matrimonios — Cuestionarios por Capítulo</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: #f9f7f4;
+  color: #2c2c2c;
+  padding: 0 0 5rem;
+}
+
+/* ── HERO ── */
+.hero {
+  background: #6B0D0D;
+  padding: 3.5rem 2rem 3rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: rgba(201,162,46,0.10);
+}
+.hero::after {
+  content: '';
+  position: absolute; bottom: -80px; left: -40px;
+  width: 220px; height: 220px; border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+}
+.hero-tag {
+  display: inline-block;
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: #c9a22e; font-weight: 600; margin-bottom: 0.75rem;
+  position: relative; z-index: 1;
+}
+.hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: #fff; font-weight: 600; line-height: 1.1;
+  margin-bottom: 0.5rem; position: relative; z-index: 1;
+}
+.hero .sub {
+  font-size: 14px; color: rgba(255,255,255,0.65);
+  line-height: 1.65; max-width: 560px; margin: 0 auto 1.5rem;
+  position: relative; z-index: 1;
+}
+.hero-verse {
+  display: inline-block;
+  background: rgba(201,162,46,0.15);
+  border-left: 3px solid #c9a22e;
+  border-radius: 0 8px 8px 0;
+  padding: 0.65rem 1.25rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  position: relative; z-index: 1;
+  max-width: 520px; text-align: left;
+}
+.hero-verse span {
+  display: block; font-size: 11px; color: #c9a22e;
+  font-style: normal; margin-top: 4px;
+  font-family: 'DM Sans', sans-serif; font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+/* ── INTRO ── */
+.intro {
+  max-width: 720px; margin: 2.5rem auto 0;
+  padding: 0 1.5rem;
+}
+.how-to {
+  background: #fff;
+  border: 1px solid #e5dfd4;
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+.how-to h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem; font-weight: 600;
+  color: #6B0D0D; margin-bottom: 1rem;
+}
+.steps-row {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+.step-item {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0.75rem;
+}
+.step-icon {
+  width: 44px; height: 44px; border-radius: 50%;
+  background: #f9eded; display: flex; align-items: center;
+  justify-content: center; font-size: 20px; margin-bottom: 0.5rem;
+}
+.step-item p { font-size: 12.5px; color: #555; line-height: 1.5; }
+
+/* ── CHAPTER GRID ── */
+.grid-section { max-width: 720px; margin: 0 auto; padding: 0 1.5rem; }
+.grid-label {
+  font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: #555; font-weight: 700; margin-bottom: 1rem;
+}
+.chapters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 2rem;
+}
+
+/* ── CHAPTER CARD ── */
+.ch-card {
+  background: #fff;
+  border: 1px solid #e5dfd4;
+  border-radius: 14px;
+  padding: 1.25rem 1.25rem 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: flex; flex-direction: column;
+  gap: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+  position: relative; overflow: hidden;
+}
+.ch-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 14px 14px 0 0;
+}
+.ch-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+  border-color: #c5bdb0;
+}
+.ch-num {
+  font-size: 10px; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; margin-bottom: 0.4rem;
+}
+.ch-icon { font-size: 26px; margin-bottom: 0.5rem; }
+.ch-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem; font-weight: 600;
+  color: #1a1a2e; line-height: 1.25; margin-bottom: 0.4rem;
+}
+.ch-verse {
+  font-size: 11.5px; color: #555; line-height: 1.5;
+  font-style: italic; font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 0.75rem; flex: 1;
+}
+.ch-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 6px;
+  color: #fff; align-self: flex-start;
+  transition: opacity 0.15s;
+}
+.ch-btn:hover { opacity: 0.85; }
+.ch-btn::after { content: '→'; }
+
+/* ── EVALUATIONS SECTION HEADER ── */
+.eval-section-header {
+  margin: 0 0 1.25rem;
+}
+.eval-section-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; color: #6B0D0D;
+  margin-bottom: 0.3rem;
+}
+.eval-section-header p {
+  font-size: 13px; color: #444; line-height: 1.5;
+}
+
+/* ── FEATURED QUIZ CARDS (60 preguntas + 12 preguntas) ── */
+.featured-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+  margin-bottom: 2.5rem;
+}
+.featured-card {
+  border-radius: 16px;
+  padding: 1.75rem 2rem;
+  display: flex; flex-direction: column;
+  gap: 0.75rem;
+  position: relative; overflow: hidden;
+  text-decoration: none;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+}
+.featured-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+}
+.featured-card::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 140px; height: 140px; border-radius: 50%;
+  opacity: 0.15;
+}
+.featured-card.primary { background: #6B0D0D; }
+.featured-card.primary::before { background: #c9a22e; }
+.featured-card.secondary { background: #7B1010; }
+.featured-card.secondary::before { background: #fff; }
+
+.fc-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 10px; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; padding: 3px 10px;
+  border-radius: 99px; align-self: flex-start;
+  position: relative; z-index: 1;
+}
+.featured-card.primary .fc-badge { background: rgba(201,162,46,0.35); color: #fff; border: 1px solid rgba(201,162,46,0.6); }
+.featured-card.secondary .fc-badge { background: rgba(255,255,255,0.25); color: #fff; border: 1px solid rgba(255,255,255,0.4); }
+
+.fc-icon { font-size: 32px; position: relative; z-index: 1; }
+.fc-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem; font-weight: 600; color: #fff;
+  line-height: 1.2; position: relative; z-index: 1;
+}
+.fc-desc {
+  font-size: 13px; color: rgba(255,255,255,0.88);
+  line-height: 1.6; position: relative; z-index: 1; flex: 1;
+}
+.fc-stats {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.fc-stat {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.18); border-radius: 8px;
+  padding: 6px 12px; min-width: 60px;
+}
+.fc-stat .n { font-size: 1.25rem; font-weight: 700; color: #fff; line-height: 1; }
+.fc-stat .l { font-size: 10px; color: rgba(255,255,255,0.85); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 2px; font-weight: 500; }
+.fc-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
+  padding: 9px 20px; border-radius: 8px; align-self: flex-start;
+  position: relative; z-index: 1; transition: opacity 0.15s;
+}
+.fc-btn:hover { opacity: 0.85; }
+.featured-card.primary .fc-btn { background: #c9a22e; color: #fff; }
+.featured-card.secondary .fc-btn { background: rgba(255,255,255,0.25); color: #fff; border: 1.5px solid rgba(255,255,255,0.6); font-weight: 700; }
+
+/* ── DIVIDER ── */
+.section-divider {
+  display: flex; align-items: center; gap: 12px;
+  margin: 0.5rem 0 1.5rem;
+}
+.section-divider .dl { flex: 1; height: 1px; background: #e5dfd4; }
+.section-divider span {
+  font-size: 10.5px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #666; white-space: nowrap;
+}
+
+/* ── GENERAL QUIZ CARD (kept for old simple card) ── */
+.general-card {
+  background: #6B0D0D;
+  border-radius: 14px;
+  padding: 1.75rem 2rem;
+  display: flex; flex-direction: column;
+  gap: 1rem; margin-bottom: 2.5rem;
+  position: relative; overflow: hidden;
+}
+.general-card::before {
+  content: '';
+  position: absolute; top: -30px; right: -30px;
+  width: 140px; height: 140px; border-radius: 50%;
+  background: rgba(201,162,46,0.15);
+}
+.general-card h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem; font-weight: 600; color: #fff;
+  position: relative; z-index: 1;
+}
+.general-card p {
+  font-size: 13.5px; color: rgba(255,255,255,0.75);
+  line-height: 1.65; position: relative; z-index: 1;
+}
+.general-card a {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #c9a22e; color: #fff;
+  font-size: 13.5px; font-weight: 600;
+  padding: 10px 22px; border-radius: 8px;
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: background 0.15s; align-self: flex-start;
+  position: relative; z-index: 1;
+}
+.general-card a:hover { background: #a8861f; }
+
+/* ── FINAL EVAL CARD ── */
+.final-eval-card {
+  background: #3a0505;
+  border: 1px solid #c9a22e;
+  border-radius: 18px;
+  padding: 2.25rem 2.25rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  margin-bottom: 2.5rem;
+  position: relative; overflow: hidden;
+  box-shadow: 0 8px 32px rgba(60,0,0,0.5);
+}
+.final-eval-card::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(201,162,46,0.18);
+}
+@media(max-width: 600px) {
+  .final-eval-card { grid-template-columns: 1fr; }
+  .fe-right { display: none; }
+}
+.fe-badge {
+  display: inline-block;
+  font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #fff; background: #c9a22e; border: none;
+  padding: 4px 14px; border-radius: 99px; font-weight: 700; margin-bottom: 0.75rem;
+  position: relative; z-index: 1;
+}
+.final-eval-card h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.9rem; font-weight: 600; color: #fff;
+  line-height: 1.15; margin-bottom: 0.7rem;
+  position: relative; z-index: 1;
+}
+.final-eval-card p {
+  font-size: 13.5px; color: #e8e0d0;
+  line-height: 1.7; margin-bottom: 1.25rem;
+  position: relative; z-index: 1;
+}
+.fe-stats {
+  display: flex; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 1.5rem; position: relative; z-index: 1;
+}
+.fe-stat {
+  display: flex; flex-direction: column; align-items: center;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 8px; padding: 8px 16px; min-width: 64px;
+}
+.fe-n { font-size: 1.4rem; font-weight: 700; color: #fff; line-height: 1; }
+.fe-l { font-size: 10.5px; color: #d4c9b0; text-transform: uppercase; letter-spacing: 0.07em; margin-top: 3px; font-weight: 600; }
+.fe-btn {
+  display: inline-block;
+  background: #c9a22e; color: #fff;
+  font-size: 14px; font-weight: 700;
+  padding: 11px 26px; border-radius: 8px;
+  text-decoration: none; letter-spacing: 0.04em;
+  transition: background 0.15s; position: relative; z-index: 1;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+.fe-btn:hover { background: #a8861f; }
+.fe-right {
+  display: flex; flex-direction: column; gap: 4px;
+  position: relative; z-index: 1;
+  background: rgba(255,255,255,0.06);
+  border-radius: 10px; padding: 0.75rem 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.fe-chapter {
+  font-size: 12px; color: #d4cfc5;
+  padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
+  white-space: nowrap; font-weight: 500;
+}
+.fe-chapter:last-child { border-bottom: none; }
+
+/* ── FOOTER ── */
+.page-footer {
+  max-width: 720px; margin: 0 auto;
+  padding: 2rem 1.5rem 0;
+  text-align: center;
+  border-top: 1px solid #e5dfd4;
+}
+.page-footer p {
+  font-size: 13px; color: #555; line-height: 1.6; margin-bottom: 0.5rem;
+}
+.page-footer a {
+  color: #6B0D0D; font-weight: 600; text-decoration: none;
+}
+.page-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <div class="hero-tag">miltonvallemusic.com</div>
+  <h1>Restaurando Matrimonios</h1>
+  <p class="sub">Cuestionarios aplicativos individuales por cada capítulo del libro del Pastor Milton Valle. Evalúa tu matrimonio, identifica áreas de crecimiento y da pasos concretos esta semana.</p>
+  <div class="hero-verse">
+    "Y Dios restaura lo que pasó."
+    <span>Eclesiastés 3:15</span>
+  </div>
+</div>
+
+<!-- ── HOW TO USE ── -->
+<div class="intro">
+  <div class="how-to">
+    <h2>¿Cómo usar estos cuestionarios?</h2>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-icon">📖</div>
+        <p><strong>Lee el capítulo</strong> del libro antes de responder el cuestionario correspondiente.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-icon">✏️</div>
+        <p><strong>Responde individualmente</strong> con total honestidad. Nadie más verá tus respuestas.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-icon">💬</div>
+        <p><strong>Comparte con tu pareja</strong> los resultados. Conversen desde la apertura, no la defensa.</p>
+      </div>
+      <div class="step-item">
+        <div class="step-icon">🙏</div>
+        <p><strong>Terminen orando</strong> juntos, entregando al Señor las áreas trabajadas.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CHAPTER GRID ── -->
+<div class="grid-section">
+
+  <!-- EVALUATIONS HEADER -->
+  <div class="eval-section-header">
+    <h2>Evaluación Inicial</h2>
+    <p>Comienza con la evaluación completa para ver tu mapa matrimonial, o ve directo al capítulo que más te interesa.</p>
+  </div>
+
+  <!-- FEATURED CARDS: 60 + 12 preguntas -->
+  <div class="featured-cards">
+
+    <a class="featured-card primary" href="cuestionario_60_preguntas.html">
+      <div class="fc-badge">⭐ Recomendado · Diagnóstico inicial</div>
+      <div class="fc-icon">📊</div>
+      <div class="fc-title">Evaluación Matrimonial Completa</div>
+      <div class="fc-desc">El diagnóstico más completo de tu matrimonio. Identifica con precisión tus áreas fuertes y débiles en los 12 temas del libro.</div>
+      <div class="fc-stats">
+        <div class="fc-stat"><div class="n">60</div><div class="l">Preguntas</div></div>
+        <div class="fc-stat"><div class="n">12</div><div class="l">Capítulos</div></div>
+        <div class="fc-stat"><div class="n">~20</div><div class="l">Minutos</div></div>
+      </div>
+      <div class="fc-btn">Comenzar evaluación →</div>
+    </a>
+
+  </div>
+
+  <!-- DIVIDER -->
+  <div class="section-divider">
+    <div class="dl"></div>
+    <span>Cuestionarios por capítulo del libro</span>
+    <div class="dl"></div>
+  </div>
+
+  <div class="grid-label">12 cuestionarios individuales · 12 preguntas cada uno</div>
+
+  <div class="chapters-grid">
+
+    <!-- Cap 1 -->
+    <a class="ch-card" href="cap1_atencion_detalles.html" style="--clr:#185FA5">
+      <style>.ch-card:nth-child(1)::before{background:#185FA5}</style>
+      <div class="ch-num" style="color:#185FA5">Capítulo 1</div>
+      <div class="ch-icon">🌸</div>
+      <div class="ch-title">Atención y Detalles</div>
+      <div class="ch-verse">"Tu tiempo era tiempo de amores..." — Ezequiel 16:8</div>
+      <div class="ch-btn" style="background:#185FA5">Comenzar</div>
+    </a>
+
+    <!-- Cap 2 -->
+    <a class="ch-card" href="cap2_comunicacion.html">
+      <style>.ch-card:nth-child(2)::before{background:#7B1010}</style>
+      <div class="ch-num" style="color:#0F6E56">Capítulo 2</div>
+      <div class="ch-icon">💬</div>
+      <div class="ch-title">Comunicación</div>
+      <div class="ch-verse">"Pronto para oír, tardo para hablar." — Santiago 1:19</div>
+      <div class="ch-btn" style="background:#7B1010">Comenzar</div>
+    </a>
+
+    <!-- Cap 3 -->
+    <a class="ch-card" href="cap3_acuerdo.html">
+      <style>.ch-card:nth-child(3)::before{background:#534AB7}</style>
+      <div class="ch-num" style="color:#534AB7">Capítulo 3</div>
+      <div class="ch-icon">🤝</div>
+      <div class="ch-title">Acuerdo</div>
+      <div class="ch-verse">"¿Andarán dos juntos sin acuerdo?" — Amós 3:3</div>
+      <div class="ch-btn" style="background:#534AB7">Comenzar</div>
+    </a>
+
+    <!-- Cap 4 -->
+    <a class="ch-card" href="cap4_caracter.html">
+      <style>.ch-card:nth-child(4)::before{background:#185FA5}</style>
+      <div class="ch-num" style="color:#185FA5">Capítulo 4</div>
+      <div class="ch-icon">🧩</div>
+      <div class="ch-title">Carácter y Temperamento</div>
+      <div class="ch-verse">"Una estrella es diferente de otra." — 1 Corintios 15:41</div>
+      <div class="ch-btn" style="background:#185FA5">Comenzar</div>
+    </a>
+
+    <!-- Cap 5 -->
+    <a class="ch-card" href="cap5_respeto.html">
+      <style>.ch-card:nth-child(5)::before{background:#993C1D}</style>
+      <div class="ch-num" style="color:#993C1D">Capítulo 5</div>
+      <div class="ch-icon">💎</div>
+      <div class="ch-title">Respeto</div>
+      <div class="ch-verse">"La mujer respete a su marido." — Efesios 5:33</div>
+      <div class="ch-btn" style="background:#993C1D">Comenzar</div>
+    </a>
+
+    <!-- Cap 6 -->
+    <a class="ch-card" href="cap6_realizacion.html">
+      <style>.ch-card:nth-child(6)::before{background:#7B1010}</style>
+      <div class="ch-num" style="color:#0F6E56">Capítulo 6</div>
+      <div class="ch-icon">🎯</div>
+      <div class="ch-title">Realización</div>
+      <div class="ch-verse">"Todo lo puedo en Cristo." — Filipenses 4:13</div>
+      <div class="ch-btn" style="background:#7B1010">Comenzar</div>
+    </a>
+
+    <!-- Cap 7 -->
+    <a class="ch-card" href="cap7_disciplina.html">
+      <style>.ch-card:nth-child(7)::before{background:#854F0B}</style>
+      <div class="ch-num" style="color:#854F0B">Capítulo 7</div>
+      <div class="ch-icon">🛡️</div>
+      <div class="ch-title">Disciplina</div>
+      <div class="ch-verse">"Instruye al niño en su camino." — Proverbios 22:6</div>
+      <div class="ch-btn" style="background:#854F0B">Comenzar</div>
+    </a>
+
+    <!-- Cap 8 -->
+    <a class="ch-card" href="cap8_lealtad.html">
+      <style>.ch-card:nth-child(8)::before{background:#A32D2D}</style>
+      <div class="ch-num" style="color:#A32D2D">Capítulo 8</div>
+      <div class="ch-icon">💍</div>
+      <div class="ch-title">Lealtad</div>
+      <div class="ch-verse">"La mujer de tu pacto." — Malaquías 2:14</div>
+      <div class="ch-btn" style="background:#A32D2D">Comenzar</div>
+    </a>
+
+    <!-- Cap 9 -->
+    <a class="ch-card" href="cap9_finanzas.html">
+      <style>.ch-card:nth-child(9)::before{background:#1D9E75}</style>
+      <div class="ch-num" style="color:#1D9E75">Capítulo 9</div>
+      <div class="ch-icon">💰</div>
+      <div class="ch-title">Finanzas</div>
+      <div class="ch-verse">"Fiel en lo poco, fiel en lo más." — Lucas 16:10</div>
+      <div class="ch-btn" style="background:#1D9E75">Comenzar</div>
+    </a>
+
+    <!-- Cap 10 -->
+    <a class="ch-card" href="cap10_lenguajes.html">
+      <style>.ch-card:nth-child(10)::before{background:#D85A30}</style>
+      <div class="ch-num" style="color:#D85A30">Capítulo 10</div>
+      <div class="ch-icon">❤️</div>
+      <div class="ch-title">Lenguajes del Amor</div>
+      <div class="ch-verse">"El amor nunca deja de ser." — 1 Corintios 13:8</div>
+      <div class="ch-btn" style="background:#D85A30">Comenzar</div>
+    </a>
+
+    <!-- Cap 11 -->
+    <a class="ch-card" href="cap11_intimidad.html">
+      <style>.ch-card:nth-child(11)::before{background:#3C3489}</style>
+      <div class="ch-num" style="color:#3C3489">Capítulo 11</div>
+      <div class="ch-icon">🕯️</div>
+      <div class="ch-title">Intimidad</div>
+      <div class="ch-verse">"Las aguas no apagarán el amor." — Cantares 8:7</div>
+      <div class="ch-btn" style="background:#3C3489">Comenzar</div>
+    </a>
+
+    <!-- Epílogo -->
+    <a class="ch-card" href="epilogo_altares.html">
+      <style>.ch-card:last-child::before{background:#1D9E75}</style>
+      <div class="ch-num" style="color:#1D9E75">Epílogo</div>
+      <div class="ch-icon">🙏</div>
+      <div class="ch-title">Altares Familiares</div>
+      <div class="ch-verse">"Yo y mi casa serviremos a Jehová." — Josué 24:15</div>
+      <div class="ch-btn" style="background:#1D9E75">Comenzar</div>
+    </a>
+
+  </div>
+
+</div>
+
+<!-- ── FINAL EVALUATION SECTION ── -->
+<div class="grid-section" style="margin-top:1rem">
+  <div class="section-divider">
+    <div class="dl"></div>
+    <span>Evaluación final del libro</span>
+    <div class="dl"></div>
+  </div>
+  <div class="final-eval-card">
+    <div class="fe-left">
+      <div class="fe-badge">🏁 Para después de leer el libro completo</div>
+      <h2>¿Cuánto hemos crecido?</h2>
+      <p>60 preguntas — 5 por cada capítulo — diseñadas específicamente para medir tu crecimiento después de terminar <em>Restaurando Matrimonios</em>. Identifica lo que ya mejoró, lo que todavía necesita trabajo y recibe un plan de acción concreto por cada área débil.</p>
+      <div class="fe-stats">
+        <div class="fe-stat"><span class="fe-n">60</span><span class="fe-l">preguntas</span></div>
+        <div class="fe-stat"><span class="fe-n">12</span><span class="fe-l">capítulos</span></div>
+        <div class="fe-stat"><span class="fe-n">~20</span><span class="fe-l">minutos</span></div>
+        <div class="fe-stat"><span class="fe-n">🔄</span><span class="fe-l">repetible</span></div>
+      </div>
+      <a href="evaluacion_final_60.html" class="fe-btn">Comenzar evaluación final →</a>
+    </div>
+    <div class="fe-right">
+      <div class="fe-chapter">🌸 Cap. 1 — Atención</div>
+      <div class="fe-chapter">💬 Cap. 2 — Comunicación</div>
+      <div class="fe-chapter">🤝 Cap. 3 — Acuerdo</div>
+      <div class="fe-chapter">🧩 Cap. 4 — Carácter</div>
+      <div class="fe-chapter">💎 Cap. 5 — Respeto</div>
+      <div class="fe-chapter">🎯 Cap. 6 — Realización</div>
+      <div class="fe-chapter">🛡️ Cap. 7 — Disciplina</div>
+      <div class="fe-chapter">💍 Cap. 8 — Lealtad</div>
+      <div class="fe-chapter">💰 Cap. 9 — Finanzas</div>
+      <div class="fe-chapter">❤️ Cap. 10 — Lenguajes</div>
+      <div class="fe-chapter">🕯️ Cap. 11 — Intimidad</div>
+      <div class="fe-chapter">🙏 Cap. 12 — Altares</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FOOTER ── -->
+<div class="page-footer">
+  <p>Este recurso es parte del libro <strong>Restaurando Matrimonios</strong> del Pastor <strong>Milton Valle</strong>.</p>
+  <p>Para más información visita:<br>
+    <a href="https://www.miltonvallemusic.com" target="_blank">miltonvallemusic.com</a>
+  </p>
+  <p style="margin-top:1rem;font-size:12px;color:#aaa;">© miltonvallemusic.com · Todos los derechos reservados</p>
+</div>
+
+</body>
+</html>

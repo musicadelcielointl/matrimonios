@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Evaluación Final — Restaurando Matrimonios</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #f9f7f4;
+    min-height: 100vh;
+    padding: 2rem 1rem 4rem;
+    color: #2c2c2c;
+  }
+
+  .quiz-wrap {
+    max-width: 740px;
+    margin: 0 auto;
+  }
+
+  /* ── HEADER ── */
+  .quiz-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid #e0dbd0;
+  }
+  .quiz-header .tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #9a7c2e;
+    margin-bottom: 0.75rem;
+    font-weight: 500;
+  }
+  .quiz-header h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem;
+    color: #6B0D0D;
+    line-height: 1.15;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .quiz-header .subtitle {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.65;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .church-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-size: 11.5px;
+    color: #9a7c2e;
+    letter-spacing: 0.06em;
+    font-weight: 500;
+  }
+
+  /* ── PROGRESS ── */
+  .progress-wrap { margin-bottom: 2rem; }
+  .progress-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 8px;
+    font-weight: 500;
+  }
+  .progress-track {
+    height: 5px;
+    background: #e8e3da;
+    border-radius: 99px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6B0D0D, #2e6098);
+    border-radius: 99px;
+    transition: width 0.45s ease;
+  }
+
+  /* ── QUESTION CARD ── */
+  .question-card {
+    background: #fff;
+    border: 1px solid #e5dfd4;
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    animation: slideIn 0.3s ease;
+  }
+  .question-card.hidden { display: none; }
+  @keyframes slideIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .q-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #2e6098;
+    background: #f9eded;
+    padding: 4px 10px;
+    border-radius: 99px;
+    margin-bottom: 0.75rem;
+  }
+  .q-num {
+    font-size: 11px;
+    color: #aaa;
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+  }
+  .q-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    color: #1a1a2e;
+    line-height: 1.45;
+    font-weight: 600;
+    margin-bottom: 1.25rem;
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 9px; }
+  .opt {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+    padding: 11px 15px;
+    border: 1.5px solid #e5dfd4;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    background: #fdfcfa;
+    user-select: none;
+  }
+  .opt:hover { background: #f9eded; border-color: #c97777; }
+  .opt.selected { background: #f9eded; border-color: #6B0D0D; }
+  .opt.selected .opt-letter {
+    background: #6B0D0D;
+    color: #fff;
+    border-color: #6B0D0D;
+  }
+  .opt-letter {
+    min-width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: #f0ebe3;
+    border: 1.5px solid #d5cfc5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.15s;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .opt-text {
+    font-size: 13.5px;
+    color: #333;
+    line-height: 1.55;
+  }
+
+  /* ── NAVIGATION ── */
+  .nav-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1.75rem;
+    gap: 12px;
+  }
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 8px;
+    border: 1.5px solid #d0ccc4;
+    cursor: pointer;
+    background: #fff;
+    color: #333;
+    transition: all 0.15s;
+    letter-spacing: 0.02em;
+  }
+  .btn:hover { background: #f5f0e8; border-color: #b0aa9f; }
+  .btn:active { transform: scale(0.97); }
+  .btn.primary {
+    background: #6B0D0D;
+    color: #fff;
+    border-color: #6B0D0D;
+  }
+  .btn.primary:hover { background: #4a0808; border-color: #4a0808; }
+  .btn:disabled { opacity: 0.3; cursor: not-allowed; transform: none; }
+
+  /* ── RESULTS ── */
+  .results {
+    display: none;
+    animation: fadeUp 0.5s ease;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  .result-hero {
+    text-align: center;
+    padding: 2.5rem 1.5rem 2rem;
+    background: #fff;
+    border: 1px solid #e5dfd4;
+    border-radius: 16px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    margin-bottom: 1.5rem;
+  }
+  .result-tag {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #9a7c2e;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .result-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .result-verse {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: #777;
+    margin-top: 0.5rem;
+  }
+
+  .score-ring {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 1.5rem auto;
+    border: 4px solid;
+  }
+  .score-ring .num {
+    font-size: 2.2rem;
+    font-weight: 600;
+    line-height: 1;
+  }
+  .score-ring .lbl {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* ── AREAS GRID ── */
+  .areas-section { margin-bottom: 1.5rem; }
+  .section-label {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .areas-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  @media (max-width: 520px) {
+    .areas-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  .area-card {
+    background: #fff;
+    border: 1px solid #e5dfd4;
+    border-radius: 10px;
+    padding: 0.85rem 0.9rem;
+    text-align: center;
+  }
+  .area-name {
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #666;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+  }
+  .area-bar-bg {
+    height: 5px;
+    background: #ede8df;
+    border-radius: 99px;
+    overflow: hidden;
+    margin-bottom: 5px;
+  }
+  .area-bar-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 1s ease;
+  }
+  .area-score {
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+  }
+
+  /* ── PROFILE BLOCK ── */
+  .profile-block {
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid;
+  }
+  .profile-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 0.6rem;
+  }
+  .profile-block p { font-size: 13.5px; line-height: 1.7; }
+
+  /* ── RECOMMENDATIONS ── */
+  .recos-block {
+    background: #fff;
+    border: 1px solid #e5dfd4;
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .reco-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0ebe3;
+  }
+  .reco-item:last-child { border-bottom: none; padding-bottom: 0; }
+  .reco-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #c9a22e;
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .reco-text { font-size: 13.5px; color: #333; line-height: 1.65; }
+  .reco-topic { font-weight: 600; color: #6B0D0D; }
+
+  /* ── VERSE FOOTER ── */
+  .verse-footer {
+    background: #fdf8ed;
+    border: 1px solid #e8d99a;
+    border-radius: 14px;
+    padding: 1.5rem 1.75rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .verse-footer p {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #7a5c10;
+    line-height: 1.65;
+  }
+  .verse-footer span {
+    display: block;
+    font-size: 11.5px;
+    color: #9a7c2e;
+    margin-top: 8px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── CTA ── */
+  .cta-block {
+    background: #6B0D0D;
+    border-radius: 14px;
+    padding: 1.75rem 2rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #fff;
+  }
+  .cta-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .cta-block p { font-size: 13px; opacity: 0.85; line-height: 1.6; margin-bottom: 1rem; }
+  .cta-btn {
+    display: inline-block;
+    background: #c9a22e;
+    color: #fff;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    padding: 11px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.15s;
+  }
+  .cta-btn:hover { background: #a8861f; }
+
+  .restart-row { text-align: center; margin-top: 0.5rem; }
+</style>
+</head>
+<body>
+<div class="quiz-wrap">
+
+  <!-- ── QUIZ SECTION ── -->
+  <div id="quiz-section">
+    <div class="quiz-header">
+      <div class="tag">📋 Evaluación Final · Después de leer el libro</div>
+      <h1>¿Cuánto hemos crecido?</h1>
+      <p class="subtitle">12 preguntas — una por cada capítulo — para medir tu crecimiento después de leer <em>Restaurando Matrimonios</em>. Identifica lo que ya mejoró y lo que todavía necesita trabajo.</p>
+      <div class="church-tag">✦ miltonvallemusic.com ✦</div>
+    </div>
+
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span id="prog-label">Pregunta 1 de 12</span>
+        <span id="prog-pct">0% completado</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="prog-fill" style="width:0%"></div>
+      </div>
+    </div>
+
+    <div id="questions-container"></div>
+
+    <div class="nav-row">
+      <button class="btn" id="btn-prev" onclick="navigate(-1)" disabled>← Anterior</button>
+      <button class="btn primary" id="btn-next" onclick="navigate(1)" disabled>Siguiente →</button>
+    </div>
+  </div>
+
+  <!-- ── RESULTS SECTION ── -->
+  <div class="results" id="results-section">
+
+    <div class="result-hero">
+      <div class="result-tag">Tus resultados de la evaluación final</div>
+      <div id="result-title" class="result-title"></div>
+      <div id="result-verse" class="result-verse"></div>
+
+      <div class="score-ring" id="score-ring">
+        <div class="num" id="score-num">0</div>
+        <div class="lbl">/ 100</div>
+      </div>
+    </div>
+
+    <div class="areas-section">
+      <div class="section-label">Tu progreso por área del libro</div>
+      <div class="areas-grid" id="areas-grid"></div>
+    </div>
+
+    <div class="profile-block" id="profile-block"></div>
+
+    <div class="recos-block">
+      <div class="section-label" style="margin-bottom:1rem;">Áreas que todavía necesitan trabajo</div>
+      <div id="reco-list"></div>
+    </div>
+
+    <div class="verse-footer">
+      <p>"El amor es sufrido, es benigno; el amor no tiene envidia... todo lo sufre, todo lo cree, todo lo espera, todo lo soporta. El amor nunca deja de ser."</p>
+      <span>1 Corintios 13:4-8</span>
+    </div>
+
+    <div class="cta-block">
+      <h3>¡El libro fue solo el comienzo!</h3>
+      <p>Para más información y recursos adicionales visita miltonvallemusic.com</p>
+      <a class="cta-btn" href="https://www.miltonvallemusic.com" target="_blank">Visitar miltonvallemusic.com</a>
+    </div>
+
+    <div class="restart-row">
+      <button class="btn" onclick="restart()">↩ Volver a responder</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const questions = [
+  { topic:"Atención y detalles", area:"detalles",
+    text:"¿Con qué frecuencia realizas gestos o detalles inesperados para tu pareja (mensajes, flores, sorpresas, su comida favorita...)?",
+    options:["Los hago casi todos los días de manera natural y espontánea.","Los hago ocasionalmente, principalmente en fechas especiales.","Rara vez los hago; la rutina me ha alejado de esos gestos.","Casi nunca; no lo veo como algo que importe mucho."] },
+  { topic:"Comunicación", area:"comunicacion",
+    text:"Cuando tu pareja quiere hablar de algo importante, ¿cuál es tu reacción más frecuente?",
+    options:["Dejo lo que estoy haciendo, apago el celular y escucho de verdad.","Escucho, aunque a veces me distraigo o quiero resolver rápido.","Me cuesta; a veces prefiero evitar la conversación.","Generalmente me pongo a la defensiva o corto la conversación."] },
+  { topic:"Acuerdo", area:"acuerdo",
+    text:"¿En qué medida toman las decisiones importantes del hogar juntos y en acuerdo mutuo?",
+    options:["Siempre conversamos y buscamos el acuerdo antes de decidir.","La mayoría de veces, aunque hay áreas donde uno decide solo.","Con frecuencia uno de los dos decide sin consultar al otro.","Cada uno maneja sus propias decisiones sin un proceso conjunto."] },
+  { topic:"Carácter y temperamento", area:"caracter",
+    text:"¿Cómo reaccionas cuando el temperamento o las diferencias de tu pareja te generan conflicto?",
+    options:["Entiendo que somos diferentes y busco comprender en lugar de juzgar.","Me frustra, pero trato de manejarlo con calma.","Me cuesta mucho aceptar sus diferencias y reacciono mal.","Siento que nuestras diferencias nos separan más que unirnos."] },
+  { topic:"Respeto", area:"respeto",
+    text:"¿Cómo describirías la manera en que se tratan el uno al otro, especialmente en momentos de tensión?",
+    options:["Siempre buscamos respetarnos, incluso cuando estamos enojados.","Generalmente bien, aunque a veces se nos van palabras que no debemos decir.","Con frecuencia usamos palabras hirientes o levantamos la voz.","El irrespeto en el trato es un problema serio en nuestra relación."] },
+  { topic:"Realización", area:"realizacion",
+    text:"¿Sientes que tu pareja apoya y celebra activamente tus sueños, metas y llamado de Dios?",
+    options:["Sí, es mi mayor animador/a y celebramos los logros juntos.","Generalmente sí, aunque podría involucrarse más en mis sueños.","Siento que mis metas no le importan mucho o no las conoce bien.","Siento que a veces es un freno para mi crecimiento personal."] },
+  { topic:"Disciplina en el hogar", area:"disciplina",
+    text:"¿Están de acuerdo como pareja en los valores, límites y forma de disciplinar a sus hijos?",
+    options:["Sí, presentamos un frente unido y nos apoyamos mutuamente.","Mayormente sí, aunque hay áreas donde diferimos.","Con frecuencia hay desacuerdos que confunden a los hijos.","Casi no hay unidad en la crianza; cada uno hace lo que puede."] },
+  { topic:"Lealtad", area:"lealtad",
+    text:"¿Cuán seguros/as se sienten el uno del otro en cuanto a fidelidad, límites y protección del corazón?",
+    options:["Hay total confianza y claridad en los límites de nuestra relación.","Confío en mi pareja, aunque hay áreas de lealtad que podríamos cuidar más.","Ha habido situaciones que dañaron la confianza y aún estamos sanando.","La lealtad y la confianza son un área de crisis en nuestra relación."] },
+  { topic:"Finanzas", area:"finanzas",
+    text:"¿Cómo administran las finanzas del hogar actualmente?",
+    options:["Tenemos un presupuesto claro, somos transparentes y diezmamos juntos.","Intentamos organizarnos aunque no siempre tenemos control total.","Las finanzas generan tensión; no hay claridad ni acuerdo entre nosotros.","Cada uno maneja su dinero por separado y hay conflictos por eso."] },
+  { topic:"Lenguajes del amor", area:"lenguajes",
+    text:"¿Sabes cuál es el lenguaje del amor principal de tu pareja y lo expresas de esa manera?",
+    options:["Sí, conozco su lenguaje y busco activamente expresarlo así.","Más o menos; a veces acierto y a veces no.","Creo que no conozco bien cómo él/ella recibe amor realmente.","Nunca hemos hablado de esto y hay desconexión emocional entre nosotros."] },
+  { topic:"Intimidad", area:"intimidad",
+    text:"¿Cómo describirías la intimidad (emocional, física y espiritual) en su relación hoy?",
+    options:["Estamos bien conectados en las tres dimensiones de la intimidad.","Hay conexión en algunas áreas pero otras necesitan atención.","Sentimos distancia o frialdad en una o más áreas importantes.","La intimidad está muy deteriorada y es fuente de dolor entre nosotros."] },
+  { topic:"Altar familiar", area:"espiritual",
+    text:"¿Tienen el hábito del altar familiar (orar juntos, leer la Palabra, adorar) de manera regular?",
+    options:["Sí, oramos juntos diariamente y Dios es el centro de nuestro hogar.","Lo hacemos varias veces por semana; queremos hacerlo más constante.","Rara vez oramos juntos como pareja o familia.","No existe la práctica espiritual en conjunto en nuestro hogar."] }
+];
+
+const areaColors = {
+  detalles:"#185FA5", comunicacion:"#0F6E56", acuerdo:"#854F0B",
+  caracter:"#534AB7", respeto:"#993C1D", realizacion:"#185FA5",
+  disciplina:"#0F6E56", lealtad:"#A32D2D", finanzas:"#854F0B",
+  lenguajes:"#534AB7", intimidad:"#993C1D", espiritual:"#0F6E56"
+};
+
+const recos = {
+  detalles:"Sorprende a tu pareja con 3 detalles concretos esta semana: un mensaje de amor en la mañana, su comida favorita, y 15 minutos de conversación sin celular.",
+  comunicacion:"Acuerden un 'momento de pareja' de 20 minutos cada noche sin pantallas. Uno habla, el otro escucha sin interrumpir. Luego cambian de rol.",
+  acuerdo:"Elijan un área de desacuerdo, conversen 20 minutos con la regla de no atacar a la persona. Busquen al menos un punto de acuerdo concreto.",
+  caracter:"Escribe 3 fortalezas del temperamento de tu pareja que agradeces genuinamente. Díselas esta semana en voz alta, mirándole a los ojos.",
+  respeto:"Hagan juntos un pacto verbal: 'En esta casa no gritamos ni usamos palabras hirientes.' Comprométanse a cumplirlo esta semana.",
+  realizacion:"Pregúntale a tu pareja hoy: '¿Cuál es el sueño más grande que tienes?' Escúchalo sin interrumpir y dile cómo lo vas a apoyar.",
+  disciplina:"Escriban juntos 3 reglas claras del hogar para los hijos y comprométanse a aplicarlas sin contradecirse frente a ellos.",
+  lealtad:"Conversen esta semana sobre los límites que necesitan establecer o reforzar para proteger la confianza de su relación.",
+  finanzas:"Siéntense juntos con todos sus ingresos y gastos. Hagan un presupuesto compartido y fijen una meta de ahorro para los próximos 3 meses.",
+  lenguajes:"Pregúntale a tu pareja: '¿Cuándo te sientes más amado/a por mí?' Escucha sin defenderte y ponlo en práctica esta semana.",
+  intimidad:"Planeen una cita solos esta semana — sin hijos ni celulares. Conversen sobre cómo se han sentido en la relación últimamente.",
+  espiritual:"Esta noche, antes de dormir, tómense de las manos y oren juntos. Comiencen el hábito del altar familiar: una canción, un verso, una oración."
+};
+
+let current = 0;
+let answers = new Array(questions.length).fill(null);
+
+function buildCards() {
+  const container = document.getElementById('questions-container');
+  questions.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card' + (i !== 0 ? ' hidden' : '');
+    card.id = 'q-' + i;
+    card.innerHTML = `
+      <div class="q-num">Pregunta ${i+1} de ${questions.length}</div>
+      <div class="q-chip">${q.topic}</div>
+      <div class="q-text">${q.text}</div>
+      <div class="options">
+        ${q.options.map((o,oi)=>`
+          <div class="opt" id="opt-${i}-${oi}" onclick="selectOption(${i},${oi},${4-oi})">
+            <div class="opt-letter">${String.fromCharCode(65+oi)}</div>
+            <div class="opt-text">${o}</div>
+          </div>`).join('')}
+      </div>`;
+    container.appendChild(card);
+  });
+}
+
+function selectOption(qi, oi, score) {
+  answers[qi] = score;
+  document.querySelectorAll(`[id^="opt-${qi}-"]`).forEach(el => el.classList.remove('selected'));
+  document.getElementById(`opt-${qi}-${oi}`).classList.add('selected');
+  updateNav();
+}
+
+function navigate(dir) {
+  if (dir === 1 && answers[current] === null) return;
+  document.getElementById('q-' + current).classList.add('hidden');
+  current += dir;
+  if (current < 0) current = 0;
+  if (current >= questions.length) { showResults(); return; }
+  document.getElementById('q-' + current).classList.remove('hidden');
+  updateProgress();
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function updateNav() {
+  document.getElementById('btn-prev').disabled = current === 0;
+  const nb = document.getElementById('btn-next');
+  const answered = answers[current] !== null;
+  nb.disabled = !answered;
+  if (current === questions.length - 1) {
+    nb.textContent = answered ? 'Ver mis resultados →' : 'Siguiente →';
+  } else {
+    nb.textContent = 'Siguiente →';
+  }
+}
+
+function updateProgress() {
+  const answered = answers.filter(a => a !== null).length;
+  const pct = Math.round((answered / questions.length) * 100);
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-label').textContent = `Pregunta ${current+1} de ${questions.length}`;
+  document.getElementById('prog-pct').textContent = pct + '% completado';
+}
+
+function showResults() {
+  document.getElementById('quiz-section').style.display = 'none';
+  const rs = document.getElementById('results-section');
+  rs.style.display = 'block';
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  const total = answers.reduce((a,b) => a+b, 0);
+  const maxScore = questions.length * 4;
+  const pct = Math.round((total / maxScore) * 100);
+
+  document.getElementById('score-num').textContent = pct;
+
+  let title, verse, verseRef, profileDesc, ringColor, profileBg, profileBorder;
+
+  if (pct >= 80) {
+    title = "¡Han crecido enormemente!"; verse = "Dos son mejor que uno, porque tienen buena paga por su trabajo"; verseRef = "Eclesiastés 4:9";
+    profileDesc = "Esta evaluación final muestra que han aplicado bien los principios del libro. Las áreas esenciales del matrimonio muestran crecimiento real y hábitos sólidos. ¡Felicitaciones! Su trabajo ha dado fruto. El reto ahora es no dar por sentado lo alcanzado — el matrimonio necesita inversión constante para seguir floreciendo.";
+    ringColor = "#0F6E56"; profileBg = "#eaf7f2"; profileBorder = "#5DCAA5";
+  } else if (pct >= 60) {
+    title = "Buen progreso, sigan adelante"; verse = "Porque si cayere el uno, el otro levantará a su compañero"; verseRef = "Eclesiastés 4:10";
+    profileDesc = "Han avanzado en varias áreas importantes del libro, pero todavía hay capítulos que necesitan más tiempo y práctica. Eso es completamente normal — el crecimiento matrimonial es un proceso, no un evento. Identifiquen las áreas en amarillo o rojo y decidan juntos cuál trabajarán este mes.";
+    ringColor = "#185FA5"; profileBg = "#eaf2fb"; profileBorder = "#85B7EB";
+  } else if (pct >= 40) {
+    title = "El libro sembró la semilla"; verse = "Y Dios restaura lo que pasó"; verseRef = "Eclesiastés 3:15";
+    profileDesc = "Haber leído el libro es el primer paso — y no todos lo dan. Pero los resultados muestran que hay áreas donde los principios todavía no se han aplicado de manera consistente. No se desanimen: el cambio real toma tiempo. Elijan el área más urgente, trabajen en ella durante 30 días y vuelvan a hacer esta evaluación.";
+    ringColor = "#854F0B"; profileBg = "#fdf3dc"; profileBorder = "#EF9F27";
+  } else {
+    title = "El camino acaba de comenzar"; verse = "Mas para Dios todo es posible"; verseRef = "Mateo 19:26";
+    profileDesc = "Leer el libro fue valioso, pero estos resultados muestran que hay áreas de crisis que necesitan más que un libro — necesitan acompañamiento. No estén solos. Acudan a su pastor, líder o consejero matrimonial. Con la ayuda correcta, Dios puede transformar lo que hoy parece difícil. Este no es el final — es el inicio real del proceso.";
+    ringColor = "#A32D2D"; profileBg = "#fdf0f0"; profileBorder = "#F09595";
+  }
+
+  document.getElementById('result-title').textContent = title;
+  document.getElementById('result-title').style.color = ringColor;
+  document.getElementById('result-verse').innerHTML = `"${verse}" — ${verseRef}`;
+
+  const ring = document.getElementById('score-ring');
+  ring.style.borderColor = ringColor;
+  ring.querySelector('.num').style.color = ringColor;
+  ring.querySelector('.lbl').style.color = ringColor;
+
+  const pb = document.getElementById('profile-block');
+  pb.style.background = profileBg;
+  pb.style.borderColor = profileBorder;
+  pb.innerHTML = `<h3 style="color:${ringColor}">${title}</h3><p style="color:#444">${profileDesc}</p>`;
+
+  const grid = document.getElementById('areas-grid');
+  grid.innerHTML = '';
+  questions.forEach((q, i) => {
+    const barPct = Math.round((answers[i] / 4) * 100);
+    const color = areaColors[q.area];
+    grid.innerHTML += `
+      <div class="area-card">
+        <div class="area-name">${q.topic}</div>
+        <div class="area-bar-bg"><div class="area-bar-fill" style="width:${barPct}%;background:${color}"></div></div>
+        <div class="area-score" style="color:${color}">${barPct}%</div>
+      </div>`;
+  });
+
+  const weak = questions.map((q,i) => ({...q, score: answers[i]}))
+    .filter(q => q.score <= 2).sort((a,b) => a.score - b.score).slice(0, 5);
+
+  const rl = document.getElementById('reco-list');
+  rl.innerHTML = '';
+  if (weak.length === 0) {
+    rl.innerHTML = '<div class="reco-item"><div class="reco-dot"></div><div class="reco-text">¡Excelente resultado final! Han crecido en todas las áreas del libro. Su reto ahora es mantener esa intencionalidad — el matrimonio floreciente no es un destino, es una práctica diaria. ¡Sigan así!</div></div>';
+  } else {
+    weak.forEach(q => {
+      rl.innerHTML += `<div class="reco-item"><div class="reco-dot"></div><div class="reco-text"><span class="reco-topic">${q.topic}:</span> ${recos[q.area]}</div></div>`;
+    });
+  }
+}
+
+function restart() {
+  current = 0;
+  answers = new Array(questions.length).fill(null);
+  document.getElementById('results-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  document.querySelectorAll('.question-card').forEach((c,i) => c.classList.toggle('hidden', i !== 0));
+  document.querySelectorAll('.opt').forEach(o => o.classList.remove('selected'));
+  document.getElementById('prog-fill').style.width = '0%';
+  document.getElementById('prog-pct').textContent = '0% completado';
+  document.getElementById('prog-label').textContent = 'Pregunta 1 de 12';
+  updateNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildCards();
+updateNav();
+</script>
+</body>
+</html>

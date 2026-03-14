@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cap. 5 — Respeto</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--c1:#993C1D;--c2:#712B13;--cl:#FAECE7;--gold:#c9a22e;--gold2:#a8861f;--navy:#6B0D0D;--navy2:#4a0808;--border:#e5dfd4;--text:#2c2c2c;--muted:#777}
+body{font-family:'DM Sans',sans-serif;background:#f9f7f4;color:var(--text);padding:2rem 1rem 5rem;min-height:100vh}
+.wrap{max-width:760px;margin:0 auto}
+.hero{background:#6B0D0D;border-radius:20px;padding:2.5rem 2.5rem 2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;border-radius:50%;background:rgba(201,162,46,0.12)}
+.hero-tag{display:inline-block;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:2.4rem;color:#fff;font-weight:600;line-height:1.1;margin-bottom:.4rem}
+.hero .sub{font-size:13.5px;color:rgba(255,255,255,.65);line-height:1.6;max-width:500px;margin-bottom:1.25rem}
+.vstrip{background:rgba(201,162,46,.15);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:.7rem 1rem;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1rem;color:rgba(255,255,255,.85);position:relative;z-index:1}
+.vstrip span{display:block;font-size:11px;color:var(--gold);font-style:normal;margin-top:4px;letter-spacing:.06em;font-family:'DM Sans',sans-serif;font-weight:500}
+.prog-wrap{margin-bottom:1.75rem}
+.prog-meta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:7px;font-weight:500}
+.prog-track{height:6px;background:#e2dbd0;border-radius:99px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#6B0D0D,var(--c1));border-radius:99px;transition:width .4s ease}
+.q-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.6rem 1.75rem;margin-bottom:1.25rem;box-shadow:0 2px 10px rgba(0,0,0,.04);animation:fadeUp .3s ease}
+.q-card.hidden{display:none}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.q-meta{display:flex;align-items:center;gap:8px;margin-bottom:.6rem}
+.q-num{font-size:11px;color:var(--muted);font-weight:600}
+.q-cat{font-size:10px;font-weight:600;letter-spacing:.07em;text-transform:uppercase;padding:2px 9px;border-radius:99px}
+.q-text{font-family:'Cormorant Garamond',serif;font-size:1.28rem;color:#1a1a2e;line-height:1.45;font-weight:600;margin-bottom:1.2rem}
+.opts{display:flex;flex-direction:column;gap:9px}
+.opt{display:flex;align-items:flex-start;gap:11px;padding:11px 14px;border:1.5px solid var(--border);border-radius:10px;cursor:pointer;transition:all .15s ease;background:#fdfcfa;user-select:none}
+.opt:hover{border-color:var(--c2);background:var(--cl)}
+.opt.sel{border-color:var(--c1);background:var(--cl)}
+.opt.sel .opt-l{background:var(--c1);color:#fff;border-color:var(--c1)}
+.opt-l{min-width:24px;height:24px;border-radius:50%;background:#f0ebe3;border:1.5px solid #d5cfc5;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#888;flex-shrink:0;margin-top:1px;transition:all .15s}
+.opt-text{font-size:13.5px;color:#333;line-height:1.55}
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:1.75rem;gap:12px}
+.btn{font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;padding:10px 24px;border-radius:9px;border:1.5px solid #d0ccc4;cursor:pointer;background:#fff;color:#333;transition:all .15s}
+.btn:hover{background:#f5f0e8}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--c1);color:#fff;border-color:var(--c1)}
+.btn.primary:hover{background:var(--c2)}
+.btn:disabled{opacity:.28;cursor:not-allowed;transform:none}
+.results{display:none;animation:fadeUp .5s ease}
+.result-hero{background:#6B0D0D;border-radius:20px;padding:2rem 2rem 1.75rem;text-align:center;margin-bottom:1.5rem;position:relative;overflow:hidden}
+.result-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:160px;height:160px;border-radius:50%;background:rgba(201,162,46,.12)}
+.r-tag{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:.5rem}
+.r-title{font-family:'Cormorant Garamond',serif;font-size:2.1rem;font-weight:600;color:#fff;line-height:1.2;margin-bottom:.4rem}
+.r-verse{font-family:'Cormorant Garamond',serif;font-size:.98rem;font-style:italic;color:rgba(255,255,255,.65)}
+.score-ring{width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;margin:1.25rem auto;border:4px solid;position:relative;z-index:1}
+.score-ring .sn{font-size:2.2rem;font-weight:600;line-height:1;color:#fff}
+.score-ring .sl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:2px}
+.sec-label{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:.9rem}
+.dim-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:1.5rem}
+@media(max-width:520px){.dim-grid{grid-template-columns:repeat(2,1fr)}}
+.dim-card{background:#fff;border:1px solid var(--border);border-radius:12px;padding:.9rem 1rem;text-align:center}
+.dim-icon{font-size:20px;margin-bottom:4px}
+.dim-name{font-size:10px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px}
+.dim-bar-bg{height:5px;background:#ede8df;border-radius:99px;overflow:hidden;margin-bottom:5px}
+.dim-bar{height:100%;border-radius:99px;transition:width 1s ease .3s}
+.dim-pct{font-size:13px;font-weight:600}
+.profile-card{border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem;border:1px solid}
+.profile-card h3{font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-weight:600;margin-bottom:.5rem}
+.profile-card p{font-size:13.5px;line-height:1.7}
+.reco-card{background:#fff;border:1px solid var(--border);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.reco-item{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #f0ebe3}
+.reco-item:last-child{border-bottom:none;padding-bottom:0}
+.reco-dot{width:7px;height:7px;border-radius:50%;background:var(--gold);margin-top:6px;flex-shrink:0}
+.reco-t{font-size:13.5px;color:#333;line-height:1.65}
+.reco-bold{font-weight:600;color:var(--c1)}
+.action-card{background:#FAECE7;border:1px solid var(--c2);border-radius:14px;padding:1.5rem 1.75rem;margin-bottom:1.5rem}
+.action-card h3{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--c2);margin-bottom:.6rem}
+.action-steps{list-style:none;display:flex;flex-direction:column;gap:8px}
+.action-steps li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;line-height:1.6}
+.step-num{min-width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-top:1px}
+.v-footer{background:#fdf8ed;border:1px solid #e8d99a;border-radius:14px;padding:1.5rem 1.75rem;text-align:center;margin-bottom:1.5rem}
+.v-footer p{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:#7a5c10;line-height:1.65}
+.v-footer span{display:block;font-size:11.5px;color:var(--gold2);margin-top:8px;font-weight:600;letter-spacing:.06em}
+.cta{background:var(--navy);border-radius:14px;padding:1.75rem 2rem;text-align:center;margin-bottom:1.5rem}
+.cta h3{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:600;color:#fff;margin-bottom:.4rem}
+.cta p{font-size:13px;color:rgba(255,255,255,.75);line-height:1.6;margin-bottom:1rem}
+.cta a{display:inline-block;background:var(--gold);color:#fff;font-size:13.5px;font-weight:600;padding:10px 26px;border-radius:8px;text-decoration:none;letter-spacing:.04em;transition:background .15s}
+.cta a:hover{background:var(--gold2)}
+.restart-row{text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div id="quiz-section">
+  <div class="hero">
+    <div class="hero-tag">Capítulo 5 · Evaluación individual</div>
+    <h1>Respeto</h1>
+    <p class="sub">12 preguntas para evaluar el nivel de respeto en tu matrimonio — en las palabras, el trato y la admiración mutua.</p>
+    <div class="vstrip">"La mujer respete a su marido."<span>Efesios 5:33</span></div>
+  </div>
+  <div class="prog-wrap">
+    <div class="prog-meta"><span id="plabel">Pregunta 1 de 12</span><span id="ppct">0% completado</span></div>
+    <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
+  </div>
+  <div id="qcontainer"></div>
+  <div class="nav">
+    <button class="btn" id="btnPrev" onclick="nav(-1)" disabled>← Anterior</button>
+    <button class="btn primary" id="btnNext" onclick="nav(1)" disabled>Siguiente →</button>
+  </div>
+</div>
+<div class="results" id="results-section">
+  <div class="result-hero">
+    <div class="r-tag">Tus resultados personales — Capítulo 5</div>
+    <div class="r-title" id="rTitle"></div>
+    <div class="r-verse" id="rVerse"></div>
+    <div class="score-ring" id="sRing"><div class="sn" id="sNum">0</div><div class="sl">/ 100</div></div>
+  </div>
+  <div class="sec-label">Evaluación por dimensión</div>
+  <div class="dim-grid" id="dimGrid"></div>
+  <div class="profile-card" id="profileCard"></div>
+  <div class="reco-card">
+    <div class="sec-label" style="margin-bottom:1rem">Lo que puedes hacer esta semana</div>
+    <div id="recoList"></div>
+  </div>
+  <div class="action-card">
+    <h3>🎯 Dinámica — "Sara y Abraham"</h3>
+    <ul class="action-steps"><li><div class="step-num">1</div>Cada uno escribe en un papel: 1 manera en que le has irrespetado a tu pareja últimamente (sé honesto/a).</li><li><div class="step-num">2</div>Escribe también: 2 cosas que cambiarás a partir de esta semana en tu trato hacia él/ella.</li><li><div class="step-num">3</div>Léanse los papeles. El que escucha solo responde con: 'Gracias por decirme eso. Te lo agradezco.'</li><li><div class="step-num">4</div>Oren juntos pidiéndole al Señor que ponga guardia sobre su boca y amor en su trato diario.</li></ul>
+  </div>
+  <div class="v-footer"><p>"La mujer respete a su marido."</p><span>Efesios 5:33</span></div>
+  <div class="cta">
+    <h3>¿Quieres profundizar más?</h3>
+    <p>Este cuestionario forma parte del libro <em>Restaurando Matrimonios</em>. Para más información visita miltonvallemusic.com</p>
+    <a href="https://www.miltonvallemusic.com" target="_blank">✦ miltonvallemusic.com</a>
+  </div>
+  <div class="restart-row"><button class="btn" onclick="restart()">↩ Responder de nuevo</button></div>
+</div>
+</div>
+<script>
+const DIMS={"palabras":{"label":"Palabras","icon":"🗣️","color":"#993C1D"},"trato":{"label":"Trato diario","icon":"💎","color":"#185FA5"},"publico":{"label":"En público","icon":"👥","color":"#0F6E56"},"conflicto":{"label":"En el conflicto","icon":"⚡","color":"#854F0B"},"admiracion":{"label":"Admiración","icon":"⭐","color":"#534AB7"},"recibir":{"label":"Recibir respeto","icon":"🛡️","color":"#993C1D"}};
+const Qs=[{"dim":"palabras","cat":"Palabras","cc":"#993C1D","text":"¿Con qué frecuencia le dices a tu pareja palabras específicas de afirmación, admiración o agradecimiento?","opts":["Regularmente; verbalizo de manera específica lo que valoro de él/ella.","A veces; podría ser más intencional con las palabras de afirmación.","Rara vez; no soy muy expresivo/a verbalmente con mi pareja.","Casi nunca; asumo que ya lo sabe sin necesidad de decírselo."]},{"dim":"palabras","cat":"Palabras","cc":"#993C1D","text":"El capítulo menciona que Dios pidió a Abraham cambiar 'Saraí' (rebelde) por 'Sara' (princesa). ¿Hay palabras o apodos que usas con tu pareja que no la honran?","opts":["No; cuido conscientemente las palabras con que me dirijo a mi pareja.","A veces uso palabras que no honran, especialmente en momentos de tensión.","Con frecuencia uso un tono o palabras que no son las más respetuosas.","Reconozco que hay palabras o apodos habituales que no honran a mi pareja."]},{"dim":"trato","cat":"Trato diario","cc":"#185FA5","text":"¿Cómo describirías el trato cotidiano que le das a tu pareja en el hogar?","opts":["Siempre busco tratarle con amabilidad, consideración y respeto.","Generalmente bien, aunque hay días en que el cansancio o el estrés me afectan.","Con frecuencia soy indiferente, áspero/a o poco considerado/a en el trato.","El mal trato cotidiano es un patrón que reconozco en mi relación."]},{"dim":"trato","cat":"Trato diario","cc":"#185FA5","text":"¿Prestas atención a las necesidades y sentimientos de tu pareja en el día a día, sin que te lo pida?","opts":["Sí; estoy atento/a a lo que necesita y actúo sin esperar que me lo pida.","A veces; hay días en que estoy muy atento/a y otros en que no me fijo.","Poco; generalmente espero que él/ella exprese lo que necesita.","Casi no; estoy tan enfocado/a en mis propias actividades que no lo noto."]},{"dim":"publico","cat":"En público","cc":"#0F6E56","text":"¿Hablas bien de tu pareja delante de otras personas (familia, amigos, compañeros)?","opts":["Siempre; nunca expongo sus debilidades ni hablo mal de él/ella frente a otros.","Generalmente sí, aunque a veces me quejo con personas de confianza.","A veces hablo mal de mi pareja sin medir el daño que eso causa.","Con frecuencia critico o me quejo de mi pareja frente a otros."]},{"dim":"publico","cat":"En público","cc":"#0F6E56","text":"¿Expresas públicamente (en redes, con amigos, con familia) admiración o reconocimiento hacia tu pareja?","opts":["Sí; con frecuencia digo cosas positivas de mi pareja frente a otros.","Ocasionalmente; cuando hay una ocasión especial o logro importante.","Rara vez; no acostumbro hablar de mi pareja frente a otros de manera positiva.","Casi nunca; prefiero mantener nuestra relación completamente privada."]},{"dim":"conflicto","cat":"En el conflicto","cc":"#854F0B","text":"Cuando están en una discusión o conflicto, ¿cómo describirías tu conducta?","opts":["Mantengo la calma y busco resolver sin gritos ni palabras hirientes.","Generalmente me controlo, aunque a veces se me escapa alguna palabra dura.","Con frecuencia elevo el tono, uso palabras hirientes o me vuelvo sarcástico/a.","En el conflicto pierdo el control; digo cosas de las que luego me arrepiento."]},{"dim":"conflicto","cat":"En el conflicto","cc":"#854F0B","text":"¿Discuten frente a los hijos o en presencia de otras personas?","opts":["Nunca; siempre buscamos privacidad para hablar los temas importantes.","Muy rara vez; nos cuidamos de no hacerlo frente a los hijos.","A veces; el calor del momento nos lleva a discutir sin importar quién esté.","Con frecuencia; los hijos u otras personas son testigos de nuestros conflictos."]},{"dim":"admiracion","cat":"Admiración","cc":"#534AB7","text":"¿Cuándo fue la última vez que le dijiste a tu pareja algo específico que admiras de él/ella?","opts":["Esta semana; es una práctica regular en nuestra relación.","Hace algunas semanas; lo hago pero podría ser más frecuente.","Hace meses; la rutina me ha alejado de expresar admiración.","No recuerdo; casi nunca expreso admiración de manera verbal y específica."]},{"dim":"admiracion","cat":"Admiración","cc":"#534AB7","text":"¿Reconoces y agradeces el esfuerzo y la dedicación de tu pareja en sus responsabilidades (hogar, trabajo, hijos, ministerio)?","opts":["Sí, con frecuencia; reconozco y agradezco su esfuerzo de manera explícita.","A veces; podría ser más consistente en reconocer lo que hace.","Poco; tiendo a notar más lo que falta que lo que se hace bien.","Casi nunca; el reconocimiento no es algo que practique de manera habitual."]},{"dim":"recibir","cat":"Recibir respeto","cc":"#993C1D","text":"¿Sientes que tu pareja te respeta y te valora genuinamente?","opts":["Sí; me hace sentir valorado/a y respetado/a en la mayoría de situaciones.","Generalmente sí, aunque hay momentos en que me siento menospreciado/a.","A menudo me siento irrespetado/a o ignorado/a en nuestra relación.","La falta de respeto es una herida profunda que cargo en esta relación."]},{"dim":"recibir","cat":"Recibir respeto","cc":"#993C1D","text":"¿Le has comunicado a tu pareja qué actitudes o palabras te hacen sentir irrespetado/a?","opts":["Sí; hemos tenido esas conversaciones con honestidad y respeto.","Algo; lo he insinuado pero no lo he dicho de manera directa y clara.","No; guardo eso internamente para no generar conflicto.","No; ni siquiera lo había analizado con claridad hasta ahora."]}];
+const PROFILES=[{"title":"Relación que honra y edifica","verse":"\"Cada uno ame a su mujer como a sí mismo; y la mujer respete a su marido.\" — Efesios 5:33","color":"#993C1D","bg":"#FAECE7","border":"#F0997B","desc":"Tu matrimonio tiene un buen nivel de respeto mutuo en las palabras, el trato y la admiración. Eso crea seguridad emocional que hace florecer el amor. Tu reto es crecer en expresar esa admiración más frecuente y específicamente — no lo des por sentado."},{"title":"Respeto en construcción","verse":"\"Así fue Sara, que obedeció a Abraham y lo llamó mi señor.\" — 1 Pedro 3:6","color":"#993C1D","bg":"#FAECE7","border":"#F0997B","desc":"Hay una base de respeto, pero hay áreas donde las palabras, el trato o la falta de admiración están generando inseguridad emocional en tu pareja. Recuerda: lo que Abraham le llamó a Sara ('princesa') cambió la manera en que ella le respondía. Las palabras forman al otro."},{"title":"El irrespeto está haciendo daño","verse":"\"La respuesta amable calma el enojo; la respuesta grosera lo enciende más.\" — Proverbios 15:1","color":"#854F0B","bg":"#fdf3dc","border":"#EF9F27","desc":"Los patrones de irrespeto — en el trato, las palabras o la falta de admiración — están erosionando la seguridad emocional de tu relación. Cada palabra hiriente deja una marca. Es tiempo de hacer un inventario honesto y comprometerte a un cambio concreto esta semana."},{"title":"El respeto es urgente","verse":"\"Mas el que os haya ofendido, le basta esta reprensión... para que más bien le perdonéis.\" — 2 Corintios 2:6-7","color":"#8b2035","bg":"#fdf0f2","border":"#F09595","desc":"Tu relación está sufriendo un déficit serio de respeto en varias áreas. Las heridas de las palabras y el mal trato son profundas. Pero Dios puede sanar. El primer paso es un reconocimiento honesto y una disculpa sincera. Hazlo hoy, sin esperar a que el otro lo haga primero."}];
+const RECOS={"palabras":{"bold":"Cambia una palabra hoy:","text":"Identifica una palabra o tono que usas con tu pareja que no la honra. Reemplázala conscientemente esta semana por una que edifique. Las palabras moldean la realidad de la relación."},"trato":{"bold":"Un gesto de consideración:","text":"Esta semana, haz algo por tu pareja sin que te lo pida — y hazlo sin esperar reconocimiento. La consideración no solicitada es una de las formas más poderosas de respeto."},"publico":{"bold":"Elogia a tu pareja frente a alguien:","text":"Esta semana, di algo positivo y específico de tu pareja frente a una persona o en redes sociales. La admiración pública da seguridad que ningún regalo puede comprar."},"conflicto":{"bold":"Una regla de conflicto:","text":"Hagan juntos un acuerdo: 'En esta casa no gritamos ni usamos palabras hirientes.' Cuando uno se acuerde del pacto en el calor del momento, eso cambia todo."},"admiracion":{"bold":"Dile exactamente qué admiras:","text":"Hoy, dile a tu pareja una cosa muy específica que admiras de él/ella. No 'eres bueno/a' sino '¡admiro cómo manejas la presión!' La especificidad hace que el elogio se sienta real."},"recibir":{"bold":"Cuéntale cómo te sientes:","text":"Elige un momento tranquilo y dile: 'Hay algo que quiero contarte: cuando [situación], me siento [emoción]. No es un reproche, es para que me conozcas mejor.' Eso es valentía relacional."}};
+let cur=0,ans=new Array(Qs.length).fill(null);
+function buildCards(){const c=document.getElementById('qcontainer');Qs.forEach((q,i)=>{const d=document.createElement('div');d.className='q-card'+(i!==0?' hidden':'');d.id='q'+i;d.innerHTML=`<div class="q-meta"><span class="q-num">Pregunta ${i+1} de ${Qs.length}</span><span class="q-cat" style="background:${q.cc}22;color:${q.cc}">${q.cat}</span></div><div class="q-text">${q.text}</div><div class="opts">${q.opts.map((o,oi)=>`<div class="opt" id="o${i}_${oi}" onclick="pick(${i},${oi},${4-oi})"><div class="opt-l">${String.fromCharCode(65+oi)}</div><div class="opt-text">${o}</div></div>`).join('')}</div>`;c.appendChild(d);})}
+function pick(qi,oi,score){ans[qi]=score;document.querySelectorAll(`[id^="o${qi}_"]`).forEach(el=>el.classList.remove('sel'));document.getElementById(`o${qi}_${oi}`).classList.add('sel');updateNav()}
+function nav(dir){if(dir===1&&ans[cur]===null)return;document.getElementById('q'+cur).classList.add('hidden');cur+=dir;if(cur<0)cur=0;if(cur>=Qs.length){showResults();return}document.getElementById('q'+cur).classList.remove('hidden');updateProg();updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+function updateNav(){document.getElementById('btnPrev').disabled=cur===0;const nb=document.getElementById('btnNext');nb.disabled=ans[cur]===null;nb.textContent=cur===Qs.length-1&&ans[cur]!==null?'Ver mis resultados →':'Siguiente →'}
+function updateProg(){const done=ans.filter(a=>a!==null).length;const pct=Math.round(done/Qs.length*100);document.getElementById('pfill').style.width=pct+'%';document.getElementById('plabel').textContent=`Pregunta ${cur+1} de ${Qs.length}`;document.getElementById('ppct').textContent=pct+'% completado'}
+function showResults(){document.getElementById('quiz-section').style.display='none';document.getElementById('results-section').style.display='block';window.scrollTo({top:0,behavior:'smooth'});const total=ans.reduce((a,b)=>a+b,0);const pct=Math.round(total/(Qs.length*4)*100);document.getElementById('sNum').textContent=pct;const p=pct>=80?PROFILES[0]:pct>=60?PROFILES[1]:pct>=40?PROFILES[2]:PROFILES[3];document.getElementById('rTitle').textContent=p.title;document.getElementById('rVerse').innerHTML=p.verse;const ring=document.getElementById('sRing');ring.style.borderColor=p.color+'55';const pc=document.getElementById('profileCard');pc.style.background=p.bg;pc.style.borderColor=p.border;pc.innerHTML=`<h3 style="color:${p.color}">${p.title}</h3><p style="color:#444">${p.desc}</p>`;const dimScores={};const dimCounts={};Qs.forEach((q,i)=>{if(!dimScores[q.dim]){dimScores[q.dim]=0;dimCounts[q.dim]=0}dimScores[q.dim]+=ans[i];dimCounts[q.dim]++});const grid=document.getElementById('dimGrid');grid.innerHTML='';Object.entries(DIMS).forEach(([k,cfg])=>{const raw=dimScores[k]||0;const max=(dimCounts[k]||1)*4;const dp=Math.round(raw/max*100);grid.innerHTML+=`<div class="dim-card"><div class="dim-icon">${cfg.icon}</div><div class="dim-name">${cfg.label}</div><div class="dim-bar-bg"><div class="dim-bar" style="width:${dp}%;background:${cfg.color}"></div></div><div class="dim-pct" style="color:${cfg.color}">${dp}%</div></div>`});const weak=Object.entries(dimScores).map(([k,v])=>({key:k,pct:Math.round(v/((dimCounts[k]||1)*4)*100)})).sort((a,b)=>a.pct-b.pct).slice(0,4);const rl=document.getElementById('recoList');rl.innerHTML='';weak.forEach(d=>{const r=RECOS[d.key];if(!r)return;rl.innerHTML+=`<div class="reco-item"><div class="reco-dot"></div><div class="reco-t"><span class="reco-bold">${r.bold}</span> ${r.text}</div></div>`});if(!rl.innerHTML)rl.innerHTML='<div class="reco-item"><div class="reco-dot"></div><div class="reco-t">¡Excelente! Sigue con la misma intencionalidad y constancia cada día.</div></div>'}
+function restart(){cur=0;ans=new Array(Qs.length).fill(null);document.getElementById('results-section').style.display='none';document.getElementById('quiz-section').style.display='block';document.querySelectorAll('.q-card').forEach((c,i)=>c.classList.toggle('hidden',i!==0));document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));document.getElementById('pfill').style.width='0%';document.getElementById('ppct').textContent='0% completado';document.getElementById('plabel').textContent='Pregunta 1 de 12';updateNav();window.scrollTo({top:0,behavior:'smooth'})}
+buildCards();updateNav();
+</script>
+</body>
+</html>
