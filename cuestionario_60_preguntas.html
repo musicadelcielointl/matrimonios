@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evaluación Matrimonial Completa — 60 Preguntas</title>
+<title>Evaluación Inicial para cada Cónyuge — 65 Preguntas</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -134,9 +134,9 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);pad
 
 <div id="quiz-section">
   <div class="hero">
-    <div class="hero-tag">Evaluación matrimonial completa · 60 preguntas</div>
+    <div class="hero-tag">Evaluación inicial para cada cónyuge · 65 preguntas</div>
     <h1>Restaurando Matrimonios</h1>
-    <p class="sub">5 preguntas por cada una de las 12 áreas del matrimonio. Descubre tus fortalezas y debilidades como pareja para saber exactamente dónde crecer juntos.</p>
+    <p class="sub">5 preguntas por cada una de las 13 áreas del matrimonio. Descubre tus fortalezas y debilidades como pareja para saber exactamente dónde crecer juntos.</p>
     <div class="hero-verse">"Y Dios restaura lo que pasó."<span>Eclesiastés 3:15</span></div>
   </div>
 
@@ -153,7 +153,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);pad
 
     <div class="prog-wrap">
       <div class="prog-top">
-        <span class="prog-label" id="plabel">Capítulo 1 de 12 · Pregunta 1 de 60</span>
+        <span class="prog-label" id="plabel">Capítulo 1 de 13 · Pregunta 1 de 65</span>
         <span class="prog-pct" id="ppct">0% completado</span>
       </div>
       <div class="prog-track"><div class="prog-fill" id="pfill" style="width:0%"></div></div>
@@ -377,7 +377,21 @@ const CHAPTERS = [
     ]
   },
   {
-    num:12, title:"Vida Espiritual", icon:"🙏", color:"#1D9E75",
+    num:12, title:"Confianza", icon:"🔐", color:"#7A0D3A",
+    verse:"Guarda tu corazón con toda diligencia, porque de él mana la vida — Proverbios 4:23",
+    weak:"La confianza en tu relación necesita atención urgente. Los límites, la transparencia y la conexión emocional requieren fortalecerse. Esta semana: establece UN acuerdo concreto de protección con tu pareja y conversen honestamente sobre lo que debilita la confianza entre ustedes.",
+    strong:"La confianza es una de las fortalezas de tu relación. Vives con propósito, cuidas tu corazón y practicas la transparencia con tu pareja. Sigue protegiendo esta área con decisiones diarias — la confianza se mantiene con hábitos constantes.",
+    action:"Esta semana conversen sobre UN área de confianza donde pueden crecer juntos. Establezcan UN acuerdo de protección. Luego oren: \'Señor, ayúdanos a ser una pareja confiable y llenos de integridad. Amén.\'",
+    questions:[
+      {cat:"Propósito espiritual",cc:"#7A0D3A",text:"¿Vives con un propósito espiritual claro que te mantiene enfocado/a y protegido/a de la ociosidad?",opts:["Sí; tengo metas espirituales y familiares claras que guían mi vida diaria.","En general sí, aunque hay temporadas en que pierdo el enfoque y el propósito.","Poco; me cuesta mantener un propósito claro y definido en mi vida.","No; vivo principalmente en la rutina sin un propósito espiritual activo."]},
+      {cat:"Control de lo que ves",cc:"#A32D2D",text:"¿Cuidas activamente lo que consumes en redes sociales, internet y entretenimiento para proteger tu mente y tu matrimonio?",opts:["Sí; filtro conscientemente el contenido que consumo para proteger mi corazón.","Algo; intento ser cuidadoso/a aunque no siempre lo logro con consistencia.","Poco; no he puesto límites serios a lo que veo o consumo digitalmente.","No; consumo contenido sin filtro y sé que eso puede afectar mi relación."]},
+      {cat:"Límites saludables",cc:"#854F0B",text:"¿Han establecido como pareja límites claros para proteger la confianza (amistades, redes sociales, conversaciones)?",opts:["Sí; tenemos acuerdos explícitos de protección que ambos respetamos.","Tenemos algunos límites implícitos pero nunca los hemos conversado formalmente.","No hemos establecido límites; confiamos solo en la buena voluntad del otro.","No; es un tema que hemos evitado y que necesita atención urgente."]},
+      {cat:"Conexión emocional",cc:"#185FA5",text:"¿Cuánto cuidas la conexión emocional con tu pareja para que su corazón no busque llenar vacíos en otro lugar?",opts:["Mucho; invierto activamente en la conexión emocional de nuestra relación.","Algo; lo intento aunque en temporadas difíciles descuido esa área.","Poco; la conexión emocional en nuestra relación está debilitada y lo sé.","Casi nada; hay distancia emocional real que ninguno de los dos ha atendido."]},
+      {cat:"Confianza activa",cc:"#0F6E56",text:"¿La confianza en tu matrimonio es una realidad activa — sin sospechas, revisiones ni acusaciones sin fundamento?",opts:["Sí; hay confianza real, tranquilidad y seguridad emocional entre nosotros.","Mayormente sí, aunque a veces surgen dudas o inseguridades que procesamos.","Poco; la desconfianza o las sospechas aparecen con cierta frecuencia.","No; los celos o la desconfianza son un problema activo en nuestra relación."]}
+    ]
+  },
+  {
+    num:13, title:"Vida Espiritual", icon:"🙏", color:"#1D9E75",
     verse:"Yo y mi casa serviremos a Jehová — Josué 24:15",
     weak:"La base espiritual de tu hogar tiene grietas que necesitan atención. Sin el altar familiar como hábito, las demás áreas del matrimonio son más difíciles de sostener. Esta semana: levanta el primer altar familiar — esta noche, antes de dormir.",
     strong:"Tu hogar tiene una base espiritual sólida y activa. El altar familiar, la oración y el ejemplo de fe son pilares que están formando a tu familia. Sigue siendo consistente — especialmente en las temporadas de mayor presión.",
@@ -488,7 +502,7 @@ function updateProg() {
   const pct = Math.round((done / ALL_Qs.length) * 100);
   const q = ALL_Qs[cur];
   document.getElementById('pfill').style.width = pct + '%';
-  document.getElementById('plabel').textContent = `Capítulo ${q.chNum} de 12 · Pregunta ${cur+1} de ${ALL_Qs.length}`;
+  document.getElementById('plabel').textContent = `Capítulo ${q.chNum} de 13 · Pregunta ${cur+1} de ${ALL_Qs.length}`;
   document.getElementById('ppct').textContent = pct + '% completado';
 }
 
@@ -607,7 +621,7 @@ function restart() {
 
   document.getElementById('pfill').style.width = '0%';
   document.getElementById('ppct').textContent = '0% completado';
-  document.getElementById('plabel').textContent = 'Capítulo 1 de 12 · Pregunta 1 de 60';
+  document.getElementById('plabel').textContent = 'Capítulo 1 de 13 · Pregunta 1 de 65';
   updateNav();
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
